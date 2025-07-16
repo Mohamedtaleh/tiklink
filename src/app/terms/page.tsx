@@ -58,7 +58,7 @@ export default function TermsPage() {
           </p>
 
           <h2 className="text-xl font-semibold text-foreground">{t('terms.s7.title')}</h2>
-          <p dangerouslySetInnerHTML={{ __html: t('terms.s7.p1', { email: '<a href="mailto:legal@tiklink.com" class="text-primary hover:underline">legal@tiklink.com</a>' }) }} />
+          <p dangerouslySetInnerHTML={{ __html: t('terms.s7.p1', { email: '<a href="mailto:support@tiklink.ink" class="text-primary hover:underline">support@tiklink.ink</a>' }) }} />
         </CardContent>
       </Card>
     </div>

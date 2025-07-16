@@ -7,6 +7,9 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { cn } from '@/lib/utils';
 import { Space_Grotesk, Inter } from 'next/font/google';
+import Script from "next/script";
+
+
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -22,7 +25,7 @@ export const metadata: Metadata = {
   title: 'Tiklink - Download TikTok Videos — No Watermark, No Hassle',
   description: 'Paste a TikTok video URL and download your favorite clips in seconds. Fast, free, and no watermark.',
   keywords: 'TikTok downloader, download TikTok videos, TikTok no watermark, save TikTok video, TikTok video downloader, Tiklink',
-  metadataBase: new URL('https://tiklink.com'), // Replace with your actual domain
+  metadataBase: new URL('https://tiklink.ink'), // Replace with your actual domain
   icons: {
     icon: '/favicon.svg',
     shortcut: '/favicon.svg',
@@ -65,28 +68,48 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
-      <body className={cn(
-        "font-body antialiased",
-        spaceGrotesk.variable,
-        inter.variable
-      )}>
+      <body
+        className={cn(
+          "font-body antialiased",
+          spaceGrotesk.variable,
+          inter.variable
+        )}
+      >
+        {/* Google Analytics Script */}
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=G-J51967TB2Q`}
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-J51967TB2Q', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
+
         <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-            <Providers>
-              <div className={cn("flex flex-col min-h-screen text-foreground")}>
-                  <div className="absolute top-0 left-0 w-full h-[700px] bg-gradient-hero-light dark:bg-gradient-hero-dark -z-10" />
-                  <Header />
-                  <main className="flex-grow">
-                      {children}
-                  </main>
-                  <Footer />
-              </div>
-              <Toaster />
-            </Providers>
+          <Providers>
+            <div className={cn("flex flex-col min-h-screen text-foreground")}>
+              <div className="absolute top-0 left-0 w-full h-[700px] bg-gradient-hero-light dark:bg-gradient-hero-dark -z-10" />
+              <Header />
+              <main className="flex-grow">{children}</main>
+              <Footer />
+            </div>
+            <Toaster />
+          </Providers>
         </ThemeProvider>
       </body>
     </html>

@@ -37,7 +37,7 @@ export default function PrivacyPage() {
                 <p>
                     {t('privacy.s2.p1')}
                 </p>
-                
+
                 <h2 className="text-xl font-semibold text-foreground">{t('privacy.s3.title')}</h2>
                 <p>
                     {t('privacy.s3.p1')}
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
                 </p>
 
                 <h2 className="text-xl font-semibold text-foreground">{t('privacy.s7.title')}</h2>
-                <p dangerouslySetInnerHTML={{ __html: t('privacy.s7.p1', { email: '<a href="mailto:privacy@tiklink.com" class="text-primary hover:underline">privacy@tiklink.com</a>' }) }} />
+                <p dangerouslySetInnerHTML={{ __html: t('privacy.s7.p1', { email: '<a href="mailto:support@tiklink.ink" class="text-primary hover:underline">support@tiklink.ink</a>' }) }} />
             </CardContent>
         </Card>
     </div>

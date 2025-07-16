@@ -18,7 +18,7 @@ export default function ContactPage() {
           {t('contact.tagline')}
         </p>
       </header>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
         <Card className="text-center bg-card/50 backdrop-blur-sm">
           <CardHeader>
@@ -30,7 +30,7 @@ export default function ContactPage() {
           <CardContent>
             <p className="text-muted-foreground mb-4">{t('contact.email.text')}</p>
             <Button asChild>
-              <Link href="mailto:support@tiklink.com">support@tiklink.com</Link>
+              <Link href="mailto:support@tiklink.com">support@tiklink.ink</Link>
             </Button>
           </CardContent>
         </Card>
