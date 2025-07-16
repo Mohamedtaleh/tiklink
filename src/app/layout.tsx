@@ -1,0 +1,94 @@
+import type { Metadata } from 'next';
+import { ThemeProvider } from "@/components/theme-provider";
+import './globals.css';
+import { Providers } from '@/components/providers';
+import { Toaster } from '@/components/ui/toaster';
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
+import { cn } from '@/lib/utils';
+import { Space_Grotesk, Inter } from 'next/font/google';
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+});
+
+export const metadata: Metadata = {
+  title: 'Tiklink - Download TikTok Videos — No Watermark, No Hassle',
+  description: 'Paste a TikTok video URL and download your favorite clips in seconds. Fast, free, and no watermark.',
+  keywords: 'TikTok downloader, download TikTok videos, TikTok no watermark, save TikTok video, TikTok video downloader, Tiklink',
+  metadataBase: new URL('https://tiklink.com'), // Replace with your actual domain
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'Tiklink - Download TikTok Videos — No Watermark, No Hassle',
+    description: 'The best way to download TikTok videos without watermarks. Fast, free, and easy to use.',
+    url: '/',
+    siteName: 'Tiklink',
+    images: [
+      {
+        url: '/og-image.png', // Make sure to add this image to your /public folder
+        width: 1200,
+        height: 630,
+        alt: 'Tiklink OG Image',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Tiklink - Download TikTok Videos — No Watermark, No Hassle',
+    description: 'The best way to download TikTok videos without watermarks. Fast, free, and easy to use.',
+    images: ['/og-image.png'], // Make sure to add this image to your /public folder
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      </head>
+      <body className={cn(
+        "font-body antialiased",
+        spaceGrotesk.variable,
+        inter.variable
+      )}>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+        >
+            <Providers>
+              <div className={cn("flex flex-col min-h-screen text-foreground")}>
+                  <div className="absolute top-0 left-0 w-full h-[700px] bg-gradient-hero-light dark:bg-gradient-hero-dark -z-10" />
+                  <Header />
+                  <main className="flex-grow">
+                      {children}
+                  </main>
+                  <Footer />
+              </div>
+              <Toaster />
+            </Providers>
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
