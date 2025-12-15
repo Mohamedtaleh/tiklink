@@ -1,9 +1,8 @@
 
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useActionState } from "react";
-import { ArrowRight, Link as LinkIcon, Loader2, Sparkles, Search } from "lucide-react";
+import { useEffect, useRef, useState, useTransition } from "react";
+import { Loader2, Sparkles, Search } from "lucide-react";
 import { useI18n } from "@/hooks/use-i18n";
 import { useToast } from "@/hooks/use-toast";
 import { getVideoInfo } from "@/lib/actions";
@@ -14,11 +13,6 @@ import { VideoInfoCard } from "./video-info-card";
 import { Skeleton } from "./ui/skeleton";
 import type { VideoInfo } from "@/lib/types";
 import { cn } from "@/lib/utils";
-
-const initialState = {
-  error: undefined,
-  data: undefined,
-};
 
 function SubmitButton({ isPending }: { isPending: boolean }) {
   const { t } = useI18n();
@@ -93,33 +87,45 @@ const SkeletonLoader = () => (
 export function VideoDownloaderForm() {
   const { t } = useI18n();
   const { toast } = useToast();
-  const [state, formAction, isPending] = useActionState(getVideoInfo, initialState);
-  const [result, setResult] = useState<VideoInfo | undefined | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const [result, setResult] = useState<VideoInfo | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (!isPending) {
-        if (state?.error) {
-          toast({
-            title: t("toast.errorTitle"),
-            description: state.error,
-            variant: "destructive",
-          });
-          setResult(null); // Clear previous successful results on error
-        } else if (state?.data) {
-          setResult(state.data);
-        }
-    }
-  }, [state, isPending, t, toast]);
-
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    // Clear previous results when a new submission starts
-    setResult(null); 
-    formAction(formData);
+    const url = formData.get("url") as string;
+    
+    if (!url) return;
+    
+    setIsLoading(true);
+    setResult(null);
+    
+    try {
+      const response = await getVideoInfo(null, formData);
+      
+      if (response?.error) {
+        toast({
+          title: t("toast.errorTitle"),
+          description: response.error,
+          variant: "destructive",
+        });
+        setResult(null);
+      } else if (response?.data) {
+        setResult(response.data);
+      }
+    } catch (error) {
+      toast({
+        title: t("toast.errorTitle"),
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -135,14 +141,14 @@ export function VideoDownloaderForm() {
         )}
       >
         {/* Animated background */}
-        <div className="absolute inset-0 rounded-2xl overflow-hidden">
+        <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
           <div className={cn(
             "absolute inset-0 bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5",
             "animate-gradient opacity-50"
           )} />
         </div>
         
-        <div className="relative w-full">
+        <div className="relative w-full z-10">
           <div className={cn(
             "absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-lg transition-colors",
             isFocused ? "bg-primary/10" : "bg-muted"
@@ -165,19 +171,21 @@ export function VideoDownloaderForm() {
               "placeholder:text-muted-foreground/60",
               "transition-all duration-200"
             )}
-            disabled={isPending}
+            disabled={isLoading}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
           />
         </div>
-        <SubmitButton isPending={isPending} />
+        <div className="z-10 w-full sm:w-auto">
+          <SubmitButton isPending={isLoading} />
+        </div>
       </form>
 
       <div aria-live="polite">
-        {isPending && <SkeletonLoader />}
+        {isLoading && <SkeletonLoader />}
       </div>
       
-      {result && !isPending && (
+      {result && !isLoading && (
         <div className="mt-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
           <VideoInfoCard video={result} shareUrl={inputRef.current?.value || ''} />
         </div>
