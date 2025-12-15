@@ -1,15 +1,48 @@
 // src/app/page.tsx
 "use client";
 
+import Link from "next/link";
 import { VideoDownloaderForm } from "@/components/video-downloader-form";
-import { Star, Zap, Shield, Globe, Download, TrendingUp, Users, Heart, ClipboardPaste, BrainCircuit, MousePointerClick, ArrowUp } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Star, Zap, Shield, Globe, Download, TrendingUp, Users, Heart, ClipboardPaste, BrainCircuit, MousePointerClick, ArrowRight, DollarSign, Flame, Hash, Clock, BarChart3, User, AtSign, Award, Sparkles } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from 'next/image';
 import { Badge } from "@/components/ui/badge";
 import { AnimatedCounter } from "@/components/animated-counter";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/hooks/use-i18n";
+import { cn } from "@/lib/utils";
+
+const TOOLS = [
+  {
+    id: "money-calculator",
+    href: "/tools/money-calculator",
+    icon: DollarSign,
+    gradient: "from-green-500 to-emerald-500",
+    bgGradient: "from-green-500/10 to-emerald-500/5",
+  },
+  {
+    id: "viral-predictor",
+    href: "/tools/viral-predictor",
+    icon: Flame,
+    gradient: "from-orange-500 to-red-500",
+    bgGradient: "from-orange-500/10 to-red-500/5",
+  },
+  {
+    id: "hashtag-generator",
+    href: "/tools/hashtag-generator",
+    icon: Hash,
+    gradient: "from-blue-500 to-cyan-500",
+    bgGradient: "from-blue-500/10 to-cyan-500/5",
+  },
+  {
+    id: "best-time-to-post",
+    href: "/tools/best-time-to-post",
+    icon: Clock,
+    gradient: "from-purple-500 to-pink-500",
+    bgGradient: "from-purple-500/10 to-pink-500/5",
+  },
+];
 
 const mostDownloaded = [
   {
@@ -103,6 +136,66 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Free Tools Section */}
+      <section className="w-full bg-gradient-to-b from-background to-muted/30">
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <div className="text-center mb-12">
+            <Badge className="mb-4 bg-gradient-to-r from-primary to-accent text-white">
+              <Sparkles className="w-3 h-3 mr-1" />
+              {t('tools.page.aiPowered')}
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold font-headline mb-4">{t('home.tools.title')}</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              {t('home.tools.subtitle')}
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {TOOLS.map((tool) => {
+              const Icon = tool.icon;
+              return (
+                <Link key={tool.id} href={tool.href}>
+                  <Card className={cn(
+                    "h-full border-0 shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 cursor-pointer group overflow-hidden",
+                    `bg-gradient-to-br ${tool.bgGradient}`
+                  )}>
+                    <CardHeader className="pb-2">
+                      <div className={cn(
+                        "w-14 h-14 rounded-xl bg-gradient-to-br shadow-lg flex items-center justify-center mb-4",
+                        tool.gradient
+                      )}>
+                        <Icon className="w-7 h-7 text-white" />
+                      </div>
+                      <CardTitle className="text-lg font-headline group-hover:text-primary transition-colors">
+                        {t(`tools.${tool.id}.title`)}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <CardDescription className="line-clamp-2 mb-4">
+                        {t(`tools.${tool.id}.shortDesc`)}
+                      </CardDescription>
+                      <div className="flex items-center text-primary text-sm font-medium group-hover:gap-2 transition-all">
+                        <span>{t("tools.page.tryNow")}</span>
+                        <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
+          
+          <div className="text-center mt-8">
+            <Link href="/tools">
+              <Button variant="outline" size="lg" className="gap-2">
+                {t('home.tools.viewAll')}
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Why Choose Tiklink Section */}
       <section className="w-full bg-background">
         <div className="container mx-auto px-4 py-16 md:py-24">
@@ -110,7 +203,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold font-headline">{t('home.why.title')}</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-              <Card className="text-center bg-card/50 backdrop-blur-sm">
+              <Card className="text-center bg-card/50 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-shadow">
                   <CardHeader>
                   <div className="mx-auto bg-primary/10 p-3 rounded-full w-fit">
                       <Heart className="w-8 h-8 text-primary" />
@@ -121,7 +214,7 @@ export default function Home() {
                   <p className="text-muted-foreground">{t('home.why.features.noWatermark.text')}</p>
                   </CardContent>
               </Card>
-              <Card className="text-center bg-card/50 backdrop-blur-sm">
+              <Card className="text-center bg-card/50 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-shadow">
                   <CardHeader>
                   <div className="mx-auto bg-primary/10 p-3 rounded-full w-fit">
                       <Zap className="w-8 h-8 text-primary" />
@@ -132,7 +225,7 @@ export default function Home() {
                   <p className="text-muted-foreground">{t('home.why.features.fast.text')}</p>
                   </CardContent>
               </Card>
-              <Card className="text-center bg-card/50 backdrop-blur-sm">
+              <Card className="text-center bg-card/50 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-shadow">
                   <CardHeader>
                   <div className="mx-auto bg-primary/10 p-3 rounded-full w-fit">
                       <Shield className="w-8 h-8 text-primary" />
@@ -143,7 +236,7 @@ export default function Home() {
                   <p className="text-muted-foreground">{t('home.why.features.privacy.text')}</p>
                   </CardContent>
               </Card>
-              <Card className="text-center bg-card/50 backdrop-blur-sm">
+              <Card className="text-center bg-card/50 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-shadow">
                   <CardHeader>
                   <div className="mx-auto bg-primary/10 p-3 rounded-full w-fit">
                       <Globe className="w-8 h-8 text-primary" />
@@ -198,7 +291,7 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {mostDownloaded.map((video, i) => (
-                    <Card key={i} className="overflow-hidden group relative">
+                    <Card key={i} className="overflow-hidden group relative border-0 shadow-lg">
                         <div className="aspect-[9/16] relative">
                             <img 
                                 src={video.imageUrl} 
@@ -228,7 +321,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {testimonials.map((testimonial, i) => (
-                  <Card key={i} className="bg-card/50 backdrop-blur-sm">
+                  <Card key={i} className="bg-card/50 backdrop-blur-sm border-0 shadow-lg">
                       <CardContent className="pt-6">
                           <div className="flex items-center mb-4">
                               <Avatar>

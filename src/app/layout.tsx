@@ -22,9 +22,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Tiklink - Download TikTok Videos — No Watermark, No Hassle',
-  description: 'Paste a TikTok video URL and download your favorite clips in seconds. Fast, free, and no watermark.',
-  keywords: 'TikTok downloader, download TikTok videos, TikTok no watermark, save TikTok video, TikTok video downloader, Tiklink',
+  title: 'Tiklink - Download TikTok Videos & Free TikTok Tools',
+  description: 'Download TikTok videos without watermark in seconds. Plus free AI tools: money calculator, hashtag generator, viral predictor, bio generator & more!',
+  keywords: 'TikTok downloader, download TikTok videos, TikTok no watermark, TikTok money calculator, TikTok hashtag generator, TikTok viral predictor, TikTok analytics, TikTok bio generator, TikTok tools, Tiklink',
   metadataBase: new URL('https://tiklink.ink'), // Replace with your actual domain
   icons: {
     icon: '/favicon.svg',

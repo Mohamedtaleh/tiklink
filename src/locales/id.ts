@@ -16,7 +16,10 @@ export default {
             about: "Tentang Kami",
             privacy: "Privasi",
             terms: "Ketentuan",
-            contact: "Kontak"
+            contact: "Kontak",
+            tools: "Alat",
+            freeTools: "Alat TikTok Gratis",
+            allTools: "Lihat Semua Alat"
         }
     },
     home: {
@@ -63,6 +66,11 @@ export default {
         stickyCta: {
             text: "Unduh video TikTok apa pun.",
             button: "Mulai"
+        },
+        tools: {
+            title: "Alat TikTok Gratis",
+            subtitle: "Alat bertenaga AI untuk mengembangkan kehadiran TikTok Anda",
+            viewAll: "Lihat Semua Alat"
         }
     },
     videoInfo: {
@@ -88,6 +96,18 @@ export default {
       button: "Buat",
       buttonLoading: "Membuat...",
       error: "Gagal membuat teks. Silakan coba lagi.",
+    },
+    tools: {
+        page: { title: "Alat TikTok Gratis", description: "Alat bertenaga AI untuk mengembangkan kehadiran TikTok Anda", freeToUse: "100% Gratis", aiPowered: "Bertenaga AI", popular: "Populer", new: "Baru", tryNow: "Coba Sekarang", ctaTitle: "Perlu Mengunduh Video TikTok?", ctaDescription: "Gunakan pengunduh super cepat kami untuk menyimpan video TikTok tanpa watermark", downloadVideos: "Unduh Gratis" },
+        share: { download: "Unduh Gambar", downloading: "Mengunduh...", downloaded: "Terunduh!", twitter: "Bagikan di X", copyLink: "Salin Link" },
+        "money-calculator": { title: "Kalkulator Penghasilan", shortDesc: "Hitung penghasilan TikToker berdasarkan pengikut", description: "Temukan berapa penghasilan kreator TikTok", formTitle: "Masukkan Statistik", formDescription: "Sesuaikan untuk memperkirakan penghasilan", followers: "Pengikut", avgViews: "Rata-rata Tayangan", engagementRate: "Tingkat Engagement", calculate: "Hitung", estimatedMonthly: "Perkiraan Penghasilan Bulanan", perMonth: "per bulan", perYear: "per tahun", creatorFund: "Creator Fund", sponsorships: "Sponsorship", liveGifts: "Hadiah Live", yearlyProjection: "Proyeksi Tahunan", shareResults: "Bagikan", disclaimer: "Perkiraan berdasarkan rata-rata industri." },
+        "best-time-to-post": { title: "Waktu Terbaik Posting", shortDesc: "Temukan waktu optimal untuk niche Anda", description: "Ketahui kapan audiens Anda paling aktif", configTitle: "Konfigurasi Profil Anda", timezone: "Zona Waktu", niche: "Niche", audience: "Target Audiens", generate: "Buat", peakHours: "Jam Puncak", avoidHours: "Jam Dihindari", weeklySchedule: "Jadwal Mingguan", peak: "Puncak", good: "Baik", average: "Rata-rata", low: "Rendah", proTips: "Tips Pro" },
+        "hashtag-generator": { title: "Generator Hashtag", shortDesc: "Hashtag AI untuk meningkatkan visibilitas", description: "Buat hashtag yang dioptimalkan", formTitle: "Buat Hashtag Sempurna", topicLabel: "Topik", topicPlaceholder: "contoh: fitness, resep, tari...", styleLabel: "Gaya", generate: "Buat", generating: "Membuat...", errorTitle: "Error", errorEmpty: "Masukkan topik", recommended: "Direkomendasikan", allHashtags: "Semua Hashtag", copyAll: "Salin Semua", trending: "Trending", medium: "Menengah", niche: "Niche", tips: "Tips" },
+        "viral-predictor": { title: "Prediktor Viral", shortDesc: "AI memprediksi apakah TikTok Anda akan viral", description: "Analisis AI untuk potensi viral", formTitle: "Analisis Video Anda", urlLabel: "URL Video", roastMode: "Mode Roast 🔥", analyze: "Prediksi Skor Viral", viralScore: "Skor Viral", roastTitle: "Roast 🔥", hook: "Hook", content: "Kualitas Konten", engagement: "Potensi Engagement", trending: "Keselarasan Tren", improvements: "Perbaikan", shareResults: "Bagikan" },
+        "profile-analyzer": { title: "Penganalisis Profil", shortDesc: "Analisis mendalam untuk profil TikTok mana pun", description: "Dapatkan analitik lengkap", formTitle: "Analisis Profil Mana Pun", usernamePlaceholder: "username", analyze: "Analisis", analyzing: "Menganalisis...", followers: "Pengikut", following: "Mengikuti", likes: "Suka", videos: "Video", engagementRate: "Tingkat Engagement", performanceScores: "Skor Performa", strengths: "Kekuatan", improvements: "Area Perbaikan", shareResults: "Bagikan" },
+        "bio-generator": { title: "Generator Bio", shortDesc: "AI membuat bio menarik", description: "Buat bio kreatif untuk profil Anda", formTitle: "Buat Bio Sempurna", nicheLabel: "Niche Anda", vibeLabel: "Kepribadian", keywordsLabel: "Kata Kunci", generate: "Buat", generating: "Membuat...", regenerate: "Buat Lagi", suggestedEmojis: "Emoji", copiedDesc: "Bio disalin!", tipsTitle: "Praktik Terbaik" },
+        "username-checker": { title: "Pemeriksa Username", shortDesc: "Cek ketersediaan di semua platform", description: "Temukan apakah username Anda tersedia", formTitle: "Cek Username", placeholder: "usernameidaman", check: "Cek", checking: "Memeriksa...", available: "Tersedia", taken: "Dipakai", availableOn: "Tersedia di {{count}}/{{total}}", suggestions: "Alternatif", checkAnother: "Cek Lainnya" },
+        "stats-card": { title: "Generator Kartu Stats", shortDesc: "Buat kartu stats yang dapat dibagikan", description: "Buat kartu menakjubkan untuk pencapaian Anda", customize: "Kustomisasi", username: "Username", theme: "Tema", followers: "Pengikut", likes: "Suka", views: "Tayangan", videos: "Video", preview: "Pratinjau", tiktokCreator: "Kreator TikTok", download: "Unduh", share: "Bagikan", downloaded: "Selesai!" }
     },
     about: {
         title: "Tentang Tiklink",

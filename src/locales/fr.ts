@@ -15,7 +15,10 @@ export default {
             about: "À propos",
             privacy: "Confidentialité",
             terms: "Conditions",
-            contact: "Contact"
+            contact: "Contact",
+            tools: "Outils",
+            freeTools: "Outils TikTok Gratuits",
+            allTools: "Voir Tous les Outils"
         }
     },
     home: {
@@ -62,6 +65,11 @@ export default {
         stickyCta: {
             text: "Téléchargez n'importe quelle vidéo TikTok.",
             button: "Commencer"
+        },
+        tools: {
+            title: "Outils TikTok Gratuits",
+            subtitle: "Outils puissants avec IA pour développer votre présence TikTok",
+            viewAll: "Voir Tous les Outils"
         }
     },
     videoInfo: {
@@ -87,6 +95,29 @@ export default {
       button: "Générer",
       buttonLoading: "Génération...",
       error: "Échec de la génération de la légende. Veuillez réessayer.",
+    },
+    tools: {
+        page: {
+            title: "Outils TikTok Gratuits",
+            description: "Outils puissants avec IA pour développer votre présence TikTok",
+            freeToUse: "100% Gratuit",
+            aiPowered: "Propulsé par IA",
+            popular: "Populaire",
+            new: "Nouveau",
+            tryNow: "Essayer",
+            ctaTitle: "Besoin de Télécharger des Vidéos TikTok?",
+            ctaDescription: "Utilisez notre téléchargeur ultra-rapide pour enregistrer n'importe quelle vidéo TikTok sans filigrane.",
+            downloadVideos: "Télécharger Gratuitement"
+        },
+        share: { download: "Télécharger Image", downloading: "Téléchargement...", downloaded: "Téléchargé!", twitter: "Partager sur X", copyLink: "Copier Lien" },
+        "money-calculator": { title: "Calculateur de Revenus", shortDesc: "Calculez les revenus des TikTokers selon leurs abonnés", description: "Découvrez combien gagnent les créateurs TikTok", formTitle: "Entrez les Stats", formDescription: "Ajustez pour estimer les revenus", followers: "Abonnés", avgViews: "Vues Moyennes", engagementRate: "Taux d'Engagement", calculate: "Calculer", estimatedMonthly: "Revenus Mensuels Estimés", perMonth: "par mois", perYear: "par an", creatorFund: "Fonds Créateur", sponsorships: "Sponsoring", liveGifts: "Cadeaux Live", yearlyProjection: "Projection Annuelle", shareResults: "Partager", disclaimer: "Estimations basées sur les moyennes de l'industrie." },
+        "best-time-to-post": { title: "Meilleur Moment pour Publier", shortDesc: "Trouvez les horaires optimaux pour votre niche", description: "Découvrez quand votre audience est la plus active", configTitle: "Configurez votre Profil", timezone: "Fuseau Horaire", niche: "Niche", audience: "Audience Cible", generate: "Générer", peakHours: "Heures de Pointe", avoidHours: "Heures à Éviter", weeklySchedule: "Horaire Hebdomadaire", peak: "Pic", good: "Bon", average: "Moyen", low: "Bas", proTips: "Conseils Pro" },
+        "hashtag-generator": { title: "Générateur de Hashtags", shortDesc: "Hashtags IA pour booster votre visibilité", description: "Générez des hashtags optimisés", formTitle: "Générer des Hashtags", topicLabel: "Sujet", topicPlaceholder: "ex: fitness, recettes, danse...", styleLabel: "Style", generate: "Générer", generating: "Génération...", errorTitle: "Erreur", errorEmpty: "Entrez un sujet", recommended: "Recommandés", allHashtags: "Tous les Hashtags", copyAll: "Copier Tout", trending: "Tendances", medium: "Moyen", niche: "Niche", tips: "Conseils" },
+        "viral-predictor": { title: "Prédicteur Viral", shortDesc: "L'IA prédit si votre TikTok deviendra viral", description: "Analyse IA du potentiel viral de votre vidéo", formTitle: "Analysez votre Vidéo", urlLabel: "URL de la Vidéo", roastMode: "Mode Roast 🔥", analyze: "Prédire Score Viral", viralScore: "Score Viral", roastTitle: "Le Roast 🔥", hook: "Accroche", content: "Qualité du Contenu", engagement: "Potentiel d'Engagement", trending: "Alignement Tendances", improvements: "Améliorations", shareResults: "Partager" },
+        "profile-analyzer": { title: "Analyseur de Profil", shortDesc: "Analyses approfondies de tout profil TikTok", description: "Obtenez des analyses complètes", formTitle: "Analyser un Profil", usernamePlaceholder: "utilisateur", analyze: "Analyser", analyzing: "Analyse...", followers: "Abonnés", following: "Abonnements", likes: "Likes", videos: "Vidéos", engagementRate: "Taux d'Engagement", performanceScores: "Scores", strengths: "Forces", improvements: "Améliorations", shareResults: "Partager" },
+        "bio-generator": { title: "Générateur de Bio", shortDesc: "L'IA crée des bios accrocheuses", description: "Générez des bios créatives", formTitle: "Créez votre Bio", nicheLabel: "Niche", vibeLabel: "Style", keywordsLabel: "Mots-clés", generate: "Générer", generating: "Création...", regenerate: "Régénérer", suggestedEmojis: "Emojis", copiedDesc: "Bio copiée!", tipsTitle: "Bonnes Pratiques" },
+        "username-checker": { title: "Vérificateur de Pseudo", shortDesc: "Vérifiez la disponibilité sur toutes les plateformes", description: "Trouvez si votre pseudo est disponible", formTitle: "Vérifier Pseudo", placeholder: "pseudoreve", check: "Vérifier", checking: "Vérification...", available: "Disponible", taken: "Pris", availableOn: "Disponible sur {{count}}/{{total}}", suggestions: "Alternatives", checkAnother: "Vérifier Autre" },
+        "stats-card": { title: "Générateur de Cartes", shortDesc: "Créez des cartes de stats partageables", description: "Générez des cartes impressionnantes", customize: "Personnaliser", username: "Pseudo", theme: "Thème", followers: "Abonnés", likes: "Likes", views: "Vues", videos: "Vidéos", preview: "Aperçu", tiktokCreator: "Créateur TikTok", download: "Télécharger", share: "Partager", downloaded: "Téléchargé!" }
     },
     about: {
         title: "À propos de Tiklink",
