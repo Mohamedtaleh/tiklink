@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { DollarSign, Clock, Hash, Flame, BarChart3, User, AtSign, Award, Sparkles, ArrowRight, Star, TrendingUp } from "lucide-react";
+import { DollarSign, Clock, Hash, Flame, User, Award, Sparkles, ArrowRight, Star, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useI18n } from "@/hooks/use-i18n";
@@ -45,31 +45,13 @@ const TOOLS = [
     new: false,
   },
   {
-    id: "profile-analyzer",
-    href: "/tools/profile-analyzer",
-    icon: BarChart3,
-    gradient: "from-violet-500 to-purple-500",
-    bgGradient: "from-violet-500/10 to-purple-500/5",
-    popular: true,
-    new: false,
-  },
-  {
     id: "bio-generator",
     href: "/tools/bio-generator",
     icon: User,
     gradient: "from-pink-500 to-rose-500",
     bgGradient: "from-pink-500/10 to-rose-500/5",
-    popular: false,
+    popular: true,
     new: true,
-  },
-  {
-    id: "username-checker",
-    href: "/tools/username-checker",
-    icon: AtSign,
-    gradient: "from-cyan-500 to-blue-500",
-    bgGradient: "from-cyan-500/10 to-blue-500/5",
-    popular: false,
-    new: false,
   },
   {
     id: "stats-card",
@@ -77,7 +59,7 @@ const TOOLS = [
     icon: Award,
     gradient: "from-amber-500 to-orange-500",
     bgGradient: "from-amber-500/10 to-orange-500/5",
-    popular: false,
+    popular: true,
     new: true,
   },
 ];
@@ -116,7 +98,7 @@ export default function ToolsPage() {
       {/* Tools Grid */}
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {TOOLS.map((tool) => {
               const Icon = tool.icon;
               return (

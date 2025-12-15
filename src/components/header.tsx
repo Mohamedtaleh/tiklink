@@ -21,9 +21,7 @@ import {
   Flame,
   Hash,
   Clock,
-  BarChart3,
   User,
-  AtSign,
   Award,
   ChevronDown,
   Sparkles,
@@ -44,11 +42,9 @@ import { cn } from "@/lib/utils";
 const TOOLS = [
   { href: "/tools/money-calculator", icon: DollarSign, labelKey: "tools.money-calculator.title", color: "text-green-500", gradient: "from-green-500 to-emerald-500", popular: true },
   { href: "/tools/viral-predictor", icon: Flame, labelKey: "tools.viral-predictor.title", color: "text-orange-500", gradient: "from-orange-500 to-red-500", popular: true },
-  { href: "/tools/hashtag-generator", icon: Hash, labelKey: "tools.hashtag-generator.title", color: "text-blue-500", gradient: "from-blue-500 to-cyan-500" },
+  { href: "/tools/hashtag-generator", icon: Hash, labelKey: "tools.hashtag-generator.title", color: "text-blue-500", gradient: "from-blue-500 to-cyan-500", popular: true },
   { href: "/tools/best-time-to-post", icon: Clock, labelKey: "tools.best-time-to-post.title", color: "text-purple-500", gradient: "from-purple-500 to-pink-500" },
-  { href: "/tools/profile-analyzer", icon: BarChart3, labelKey: "tools.profile-analyzer.title", color: "text-violet-500", gradient: "from-violet-500 to-purple-500" },
-  { href: "/tools/bio-generator", icon: User, labelKey: "tools.bio-generator.title", color: "text-pink-500", gradient: "from-pink-500 to-rose-500" },
-  { href: "/tools/username-checker", icon: AtSign, labelKey: "tools.username-checker.title", color: "text-cyan-500", gradient: "from-cyan-500 to-blue-500" },
+  { href: "/tools/bio-generator", icon: User, labelKey: "tools.bio-generator.title", color: "text-pink-500", gradient: "from-pink-500 to-rose-500", popular: true },
   { href: "/tools/stats-card", icon: Award, labelKey: "tools.stats-card.title", color: "text-amber-500", gradient: "from-amber-500 to-orange-500" },
 ];
 

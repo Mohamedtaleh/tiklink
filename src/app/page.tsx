@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { VideoDownloaderForm } from "@/components/video-downloader-form";
-import { Star, Zap, Shield, Globe, Download, TrendingUp, Users, Heart, ClipboardPaste, BrainCircuit, MousePointerClick, ArrowRight, DollarSign, Flame, Hash, Clock, BarChart3, User, AtSign, Award, Sparkles, Play, CheckCircle2, ChevronRight, Trophy, Verified, Crown, Rocket, Target } from "lucide-react";
+import { Star, Zap, Shield, Globe, Download, TrendingUp, Users, Heart, ClipboardPaste, BrainCircuit, MousePointerClick, ArrowRight, DollarSign, Flame, Hash, User, Sparkles, Play, Trophy, Verified, Crown, Rocket } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from 'next/image';
@@ -36,15 +36,15 @@ const TOOLS = [
     icon: Hash,
     gradient: "from-blue-500 to-cyan-500",
     bgGradient: "from-blue-500/10 to-cyan-500/5",
-    popular: false,
+    popular: true,
   },
   {
-    id: "best-time-to-post",
-    href: "/tools/best-time-to-post",
-    icon: Clock,
-    gradient: "from-purple-500 to-pink-500",
-    bgGradient: "from-purple-500/10 to-pink-500/5",
-    popular: false,
+    id: "bio-generator",
+    href: "/tools/bio-generator",
+    icon: User,
+    gradient: "from-pink-500 to-rose-500",
+    bgGradient: "from-pink-500/10 to-rose-500/5",
+    popular: true,
   },
 ];
 

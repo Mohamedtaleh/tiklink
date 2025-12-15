@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Award, Download, Share2, Palette, Sparkles, Loader2, Eye, Heart, Users, Play, TrendingUp } from "lucide-react";
+import { Award, Download, Share2, Palette, Sparkles, Loader2, Eye, Heart, Users, Play, TrendingUp, Image as ImageIcon, Link as LinkIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -12,14 +12,6 @@ import { useI18n } from "@/hooks/use-i18n";
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/tools/tool-layout";
 import { cn } from "@/lib/utils";
-
-interface StatsData {
-  username: string;
-  followers: number;
-  likes: number;
-  views: number;
-  videos: number;
-}
 
 const THEMES = [
   { value: "gradient-purple", label: "Purple Dream", gradient: "from-purple-600 via-pink-500 to-orange-400" },
@@ -44,12 +36,14 @@ export default function StatsCardPage() {
   const cardRef = useRef<HTMLDivElement>(null);
   
   const [username, setUsername] = useState("");
+  const [profileImageUrl, setProfileImageUrl] = useState("");
   const [followers, setFollowers] = useState(100000);
   const [likes, setLikes] = useState(500000);
   const [views, setViews] = useState(2000000);
   const [videos, setVideos] = useState(50);
   const [theme, setTheme] = useState("gradient-purple");
   const [isDownloading, setIsDownloading] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const selectedTheme = THEMES.find((t) => t.value === theme);
 
@@ -58,17 +52,17 @@ export default function StatsCardPage() {
     setIsDownloading(true);
 
     try {
-      // Dynamic import of html2canvas
       const html2canvas = (await import("html2canvas")).default;
       
       const canvas = await html2canvas(cardRef.current, {
         backgroundColor: null,
         scale: 2,
         useCORS: true,
+        allowTaint: true,
       });
       
       const link = document.createElement("a");
-      link.download = `tiklink-stats-${username || "card"}.png`;
+      link.download = `tiktok-stats-${username || "card"}.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
       
@@ -107,6 +101,14 @@ export default function StatsCardPage() {
     }
   };
 
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
+  const handleImageLoad = () => {
+    setImageError(false);
+  };
+
   return (
     <ToolLayout
       titleKey="tools.stats-card.title"
@@ -138,6 +140,29 @@ export default function StatsCardPage() {
                     className="pl-8"
                   />
                 </div>
+              </div>
+
+              {/* Profile Image URL */}
+              <div className="space-y-2">
+                <Label className="flex items-center gap-2">
+                  <ImageIcon className="w-4 h-4" />
+                  Profile Image URL
+                </Label>
+                <div className="relative">
+                  <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    value={profileImageUrl}
+                    onChange={(e) => {
+                      setProfileImageUrl(e.target.value);
+                      setImageError(false);
+                    }}
+                    placeholder="https://example.com/profile.jpg"
+                    className="pl-10"
+                  />
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Paste a direct link to your profile photo (right-click image → Copy image address)
+                </p>
               </div>
 
               {/* Theme */}
@@ -249,8 +274,20 @@ export default function StatsCardPage() {
                   <div className="relative z-10 text-white">
                     {/* Header */}
                     <div className="text-center mb-8">
-                      <div className="w-20 h-20 mx-auto bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-4xl font-bold mb-4">
-                        {username ? username.charAt(0).toUpperCase() : "?"}
+                      {/* Profile Image */}
+                      <div className="w-24 h-24 mx-auto bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-4xl font-bold mb-4 overflow-hidden border-4 border-white/30">
+                        {profileImageUrl && !imageError ? (
+                          <img 
+                            src={profileImageUrl} 
+                            alt={username || "Profile"}
+                            className="w-full h-full object-cover"
+                            onError={handleImageError}
+                            onLoad={handleImageLoad}
+                            crossOrigin="anonymous"
+                          />
+                        ) : (
+                          <span>{username ? username.charAt(0).toUpperCase() : "?"}</span>
+                        )}
                       </div>
                       <h2 className="text-2xl font-bold">@{username || "username"}</h2>
                       <p className="text-white/70 text-sm mt-1">{t("tools.stats-card.tiktokCreator")}</p>
