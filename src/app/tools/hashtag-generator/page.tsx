@@ -42,18 +42,30 @@ export default function HashtagGeneratorPage() {
     }
 
     setIsLoading(true);
+    setResult(null);
     try {
+      console.log('[HashtagPage] Calling generateHashtags...');
       const data = await generateHashtags({
         topic: topic.trim(),
         language: locale,
         style,
       });
+      console.log('[HashtagPage] Result:', data);
       setResult(data);
-    } catch (error) {
-      console.error("Hashtag generation failed:", error);
+      
+      // Show debug info if fallback was used
+      if (data.debug?.usedFallback) {
+        toast({
+          title: "⚠️ Using cached results",
+          description: data.debug.error || "AI service unavailable, showing sample hashtags",
+          variant: "destructive",
+        });
+      }
+    } catch (error: any) {
+      console.error("[HashtagPage] Error:", error);
       toast({
         title: t("tools.hashtag-generator.errorTitle"),
-        description: t("tools.hashtag-generator.errorGenerate"),
+        description: error.message || t("tools.hashtag-generator.errorGenerate"),
         variant: "destructive",
       });
     } finally {
