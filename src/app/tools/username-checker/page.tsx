@@ -70,8 +70,8 @@ export default function UsernameCheckerPage() {
   const handleCheck = async () => {
     if (!username.trim()) {
       toast({
-        title: t("tools.username.errorTitle"),
-        description: t("tools.username.errorEmpty"),
+        title: t("tools.username-checker.errorTitle"),
+        description: t("tools.username-checker.errorEmpty"),
         variant: "destructive",
       });
       return;
@@ -81,8 +81,8 @@ export default function UsernameCheckerPage() {
     
     if (cleanUsername.length < 3) {
       toast({
-        title: t("tools.username.errorTitle"),
-        description: t("tools.username.errorShort"),
+        title: t("tools.username-checker.errorTitle"),
+        description: t("tools.username-checker.errorShort"),
         variant: "destructive",
       });
       return;
@@ -120,8 +120,8 @@ export default function UsernameCheckerPage() {
 
   return (
     <ToolLayout
-      titleKey="tools.username.title"
-      descriptionKey="tools.username.description"
+      titleKey="tools.username-checker.title"
+      descriptionKey="tools.username-checker.description"
       icon={<AtSign className="w-10 h-10" />}
       gradient="from-cyan-500 to-blue-500"
     >
@@ -131,9 +131,9 @@ export default function UsernameCheckerPage() {
           <CardHeader className="text-center pb-2">
             <CardTitle className="text-2xl font-headline flex items-center justify-center gap-2">
               <Sparkles className="w-6 h-6 text-accent" />
-              {t("tools.username.formTitle")}
+              {t("tools.username-checker.formTitle")}
             </CardTitle>
-            <CardDescription>{t("tools.username.formDescription")}</CardDescription>
+            <CardDescription>{t("tools.username-checker.formDescription")}</CardDescription>
           </CardHeader>
           <CardContent className="pt-6">
             <div className="flex flex-col sm:flex-row gap-4">
@@ -142,7 +142,7 @@ export default function UsernameCheckerPage() {
                 <Input
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder={t("tools.username.placeholder")}
+                  placeholder={t("tools.username-checker.placeholder")}
                   className="h-14 text-lg pl-8"
                   onKeyDown={(e) => e.key === "Enter" && handleCheck()}
                 />
@@ -155,12 +155,12 @@ export default function UsernameCheckerPage() {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    {t("tools.username.checking")}
+                    {t("tools.username-checker.checking")}
                   </>
                 ) : (
                   <>
                     <AtSign className="mr-2 h-5 w-5" />
-                    {t("tools.username.check")}
+                    {t("tools.username-checker.check")}
                   </>
                 )}
               </Button>
@@ -182,7 +182,7 @@ export default function UsernameCheckerPage() {
                 <div className="bg-card rounded-lg p-6 text-center">
                   <h2 className="text-3xl font-bold font-headline mb-2">@{result.username}</h2>
                   <p className="text-lg text-muted-foreground">
-                    {t("tools.username.availableOn", { count: availableCount.toString(), total: totalCount.toString() })}
+                    {t("tools.username-checker.availableOn", { count: availableCount.toString(), total: totalCount.toString() })}
                   </p>
                 </div>
               </div>
@@ -216,12 +216,12 @@ export default function UsernameCheckerPage() {
                         {platform.available ? (
                           <Badge className="bg-green-500 text-white">
                             <Check className="w-3 h-3 mr-1" />
-                            {t("tools.username.available")}
+                            {t("tools.username-checker.available")}
                           </Badge>
                         ) : (
                           <Badge variant="destructive">
                             <X className="w-3 h-3 mr-1" />
-                            {t("tools.username.taken")}
+                            {t("tools.username-checker.taken")}
                           </Badge>
                         )}
                         <Button
@@ -244,9 +244,9 @@ export default function UsernameCheckerPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-primary" />
-                  {t("tools.username.suggestions")}
+                  {t("tools.username-checker.suggestions")}
                 </CardTitle>
-                <CardDescription>{t("tools.username.suggestionsDesc")}</CardDescription>
+                <CardDescription>{t("tools.username-checker.suggestionsDesc")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-3">
@@ -285,7 +285,7 @@ export default function UsernameCheckerPage() {
                 }}
               >
                 <RefreshCw className="mr-2 h-5 w-5" />
-                {t("tools.username.checkAnother")}
+                {t("tools.username-checker.checkAnother")}
               </Button>
             </div>
           </div>

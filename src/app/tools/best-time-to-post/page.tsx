@@ -172,8 +172,8 @@ export default function BestTimeToPostPage() {
 
   return (
     <ToolLayout
-      titleKey="tools.bestTime.title"
-      descriptionKey="tools.bestTime.description"
+      titleKey="tools.best-time-to-post.title"
+      descriptionKey="tools.best-time-to-post.description"
       icon={<Clock className="w-10 h-10" />}
       gradient="from-purple-500 to-pink-500"
     >
@@ -183,9 +183,9 @@ export default function BestTimeToPostPage() {
           <CardHeader className="text-center pb-2">
             <CardTitle className="text-2xl font-headline flex items-center justify-center gap-2">
               <Target className="w-6 h-6 text-accent" />
-              {t("tools.bestTime.configTitle")}
+              {t("tools.best-time-to-post.configTitle")}
             </CardTitle>
-            <CardDescription>{t("tools.bestTime.configDescription")}</CardDescription>
+            <CardDescription>{t("tools.best-time-to-post.configDescription")}</CardDescription>
           </CardHeader>
           <CardContent className="pt-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -193,7 +193,7 @@ export default function BestTimeToPostPage() {
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   <Globe className="w-4 h-4 text-primary" />
-                  {t("tools.bestTime.timezone")}
+                  {t("tools.best-time-to-post.timezone")}
                 </Label>
                 <Select value={timezone} onValueChange={setTimezone}>
                   <SelectTrigger>
@@ -213,7 +213,7 @@ export default function BestTimeToPostPage() {
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-primary" />
-                  {t("tools.bestTime.niche")}
+                  {t("tools.best-time-to-post.niche")}
                 </Label>
                 <Select value={niche} onValueChange={setNiche}>
                   <SelectTrigger>
@@ -233,7 +233,7 @@ export default function BestTimeToPostPage() {
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   <Users className="w-4 h-4 text-primary" />
-                  {t("tools.bestTime.audience")}
+                  {t("tools.best-time-to-post.audience")}
                 </Label>
                 <Select value={audience} onValueChange={setAudience}>
                   <SelectTrigger>
@@ -255,7 +255,7 @@ export default function BestTimeToPostPage() {
               className="w-full mt-6 h-14 text-lg font-bold bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
             >
               <Calendar className="mr-2 h-5 w-5" />
-              {t("tools.bestTime.generate")}
+              {t("tools.best-time-to-post.generate")}
             </Button>
           </CardContent>
         </Card>
@@ -271,7 +271,7 @@ export default function BestTimeToPostPage() {
                     <div className="p-2 rounded-lg bg-green-500/20">
                       <Zap className="w-5 h-5 text-green-500" />
                     </div>
-                    <span className="font-bold text-lg">{t("tools.bestTime.peakHours")}</span>
+                    <span className="font-bold text-lg">{t("tools.best-time-to-post.peakHours")}</span>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {schedule.peakHours.map((hour) => (
@@ -281,7 +281,7 @@ export default function BestTimeToPostPage() {
                     ))}
                   </div>
                   <p className="text-sm text-muted-foreground mt-3">
-                    {t("tools.bestTime.peakHoursDesc")}
+                    {t("tools.best-time-to-post.peakHoursDesc")}
                   </p>
                 </CardContent>
               </Card>
@@ -292,7 +292,7 @@ export default function BestTimeToPostPage() {
                     <div className="p-2 rounded-lg bg-red-500/20">
                       <Clock className="w-5 h-5 text-red-500" />
                     </div>
-                    <span className="font-bold text-lg">{t("tools.bestTime.avoidHours")}</span>
+                    <span className="font-bold text-lg">{t("tools.best-time-to-post.avoidHours")}</span>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {schedule.avoidHours.map((hour) => (
@@ -302,7 +302,7 @@ export default function BestTimeToPostPage() {
                     ))}
                   </div>
                   <p className="text-sm text-muted-foreground mt-3">
-                    {t("tools.bestTime.avoidHoursDesc")}
+                    {t("tools.best-time-to-post.avoidHoursDesc")}
                   </p>
                 </CardContent>
               </Card>
@@ -313,9 +313,9 @@ export default function BestTimeToPostPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Calendar className="w-5 h-5 text-primary" />
-                  {t("tools.bestTime.weeklySchedule")}
+                  {t("tools.best-time-to-post.weeklySchedule")}
                 </CardTitle>
-                <CardDescription>{t("tools.bestTime.weeklyScheduleDesc")}</CardDescription>
+                <CardDescription>{t("tools.best-time-to-post.weeklyScheduleDesc")}</CardDescription>
               </CardHeader>
               <CardContent>
                 {/* Day Selector */}
@@ -381,19 +381,19 @@ export default function BestTimeToPostPage() {
                 <div className="flex items-center justify-center gap-4 mt-6 text-sm">
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-4 rounded bg-green-500" />
-                    <span>{t("tools.bestTime.peak")}</span>
+                    <span>{t("tools.best-time-to-post.peak")}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-4 rounded bg-emerald-400" />
-                    <span>{t("tools.bestTime.good")}</span>
+                    <span>{t("tools.best-time-to-post.good")}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-4 rounded bg-yellow-400" />
-                    <span>{t("tools.bestTime.average")}</span>
+                    <span>{t("tools.best-time-to-post.average")}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-4 rounded bg-orange-400" />
-                    <span>{t("tools.bestTime.low")}</span>
+                    <span>{t("tools.best-time-to-post.low")}</span>
                   </div>
                 </div>
               </CardContent>
@@ -404,7 +404,7 @@ export default function BestTimeToPostPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <TrendingUp className="w-5 h-5 text-primary" />
-                  {t("tools.bestTime.proTips")}
+                  {t("tools.best-time-to-post.proTips")}
                 </CardTitle>
               </CardHeader>
               <CardContent>

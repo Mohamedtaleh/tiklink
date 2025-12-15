@@ -48,8 +48,8 @@ export default function ViralPredictorPage() {
   const handleAnalyze = async () => {
     if (!url.trim()) {
       toast({
-        title: t("tools.viral.errorTitle"),
-        description: t("tools.viral.errorEmpty"),
+        title: t("tools.viral-predictor.errorTitle"),
+        description: t("tools.viral-predictor.errorEmpty"),
         variant: "destructive",
       });
       return;
@@ -62,7 +62,7 @@ export default function ViralPredictorPage() {
 
     try {
       // Step 1: Fetch video info
-      setLoadingStep(t("tools.viral.fetchingVideo"));
+      setLoadingStep(t("tools.viral-predictor.fetchingVideo"));
       const formData = new FormData();
       formData.append("url", url);
       const videoResult = await getVideoInfo(null, formData);
@@ -74,7 +74,7 @@ export default function ViralPredictorPage() {
       setVideoInfo(videoResult.data);
 
       // Step 2: Analyze with AI
-      setLoadingStep(t("tools.viral.analyzing"));
+      setLoadingStep(t("tools.viral-predictor.analyzing"));
       const analysis = await predictViralScore({
         videoTitle: videoResult.data.title,
         videoAuthor: videoResult.data.author,
@@ -86,7 +86,7 @@ export default function ViralPredictorPage() {
       setPrediction(analysis);
     } catch (err: any) {
       console.error("Analysis failed:", err);
-      setError(err.message || t("tools.viral.errorAnalyze"));
+      setError(err.message || t("tools.viral-predictor.errorAnalyze"));
     } finally {
       setIsLoading(false);
       setLoadingStep("");
@@ -97,8 +97,8 @@ export default function ViralPredictorPage() {
 
   return (
     <ToolLayout
-      titleKey="tools.viral.title"
-      descriptionKey="tools.viral.description"
+      titleKey="tools.viral-predictor.title"
+      descriptionKey="tools.viral-predictor.description"
       icon={<Flame className="w-10 h-10" />}
       gradient="from-orange-500 to-red-500"
     >
@@ -108,17 +108,17 @@ export default function ViralPredictorPage() {
           <CardHeader className="text-center pb-2">
             <CardTitle className="text-2xl font-headline flex items-center justify-center gap-2">
               <Sparkles className="w-6 h-6 text-accent" />
-              {t("tools.viral.formTitle")}
+              {t("tools.viral-predictor.formTitle")}
             </CardTitle>
-            <CardDescription>{t("tools.viral.formDescription")}</CardDescription>
+            <CardDescription>{t("tools.viral-predictor.formDescription")}</CardDescription>
           </CardHeader>
           <CardContent className="pt-6 space-y-6">
             <div className="space-y-2">
-              <Label>{t("tools.viral.urlLabel")}</Label>
+              <Label>{t("tools.viral-predictor.urlLabel")}</Label>
               <Input
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                placeholder={t("tools.viral.urlPlaceholder")}
+                placeholder={t("tools.viral-predictor.urlPlaceholder")}
                 className="h-14 text-lg"
                 onKeyDown={(e) => e.key === "Enter" && handleAnalyze()}
               />
@@ -129,8 +129,8 @@ export default function ViralPredictorPage() {
               <div className="flex items-center gap-3">
                 <Skull className="w-5 h-5 text-orange-500" />
                 <div>
-                  <Label className="text-base font-medium">{t("tools.viral.roastMode")}</Label>
-                  <p className="text-sm text-muted-foreground">{t("tools.viral.roastModeDesc")}</p>
+                  <Label className="text-base font-medium">{t("tools.viral-predictor.roastMode")}</Label>
+                  <p className="text-sm text-muted-foreground">{t("tools.viral-predictor.roastModeDesc")}</p>
                 </div>
               </div>
               <Switch checked={roastMode} onCheckedChange={setRoastMode} />
@@ -149,7 +149,7 @@ export default function ViralPredictorPage() {
               ) : (
                 <>
                   <Flame className="mr-2 h-5 w-5" />
-                  {t("tools.viral.analyze")}
+                  {t("tools.viral-predictor.analyze")}
                 </>
               )}
             </Button>
@@ -211,7 +211,7 @@ export default function ViralPredictorPage() {
                 <div className="bg-card rounded-lg p-8">
                   <div className="text-center space-y-4">
                     <h3 className="text-xl font-medium text-muted-foreground">
-                      {t("tools.viral.viralScore")}
+                      {t("tools.viral-predictor.viralScore")}
                     </h3>
                     <div className={cn(
                       "text-7xl md:text-8xl font-bold font-headline bg-gradient-to-r bg-clip-text text-transparent",
@@ -235,7 +235,7 @@ export default function ViralPredictorPage() {
                     <div className="p-2 rounded-lg bg-orange-500/20">
                       <Skull className="w-6 h-6 text-orange-500" />
                     </div>
-                    <h3 className="font-bold text-xl">{t("tools.viral.roastTitle")}</h3>
+                    <h3 className="font-bold text-xl">{t("tools.viral-predictor.roastTitle")}</h3>
                   </div>
                   <p className="text-lg italic text-muted-foreground leading-relaxed">
                     "{prediction.roast}"
@@ -252,7 +252,7 @@ export default function ViralPredictorPage() {
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
                       <Eye className="w-5 h-5 text-blue-500" />
-                      <span className="font-medium">{t("tools.viral.hook")}</span>
+                      <span className="font-medium">{t("tools.viral-predictor.hook")}</span>
                     </div>
                     <Badge variant="outline">{prediction.analysis.hook.score}/100</Badge>
                   </div>
@@ -267,7 +267,7 @@ export default function ViralPredictorPage() {
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
                       <Sparkles className="w-5 h-5 text-purple-500" />
-                      <span className="font-medium">{t("tools.viral.content")}</span>
+                      <span className="font-medium">{t("tools.viral-predictor.content")}</span>
                     </div>
                     <Badge variant="outline">{prediction.analysis.content.score}/100</Badge>
                   </div>
@@ -282,7 +282,7 @@ export default function ViralPredictorPage() {
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
                       <MessageSquare className="w-5 h-5 text-green-500" />
-                      <span className="font-medium">{t("tools.viral.engagement")}</span>
+                      <span className="font-medium">{t("tools.viral-predictor.engagement")}</span>
                     </div>
                     <Badge variant="outline">{prediction.analysis.engagement.score}/100</Badge>
                   </div>
@@ -297,7 +297,7 @@ export default function ViralPredictorPage() {
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
                       <TrendingUp className="w-5 h-5 text-orange-500" />
-                      <span className="font-medium">{t("tools.viral.trending")}</span>
+                      <span className="font-medium">{t("tools.viral-predictor.trending")}</span>
                     </div>
                     <Badge variant="outline">{prediction.analysis.trending.score}/100</Badge>
                   </div>
@@ -312,9 +312,9 @@ export default function ViralPredictorPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Lightbulb className="w-5 h-5 text-yellow-500" />
-                  {t("tools.viral.improvements")}
+                  {t("tools.viral-predictor.improvements")}
                 </CardTitle>
-                <CardDescription>{t("tools.viral.improvementsDesc")}</CardDescription>
+                <CardDescription>{t("tools.viral-predictor.improvementsDesc")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
@@ -342,7 +342,7 @@ export default function ViralPredictorPage() {
                 }}
               >
                 <Share2 className="mr-2 h-5 w-5" />
-                {t("tools.viral.shareResults")}
+                {t("tools.viral-predictor.shareResults")}
               </Button>
             </div>
           </div>

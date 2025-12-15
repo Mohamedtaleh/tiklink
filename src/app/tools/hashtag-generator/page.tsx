@@ -34,8 +34,8 @@ export default function HashtagGeneratorPage() {
   const handleGenerate = async () => {
     if (!topic.trim()) {
       toast({
-        title: t("tools.hashtag.errorTitle"),
-        description: t("tools.hashtag.errorEmpty"),
+        title: t("tools.hashtag-generator.errorTitle"),
+        description: t("tools.hashtag-generator.errorEmpty"),
         variant: "destructive",
       });
       return;
@@ -52,8 +52,8 @@ export default function HashtagGeneratorPage() {
     } catch (error) {
       console.error("Hashtag generation failed:", error);
       toast({
-        title: t("tools.hashtag.errorTitle"),
-        description: t("tools.hashtag.errorGenerate"),
+        title: t("tools.hashtag-generator.errorTitle"),
+        description: t("tools.hashtag-generator.errorGenerate"),
         variant: "destructive",
       });
     } finally {
@@ -67,7 +67,7 @@ export default function HashtagGeneratorPage() {
     setCopiedSection(section);
     toast({
       title: t("share.copied"),
-      description: t("tools.hashtag.copiedDesc"),
+      description: t("tools.hashtag-generator.copiedDesc"),
     });
     setTimeout(() => setCopiedSection(null), 2000);
   };
@@ -83,15 +83,15 @@ export default function HashtagGeneratorPage() {
     setCopiedSection("all");
     toast({
       title: t("share.copied"),
-      description: t("tools.hashtag.copiedAllDesc"),
+      description: t("tools.hashtag-generator.copiedAllDesc"),
     });
     setTimeout(() => setCopiedSection(null), 2000);
   };
 
   return (
     <ToolLayout
-      titleKey="tools.hashtag.title"
-      descriptionKey="tools.hashtag.description"
+      titleKey="tools.hashtag-generator.title"
+      descriptionKey="tools.hashtag-generator.description"
       icon={<Hash className="w-10 h-10" />}
       gradient="from-blue-500 to-cyan-500"
     >
@@ -101,21 +101,21 @@ export default function HashtagGeneratorPage() {
           <CardHeader className="text-center pb-2">
             <CardTitle className="text-2xl font-headline flex items-center justify-center gap-2">
               <Sparkles className="w-6 h-6 text-accent" />
-              {t("tools.hashtag.formTitle")}
+              {t("tools.hashtag-generator.formTitle")}
             </CardTitle>
-            <CardDescription>{t("tools.hashtag.formDescription")}</CardDescription>
+            <CardDescription>{t("tools.hashtag-generator.formDescription")}</CardDescription>
           </CardHeader>
           <CardContent className="pt-6 space-y-6">
             {/* Topic Input */}
             <div className="space-y-2">
               <Label className="flex items-center gap-2">
                 <Target className="w-4 h-4 text-primary" />
-                {t("tools.hashtag.topicLabel")}
+                {t("tools.hashtag-generator.topicLabel")}
               </Label>
               <Input
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
-                placeholder={t("tools.hashtag.topicPlaceholder")}
+                placeholder={t("tools.hashtag-generator.topicPlaceholder")}
                 className="h-14 text-lg"
                 onKeyDown={(e) => e.key === "Enter" && handleGenerate()}
               />
@@ -125,7 +125,7 @@ export default function HashtagGeneratorPage() {
             <div className="space-y-2">
               <Label className="flex items-center gap-2">
                 <Zap className="w-4 h-4 text-primary" />
-                {t("tools.hashtag.styleLabel")}
+                {t("tools.hashtag-generator.styleLabel")}
               </Label>
               <Select value={style} onValueChange={setStyle}>
                 <SelectTrigger className="h-12">
@@ -149,12 +149,12 @@ export default function HashtagGeneratorPage() {
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  {t("tools.hashtag.generating")}
+                  {t("tools.hashtag-generator.generating")}
                 </>
               ) : (
                 <>
                   <Sparkles className="mr-2 h-5 w-5" />
-                  {t("tools.hashtag.generate")}
+                  {t("tools.hashtag-generator.generate")}
                 </>
               )}
             </Button>
@@ -174,8 +174,8 @@ export default function HashtagGeneratorPage() {
                         <Crown className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-lg">{t("tools.hashtag.recommended")}</h3>
-                        <p className="text-sm text-muted-foreground">{t("tools.hashtag.recommendedDesc")}</p>
+                        <h3 className="font-bold text-lg">{t("tools.hashtag-generator.recommended")}</h3>
+                        <p className="text-sm text-muted-foreground">{t("tools.hashtag-generator.recommendedDesc")}</p>
                       </div>
                     </div>
                     <Button
@@ -212,12 +212,12 @@ export default function HashtagGeneratorPage() {
             <Card className="border-0 shadow-xl">
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
-                  <CardTitle>{t("tools.hashtag.allHashtags")}</CardTitle>
-                  <CardDescription>{t("tools.hashtag.clickToCopy")}</CardDescription>
+                  <CardTitle>{t("tools.hashtag-generator.allHashtags")}</CardTitle>
+                  <CardDescription>{t("tools.hashtag-generator.clickToCopy")}</CardDescription>
                 </div>
                 <Button variant="outline" onClick={copyAllHashtags}>
                   {copiedSection === "all" ? <Check className="mr-2 h-4 w-4" /> : <Copy className="mr-2 h-4 w-4" />}
-                  {t("tools.hashtag.copyAll")}
+                  {t("tools.hashtag-generator.copyAll")}
                 </Button>
               </CardHeader>
               <CardContent>
@@ -225,21 +225,21 @@ export default function HashtagGeneratorPage() {
                   <TabsList className="grid grid-cols-3 w-full">
                     <TabsTrigger value="trending" className="gap-2">
                       <TrendingUp className="w-4 h-4" />
-                      {t("tools.hashtag.trending")}
+                      {t("tools.hashtag-generator.trending")}
                     </TabsTrigger>
                     <TabsTrigger value="medium" className="gap-2">
                       <Star className="w-4 h-4" />
-                      {t("tools.hashtag.medium")}
+                      {t("tools.hashtag-generator.medium")}
                     </TabsTrigger>
                     <TabsTrigger value="niche" className="gap-2">
                       <Target className="w-4 h-4" />
-                      {t("tools.hashtag.niche")}
+                      {t("tools.hashtag-generator.niche")}
                     </TabsTrigger>
                   </TabsList>
 
                   <TabsContent value="trending" className="mt-6">
                     <div className="flex justify-between items-center mb-4">
-                      <p className="text-sm text-muted-foreground">{t("tools.hashtag.trendingDesc")}</p>
+                      <p className="text-sm text-muted-foreground">{t("tools.hashtag-generator.trendingDesc")}</p>
                       <Button
                         variant="ghost"
                         size="sm"
@@ -269,7 +269,7 @@ export default function HashtagGeneratorPage() {
 
                   <TabsContent value="medium" className="mt-6">
                     <div className="flex justify-between items-center mb-4">
-                      <p className="text-sm text-muted-foreground">{t("tools.hashtag.mediumDesc")}</p>
+                      <p className="text-sm text-muted-foreground">{t("tools.hashtag-generator.mediumDesc")}</p>
                       <Button
                         variant="ghost"
                         size="sm"
@@ -299,7 +299,7 @@ export default function HashtagGeneratorPage() {
 
                   <TabsContent value="niche" className="mt-6">
                     <div className="flex justify-between items-center mb-4">
-                      <p className="text-sm text-muted-foreground">{t("tools.hashtag.nicheDesc")}</p>
+                      <p className="text-sm text-muted-foreground">{t("tools.hashtag-generator.nicheDesc")}</p>
                       <Button
                         variant="ghost"
                         size="sm"
@@ -335,13 +335,13 @@ export default function HashtagGeneratorPage() {
               <CardContent className="pt-6">
                 <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-primary" />
-                  {t("tools.hashtag.tips")}
+                  {t("tools.hashtag-generator.tips")}
                 </h3>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• {t("tools.hashtag.tip1")}</li>
-                  <li>• {t("tools.hashtag.tip2")}</li>
-                  <li>• {t("tools.hashtag.tip3")}</li>
-                  <li>• {t("tools.hashtag.tip4")}</li>
+                  <li>• {t("tools.hashtag-generator.tip1")}</li>
+                  <li>• {t("tools.hashtag-generator.tip2")}</li>
+                  <li>• {t("tools.hashtag-generator.tip3")}</li>
+                  <li>• {t("tools.hashtag-generator.tip4")}</li>
                 </ul>
               </CardContent>
             </Card>

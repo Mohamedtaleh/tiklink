@@ -115,8 +115,8 @@ export default function ProfileAnalyzerPage() {
   const handleAnalyze = async () => {
     if (!username.trim()) {
       toast({
-        title: t("tools.profile.errorTitle"),
-        description: t("tools.profile.errorEmpty"),
+        title: t("tools.profile-analyzer.errorTitle"),
+        description: t("tools.profile-analyzer.errorEmpty"),
         variant: "destructive",
       });
       return;
@@ -135,8 +135,8 @@ export default function ProfileAnalyzerPage() {
 
   return (
     <ToolLayout
-      titleKey="tools.profile.title"
-      descriptionKey="tools.profile.description"
+      titleKey="tools.profile-analyzer.title"
+      descriptionKey="tools.profile-analyzer.description"
       icon={<BarChart3 className="w-10 h-10" />}
       gradient="from-violet-500 to-purple-500"
     >
@@ -146,9 +146,9 @@ export default function ProfileAnalyzerPage() {
           <CardHeader className="text-center pb-2">
             <CardTitle className="text-2xl font-headline flex items-center justify-center gap-2">
               <User className="w-6 h-6 text-accent" />
-              {t("tools.profile.formTitle")}
+              {t("tools.profile-analyzer.formTitle")}
             </CardTitle>
-            <CardDescription>{t("tools.profile.formDescription")}</CardDescription>
+            <CardDescription>{t("tools.profile-analyzer.formDescription")}</CardDescription>
           </CardHeader>
           <CardContent className="pt-6">
             <div className="flex flex-col sm:flex-row gap-4">
@@ -157,7 +157,7 @@ export default function ProfileAnalyzerPage() {
                 <Input
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder={t("tools.profile.usernamePlaceholder")}
+                  placeholder={t("tools.profile-analyzer.usernamePlaceholder")}
                   className="h-14 text-lg pl-8"
                   onKeyDown={(e) => e.key === "Enter" && handleAnalyze()}
                 />
@@ -170,12 +170,12 @@ export default function ProfileAnalyzerPage() {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    {t("tools.profile.analyzing")}
+                    {t("tools.profile-analyzer.analyzing")}
                   </>
                 ) : (
                   <>
                     <BarChart3 className="mr-2 h-5 w-5" />
-                    {t("tools.profile.analyze")}
+                    {t("tools.profile-analyzer.analyze")}
                   </>
                 )}
               </Button>
@@ -204,19 +204,19 @@ export default function ProfileAnalyzerPage() {
                     <div className="grid grid-cols-4 gap-6 text-center">
                       <div>
                         <p className="text-2xl font-bold">{formatNumber(analysis.followers)}</p>
-                        <p className="text-xs text-muted-foreground">{t("tools.profile.followers")}</p>
+                        <p className="text-xs text-muted-foreground">{t("tools.profile-analyzer.followers")}</p>
                       </div>
                       <div>
                         <p className="text-2xl font-bold">{formatNumber(analysis.following)}</p>
-                        <p className="text-xs text-muted-foreground">{t("tools.profile.following")}</p>
+                        <p className="text-xs text-muted-foreground">{t("tools.profile-analyzer.following")}</p>
                       </div>
                       <div>
                         <p className="text-2xl font-bold">{formatNumber(analysis.likes)}</p>
-                        <p className="text-xs text-muted-foreground">{t("tools.profile.likes")}</p>
+                        <p className="text-xs text-muted-foreground">{t("tools.profile-analyzer.likes")}</p>
                       </div>
                       <div>
                         <p className="text-2xl font-bold">{analysis.videos}</p>
-                        <p className="text-xs text-muted-foreground">{t("tools.profile.videos")}</p>
+                        <p className="text-xs text-muted-foreground">{t("tools.profile-analyzer.videos")}</p>
                       </div>
                     </div>
                   </div>
@@ -230,10 +230,10 @@ export default function ProfileAnalyzerPage() {
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3 mb-2">
                     <Heart className="w-5 h-5 text-green-500" />
-                    <span className="text-sm font-medium">{t("tools.profile.engagementRate")}</span>
+                    <span className="text-sm font-medium">{t("tools.profile-analyzer.engagementRate")}</span>
                   </div>
                   <p className="text-3xl font-bold">{analysis.engagementRate}%</p>
-                  <p className="text-xs text-muted-foreground mt-1">{t("tools.profile.aboveAverage")}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t("tools.profile-analyzer.aboveAverage")}</p>
                 </CardContent>
               </Card>
 
@@ -241,10 +241,10 @@ export default function ProfileAnalyzerPage() {
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3 mb-2">
                     <Eye className="w-5 h-5 text-blue-500" />
-                    <span className="text-sm font-medium">{t("tools.profile.avgViews")}</span>
+                    <span className="text-sm font-medium">{t("tools.profile-analyzer.avgViews")}</span>
                   </div>
                   <p className="text-3xl font-bold">{formatNumber(analysis.avgViews)}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{t("tools.profile.perVideo")}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t("tools.profile-analyzer.perVideo")}</p>
                 </CardContent>
               </Card>
 
@@ -252,10 +252,10 @@ export default function ProfileAnalyzerPage() {
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3 mb-2">
                     <TrendingUp className="w-5 h-5 text-pink-500" />
-                    <span className="text-sm font-medium">{t("tools.profile.avgLikes")}</span>
+                    <span className="text-sm font-medium">{t("tools.profile-analyzer.avgLikes")}</span>
                   </div>
                   <p className="text-3xl font-bold">{formatNumber(analysis.avgLikes)}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{t("tools.profile.perVideo")}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t("tools.profile-analyzer.perVideo")}</p>
                 </CardContent>
               </Card>
 
@@ -263,10 +263,10 @@ export default function ProfileAnalyzerPage() {
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3 mb-2">
                     <Users className="w-5 h-5 text-purple-500" />
-                    <span className="text-sm font-medium">{t("tools.profile.estimatedReach")}</span>
+                    <span className="text-sm font-medium">{t("tools.profile-analyzer.estimatedReach")}</span>
                   </div>
                   <p className="text-3xl font-bold">{formatNumber(analysis.estimatedReach)}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{t("tools.profile.monthly")}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t("tools.profile-analyzer.monthly")}</p>
                 </CardContent>
               </Card>
             </div>
@@ -276,35 +276,35 @@ export default function ProfileAnalyzerPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Award className="w-5 h-5 text-primary" />
-                  {t("tools.profile.performanceScores")}
+                  {t("tools.profile-analyzer.performanceScores")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span>{t("tools.profile.engagement")}</span>
+                      <span>{t("tools.profile-analyzer.engagement")}</span>
                       <span className="font-bold">{analysis.scores.engagement}/100</span>
                     </div>
                     <Progress value={analysis.scores.engagement} className="h-3" />
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span>{t("tools.profile.consistency")}</span>
+                      <span>{t("tools.profile-analyzer.consistency")}</span>
                       <span className="font-bold">{analysis.scores.consistency}/100</span>
                     </div>
                     <Progress value={analysis.scores.consistency} className="h-3" />
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span>{t("tools.profile.growth")}</span>
+                      <span>{t("tools.profile-analyzer.growth")}</span>
                       <span className="font-bold">{analysis.scores.growth}/100</span>
                     </div>
                     <Progress value={analysis.scores.growth} className="h-3" />
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span>{t("tools.profile.quality")}</span>
+                      <span>{t("tools.profile-analyzer.quality")}</span>
                       <span className="font-bold">{analysis.scores.quality}/100</span>
                     </div>
                     <Progress value={analysis.scores.quality} className="h-3" />
@@ -319,7 +319,7 @@ export default function ProfileAnalyzerPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <Zap className="w-5 h-5 text-green-500" />
-                    {t("tools.profile.strengths")}
+                    {t("tools.profile-analyzer.strengths")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -338,7 +338,7 @@ export default function ProfileAnalyzerPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <Target className="w-5 h-5 text-orange-500" />
-                    {t("tools.profile.improvements")}
+                    {t("tools.profile-analyzer.improvements")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -359,7 +359,7 @@ export default function ProfileAnalyzerPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Calendar className="w-5 h-5 text-primary" />
-                  {t("tools.profile.bestPostingTimes")}
+                  {t("tools.profile-analyzer.bestPostingTimes")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -385,7 +385,7 @@ export default function ProfileAnalyzerPage() {
                 }}
               >
                 <Share2 className="mr-2 h-5 w-5" />
-                {t("tools.profile.shareResults")}
+                {t("tools.profile-analyzer.shareResults")}
               </Button>
             </div>
           </div>

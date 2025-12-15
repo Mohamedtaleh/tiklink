@@ -1,21 +1,16 @@
 "use client";
 
 import { useState, useRef } from "react";
-import type { Metadata } from "next";
-import { DollarSign, Users, Eye, Heart, TrendingUp, Gift, Briefcase, Play, Share2, Download, Sparkles } from "lucide-react";
+import { DollarSign, Users, Eye, Heart, TrendingUp, Gift, Briefcase, Play, Share2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import { useI18n } from "@/hooks/use-i18n";
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/tools/tool-layout";
 import { cn } from "@/lib/utils";
-import type { Metadata } from "next";
 
 interface EarningsBreakdown {
   creatorFund: { min: number; max: number };
@@ -114,8 +109,8 @@ export default function MoneyCalculatorPage() {
 
   const handleShare = async () => {
     const shareData = {
-      title: t("tools.moneyCalculator.shareTitle"),
-      text: t("tools.moneyCalculator.shareText", { 
+      title: t("tools.money-calculator.shareTitle"),
+      text: t("tools.money-calculator.shareText", { 
         min: formatCurrency(earnings?.total.min || 0),
         max: formatCurrency(earnings?.total.max || 0)
       }),
@@ -135,8 +130,8 @@ export default function MoneyCalculatorPage() {
 
   return (
     <ToolLayout
-      titleKey="tools.moneyCalculator.title"
-      descriptionKey="tools.moneyCalculator.description"
+      titleKey="tools.money-calculator.title"
+      descriptionKey="tools.money-calculator.description"
       icon={<DollarSign className="w-10 h-10" />}
       gradient="from-green-500 to-emerald-500"
     >
@@ -146,9 +141,9 @@ export default function MoneyCalculatorPage() {
           <CardHeader className="text-center pb-2">
             <CardTitle className="text-2xl font-headline flex items-center justify-center gap-2">
               <Sparkles className="w-6 h-6 text-accent" />
-              {t("tools.moneyCalculator.formTitle")}
+              {t("tools.money-calculator.formTitle")}
             </CardTitle>
-            <CardDescription>{t("tools.moneyCalculator.formDescription")}</CardDescription>
+            <CardDescription>{t("tools.money-calculator.formDescription")}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-8 pt-6">
             {/* Followers */}
@@ -156,7 +151,7 @@ export default function MoneyCalculatorPage() {
               <div className="flex items-center justify-between">
                 <Label className="text-base font-medium flex items-center gap-2">
                   <Users className="w-5 h-5 text-primary" />
-                  {t("tools.moneyCalculator.followers")}
+                  {t("tools.money-calculator.followers")}
                 </Label>
                 <Badge variant="secondary" className="text-lg px-4 py-1">
                   {formatNumber(followers)}
@@ -181,7 +176,7 @@ export default function MoneyCalculatorPage() {
               <div className="flex items-center justify-between">
                 <Label className="text-base font-medium flex items-center gap-2">
                   <Eye className="w-5 h-5 text-primary" />
-                  {t("tools.moneyCalculator.avgViews")}
+                  {t("tools.money-calculator.avgViews")}
                 </Label>
                 <Badge variant="secondary" className="text-lg px-4 py-1">
                   {formatNumber(avgViews)}
@@ -206,7 +201,7 @@ export default function MoneyCalculatorPage() {
               <div className="flex items-center justify-between">
                 <Label className="text-base font-medium flex items-center gap-2">
                   <Heart className="w-5 h-5 text-primary" />
-                  {t("tools.moneyCalculator.engagementRate")}
+                  {t("tools.money-calculator.engagementRate")}
                 </Label>
                 <Badge variant="secondary" className="text-lg px-4 py-1">
                   {engagementRate.toFixed(1)}%
@@ -231,7 +226,7 @@ export default function MoneyCalculatorPage() {
               className="w-full h-14 text-lg font-bold bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600"
             >
               <DollarSign className="mr-2 h-5 w-5" />
-              {t("tools.moneyCalculator.calculate")}
+              {t("tools.money-calculator.calculate")}
             </Button>
           </CardContent>
         </Card>
@@ -248,13 +243,13 @@ export default function MoneyCalculatorPage() {
                       {earnings.tier}
                     </Badge>
                     <h3 className="text-xl font-medium text-muted-foreground">
-                      {t("tools.moneyCalculator.estimatedMonthly")}
+                      {t("tools.money-calculator.estimatedMonthly")}
                     </h3>
                     <div className="text-5xl md:text-6xl font-bold font-headline bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent">
                       {formatCurrency(earnings.total.min)} - {formatCurrency(earnings.total.max)}
                     </div>
                     <p className="text-sm text-muted-foreground">
-                      {t("tools.moneyCalculator.perMonth")}
+                      {t("tools.money-calculator.perMonth")}
                     </p>
                   </div>
                 </div>
@@ -270,13 +265,13 @@ export default function MoneyCalculatorPage() {
                     <div className="p-2 rounded-lg bg-blue-500/20">
                       <Play className="w-5 h-5 text-blue-500" />
                     </div>
-                    <span className="font-medium">{t("tools.moneyCalculator.creatorFund")}</span>
+                    <span className="font-medium">{t("tools.money-calculator.creatorFund")}</span>
                   </div>
                   <p className="text-2xl font-bold">
                     {formatCurrency(earnings.creatorFund.min)} - {formatCurrency(earnings.creatorFund.max)}
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">
-                    {t("tools.moneyCalculator.creatorFundDesc")}
+                    {t("tools.money-calculator.creatorFundDesc")}
                   </p>
                 </CardContent>
               </Card>
@@ -288,13 +283,13 @@ export default function MoneyCalculatorPage() {
                     <div className="p-2 rounded-lg bg-purple-500/20">
                       <Briefcase className="w-5 h-5 text-purple-500" />
                     </div>
-                    <span className="font-medium">{t("tools.moneyCalculator.sponsorships")}</span>
+                    <span className="font-medium">{t("tools.money-calculator.sponsorships")}</span>
                   </div>
                   <p className="text-2xl font-bold">
                     {formatCurrency(earnings.sponsorships.min)} - {formatCurrency(earnings.sponsorships.max)}
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">
-                    {t("tools.moneyCalculator.sponsorshipsDesc")}
+                    {t("tools.money-calculator.sponsorshipsDesc")}
                   </p>
                 </CardContent>
               </Card>
@@ -306,13 +301,13 @@ export default function MoneyCalculatorPage() {
                     <div className="p-2 rounded-lg bg-pink-500/20">
                       <Gift className="w-5 h-5 text-pink-500" />
                     </div>
-                    <span className="font-medium">{t("tools.moneyCalculator.liveGifts")}</span>
+                    <span className="font-medium">{t("tools.money-calculator.liveGifts")}</span>
                   </div>
                   <p className="text-2xl font-bold">
                     {formatCurrency(earnings.gifts.min)} - {formatCurrency(earnings.gifts.max)}
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">
-                    {t("tools.moneyCalculator.liveGiftsDesc")}
+                    {t("tools.money-calculator.liveGiftsDesc")}
                   </p>
                 </CardContent>
               </Card>
@@ -327,15 +322,15 @@ export default function MoneyCalculatorPage() {
                       <TrendingUp className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg">{t("tools.moneyCalculator.yearlyProjection")}</h4>
-                      <p className="text-sm text-muted-foreground">{t("tools.moneyCalculator.yearlyDesc")}</p>
+                      <h4 className="font-bold text-lg">{t("tools.money-calculator.yearlyProjection")}</h4>
+                      <p className="text-sm text-muted-foreground">{t("tools.money-calculator.yearlyDesc")}</p>
                     </div>
                   </div>
                   <div className="text-right">
                     <p className="text-3xl font-bold bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent">
                       {formatCurrency(earnings.total.min * 12)} - {formatCurrency(earnings.total.max * 12)}
                     </p>
-                    <p className="text-sm text-muted-foreground">{t("tools.moneyCalculator.perYear")}</p>
+                    <p className="text-sm text-muted-foreground">{t("tools.money-calculator.perYear")}</p>
                   </div>
                 </div>
               </CardContent>
@@ -345,13 +340,13 @@ export default function MoneyCalculatorPage() {
             <div className="flex justify-center gap-4">
               <Button onClick={handleShare} size="lg" className="bg-gradient-to-r from-primary to-accent">
                 <Share2 className="mr-2 h-5 w-5" />
-                {t("tools.moneyCalculator.shareResults")}
+                {t("tools.money-calculator.shareResults")}
               </Button>
             </div>
 
             {/* Disclaimer */}
             <p className="text-center text-xs text-muted-foreground max-w-2xl mx-auto">
-              {t("tools.moneyCalculator.disclaimer")}
+              {t("tools.money-calculator.disclaimer")}
             </p>
           </div>
         )}
@@ -359,42 +354,42 @@ export default function MoneyCalculatorPage() {
         {/* Info Section */}
         <Card className="mt-12 border-0 bg-muted/30">
           <CardContent className="pt-6">
-            <h3 className="text-xl font-bold font-headline mb-4">{t("tools.moneyCalculator.howItWorks")}</h3>
+            <h3 className="text-xl font-bold font-headline mb-4">{t("tools.money-calculator.howItWorks")}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <h4 className="font-medium flex items-center gap-2">
                   <Play className="w-4 h-4 text-blue-500" />
-                  {t("tools.moneyCalculator.creatorFund")}
+                  {t("tools.money-calculator.creatorFund")}
                 </h4>
                 <p className="text-sm text-muted-foreground">
-                  {t("tools.moneyCalculator.creatorFundInfo")}
+                  {t("tools.money-calculator.creatorFundInfo")}
                 </p>
               </div>
               <div className="space-y-2">
                 <h4 className="font-medium flex items-center gap-2">
                   <Briefcase className="w-4 h-4 text-purple-500" />
-                  {t("tools.moneyCalculator.sponsorships")}
+                  {t("tools.money-calculator.sponsorships")}
                 </h4>
                 <p className="text-sm text-muted-foreground">
-                  {t("tools.moneyCalculator.sponsorshipsInfo")}
+                  {t("tools.money-calculator.sponsorshipsInfo")}
                 </p>
               </div>
               <div className="space-y-2">
                 <h4 className="font-medium flex items-center gap-2">
                   <Gift className="w-4 h-4 text-pink-500" />
-                  {t("tools.moneyCalculator.liveGifts")}
+                  {t("tools.money-calculator.liveGifts")}
                 </h4>
                 <p className="text-sm text-muted-foreground">
-                  {t("tools.moneyCalculator.liveGiftsInfo")}
+                  {t("tools.money-calculator.liveGiftsInfo")}
                 </p>
               </div>
               <div className="space-y-2">
                 <h4 className="font-medium flex items-center gap-2">
                   <TrendingUp className="w-4 h-4 text-green-500" />
-                  {t("tools.moneyCalculator.growthTips")}
+                  {t("tools.money-calculator.growthTips")}
                 </h4>
                 <p className="text-sm text-muted-foreground">
-                  {t("tools.moneyCalculator.growthTipsInfo")}
+                  {t("tools.money-calculator.growthTipsInfo")}
                 </p>
               </div>
             </div>

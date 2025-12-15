@@ -73,14 +73,14 @@ export default function StatsCardPage() {
       link.click();
       
       toast({
-        title: t("tools.statsCard.downloaded"),
-        description: t("tools.statsCard.downloadedDesc"),
+        title: t("tools.stats-card.downloaded"),
+        description: t("tools.stats-card.downloadedDesc"),
       });
     } catch (error) {
       console.error("Download failed:", error);
       toast({
-        title: t("tools.statsCard.errorTitle"),
-        description: t("tools.statsCard.errorDownload"),
+        title: t("tools.stats-card.errorTitle"),
+        description: t("tools.stats-card.errorDownload"),
         variant: "destructive",
       });
     } finally {
@@ -89,12 +89,12 @@ export default function StatsCardPage() {
   };
 
   const handleShare = async () => {
-    const text = t("tools.statsCard.shareText", { username: username || "Creator" });
+    const text = t("tools.stats-card.shareText", { username: username || "Creator" });
     
     if (navigator.share) {
       try {
         await navigator.share({
-          title: t("tools.statsCard.shareTitle"),
+          title: t("tools.stats-card.shareTitle"),
           text,
           url: window.location.href,
         });
@@ -109,8 +109,8 @@ export default function StatsCardPage() {
 
   return (
     <ToolLayout
-      titleKey="tools.statsCard.title"
-      descriptionKey="tools.statsCard.description"
+      titleKey="tools.stats-card.title"
+      descriptionKey="tools.stats-card.description"
       icon={<Award className="w-10 h-10" />}
       gradient="from-amber-500 to-orange-500"
     >
@@ -121,14 +121,14 @@ export default function StatsCardPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Palette className="w-5 h-5 text-primary" />
-                {t("tools.statsCard.customize")}
+                {t("tools.stats-card.customize")}
               </CardTitle>
-              <CardDescription>{t("tools.statsCard.customizeDesc")}</CardDescription>
+              <CardDescription>{t("tools.stats-card.customizeDesc")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Username */}
               <div className="space-y-2">
-                <Label>{t("tools.statsCard.username")}</Label>
+                <Label>{t("tools.stats-card.username")}</Label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">@</span>
                   <Input
@@ -142,7 +142,7 @@ export default function StatsCardPage() {
 
               {/* Theme */}
               <div className="space-y-2">
-                <Label>{t("tools.statsCard.theme")}</Label>
+                <Label>{t("tools.stats-card.theme")}</Label>
                 <Select value={theme} onValueChange={setTheme}>
                   <SelectTrigger>
                     <SelectValue />
@@ -163,7 +163,7 @@ export default function StatsCardPage() {
               {/* Followers */}
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <Label>{t("tools.statsCard.followers")}</Label>
+                  <Label>{t("tools.stats-card.followers")}</Label>
                   <span className="text-sm font-medium">{formatNumber(followers)}</span>
                 </div>
                 <Slider
@@ -178,7 +178,7 @@ export default function StatsCardPage() {
               {/* Likes */}
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <Label>{t("tools.statsCard.likes")}</Label>
+                  <Label>{t("tools.stats-card.likes")}</Label>
                   <span className="text-sm font-medium">{formatNumber(likes)}</span>
                 </div>
                 <Slider
@@ -193,7 +193,7 @@ export default function StatsCardPage() {
               {/* Views */}
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <Label>{t("tools.statsCard.views")}</Label>
+                  <Label>{t("tools.stats-card.views")}</Label>
                   <span className="text-sm font-medium">{formatNumber(views)}</span>
                 </div>
                 <Slider
@@ -208,7 +208,7 @@ export default function StatsCardPage() {
               {/* Videos */}
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <Label>{t("tools.statsCard.videos")}</Label>
+                  <Label>{t("tools.stats-card.videos")}</Label>
                   <span className="text-sm font-medium">{videos}</span>
                 </div>
                 <Slider
@@ -228,7 +228,7 @@ export default function StatsCardPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-primary" />
-                  {t("tools.statsCard.preview")}
+                  {t("tools.stats-card.preview")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -253,7 +253,7 @@ export default function StatsCardPage() {
                         {username ? username.charAt(0).toUpperCase() : "?"}
                       </div>
                       <h2 className="text-2xl font-bold">@{username || "username"}</h2>
-                      <p className="text-white/70 text-sm mt-1">{t("tools.statsCard.tiktokCreator")}</p>
+                      <p className="text-white/70 text-sm mt-1">{t("tools.stats-card.tiktokCreator")}</p>
                     </div>
 
                     {/* Stats Grid */}
@@ -261,22 +261,22 @@ export default function StatsCardPage() {
                       <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
                         <Users className="w-6 h-6 mx-auto mb-2 opacity-80" />
                         <p className="text-2xl font-bold">{formatNumber(followers)}</p>
-                        <p className="text-xs text-white/70">{t("tools.statsCard.followers")}</p>
+                        <p className="text-xs text-white/70">{t("tools.stats-card.followers")}</p>
                       </div>
                       <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
                         <Heart className="w-6 h-6 mx-auto mb-2 opacity-80" />
                         <p className="text-2xl font-bold">{formatNumber(likes)}</p>
-                        <p className="text-xs text-white/70">{t("tools.statsCard.likes")}</p>
+                        <p className="text-xs text-white/70">{t("tools.stats-card.likes")}</p>
                       </div>
                       <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
                         <Eye className="w-6 h-6 mx-auto mb-2 opacity-80" />
                         <p className="text-2xl font-bold">{formatNumber(views)}</p>
-                        <p className="text-xs text-white/70">{t("tools.statsCard.views")}</p>
+                        <p className="text-xs text-white/70">{t("tools.stats-card.views")}</p>
                       </div>
                       <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
                         <Play className="w-6 h-6 mx-auto mb-2 opacity-80" />
                         <p className="text-2xl font-bold">{videos}</p>
-                        <p className="text-xs text-white/70">{t("tools.statsCard.videos")}</p>
+                        <p className="text-xs text-white/70">{t("tools.stats-card.videos")}</p>
                       </div>
                     </div>
 
@@ -305,7 +305,7 @@ export default function StatsCardPage() {
                 ) : (
                   <Download className="mr-2 h-5 w-5" />
                 )}
-                {t("tools.statsCard.download")}
+                {t("tools.stats-card.download")}
               </Button>
               <Button
                 onClick={handleShare}
@@ -313,7 +313,7 @@ export default function StatsCardPage() {
                 className="flex-1 h-12"
               >
                 <Share2 className="mr-2 h-5 w-5" />
-                {t("tools.statsCard.share")}
+                {t("tools.stats-card.share")}
               </Button>
             </div>
           </div>
