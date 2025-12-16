@@ -1,6 +1,6 @@
 'use server';
 
-import { callGeminiDirect } from '@/ai/genkit';
+import { callAI } from '@/ai/genkit';
 
 export interface HashtagItem {
   tag: string;
@@ -26,47 +26,42 @@ export interface GenerateHashtagsOutput {
 }
 
 export async function generateHashtags(input: GenerateHashtagsInput): Promise<GenerateHashtagsOutput> {
-  const prompt = `You are a TikTok marketing expert specializing in hashtag optimization. Your task is to generate REAL, ACTUALLY EXISTING hashtags for TikTok.
+  const prompt = `Generate TikTok hashtags for: "${input.topic}"
+Language: ${input.language}, Style: ${input.style}
 
-TOPIC: "${input.topic}"
-LANGUAGE: ${input.language}
-STYLE: ${input.style}
+Return JSON with this exact structure:
+{
+  "trending": [{"tag": "#fyp", "posts": "50B"}, ...9 more high-volume hashtags],
+  "medium": [{"tag": "#example", "posts": "500K"}, ...9 more medium hashtags for "${input.topic}"],
+  "niche": [{"tag": "#specific", "posts": "50K"}, ...9 more niche hashtags],
+  "recommended": ["#tag1", "#tag2", "#tag3", "#tag4", "#tag5"]
+}
 
-Generate hashtags following these STRICT rules:
-1. ALL hashtags MUST be real TikTok hashtags that actually exist
-2. Post counts should be realistic estimates based on actual TikTok data
-3. Include a mix of:
-   - Universal viral hashtags (#fyp, #foryou, #viral)
-   - Topic-specific hashtags related to "${input.topic}"
-   - Trending 2024/2025 hashtags
-   - ${input.language !== 'English' ? `Include some hashtags in ${input.language}` : ''}
-
-Categories:
-- TRENDING: 10 high-volume hashtags (1M+ posts) - mass appeal
-- MEDIUM: 10 moderate hashtags (100K-1M posts) - balanced reach
-- NICHE: 10 specific hashtags (10K-100K posts) - targeted audience
-
-Return ONLY valid JSON:
-{"trending":[{"tag":"#fyp","posts":"50B"}],"medium":[{"tag":"#example","posts":"500K"}],"niche":[{"tag":"#specific","posts":"50K"}],"recommended":["#tag1","#tag2","#tag3","#tag4","#tag5"]}`;
+Rules:
+- trending: 10 hashtags with millions/billions of posts (#fyp, #viral, #foryou, etc.)
+- medium: 10 hashtags related to "${input.topic}" with 100K-1M posts
+- niche: 10 specific hashtags under 100K posts
+- recommended: 5 best hashtags to use together
+- Use realistic post counts (K, M, B format)`;
 
   try {
-    const text = await callGeminiDirect(prompt);
+    const text = await callAI(prompt);
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (!jsonMatch) throw new Error('No JSON in response');
 
     const result = JSON.parse(jsonMatch[0]);
     return { ...result, debug: { usedFallback: false, apiCalled: true } };
   } catch (error: any) {
-    return createFallbackResponse(input.topic, input.style, error.message);
+    console.error('[generateHashtags] Error:', error.message);
+    return createFallbackResponse(input.topic, error.message);
   }
 }
 
-function createFallbackResponse(topic: string, style: string, errorMessage?: string): GenerateHashtagsOutput {
+function createFallbackResponse(topic: string, errorMessage?: string): GenerateHashtagsOutput {
   const topicTag = topic.replace(/\s+/g, '').toLowerCase().substring(0, 20);
   
-  // More realistic hashtag data based on actual TikTok trends
-  const trendingHashtags: Record<string, HashtagItem[]> = {
-    default: [
+  return {
+    trending: [
       { tag: '#fyp', posts: '54.2T' },
       { tag: '#foryou', posts: '36.8T' },
       { tag: '#viral', posts: '28.1T' },
@@ -78,24 +73,6 @@ function createFallbackResponse(topic: string, style: string, errorMessage?: str
       { tag: '#viralvideo', posts: '6.4T' },
       { tag: '#trend', posts: '4.2T' },
     ],
-    funny: [
-      { tag: '#fyp', posts: '54.2T' },
-      { tag: '#funny', posts: '8.7T' },
-      { tag: '#comedy', posts: '5.2T' },
-      { tag: '#humor', posts: '3.1T' },
-      { tag: '#lol', posts: '2.8T' },
-      { tag: '#memes', posts: '2.4T' },
-      { tag: '#laugh', posts: '1.9T' },
-      { tag: '#funnyvideos', posts: '1.6T' },
-      { tag: '#viral', posts: '28.1T' },
-      { tag: '#foryou', posts: '36.8T' },
-    ],
-  };
-
-  const styleKey = style.toLowerCase().includes('fun') ? 'funny' : 'default';
-
-  return {
-    trending: trendingHashtags[styleKey] || trendingHashtags.default,
     medium: [
       { tag: `#${topicTag}`, posts: '892K' },
       { tag: `#${topicTag}tok`, posts: '654K' },

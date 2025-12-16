@@ -1,46 +1,58 @@
-import { genkit } from 'genkit';
-import { googleAI } from '@genkit-ai/googleai';
+// DeepSeek AI Configuration
+const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY || 'sk-b5529a5f4f3c449d8a173352066f4eda';
+const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions';
 
-const API_KEY = process.env.GOOGLE_API_KEY || 'AIzaSyCmvUOAFQbVw4G7f4DJHjFBSQs0MJ_lSbY';
+export async function callAI(prompt: string): Promise<string> {
+  try {
+    const response = await fetch(DEEPSEEK_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'deepseek-chat',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are a TikTok marketing expert. Always respond with valid JSON only, no markdown or extra text.'
+          },
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
+        temperature: 0.7,
+        max_tokens: 2048,
+      }),
+    });
 
-export const ai = genkit({
-  plugins: [googleAI({ apiKey: API_KEY })],
-  model: 'googleai/gemini-2.0-flash',
-});
+    const responseText = await response.text();
+    
+    if (!response.ok) {
+      console.error('[DeepSeek] API Error:', response.status, responseText.substring(0, 200));
+      throw new Error(`DeepSeek API error: ${response.status}`);
+    }
 
-// Direct API call function
-export async function callGeminiDirect(prompt: string): Promise<string> {
-  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
-  
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      contents: [{
-        parts: [{ text: prompt }]
-      }],
-      generationConfig: {
-        temperature: 0.8,
-        maxOutputTokens: 2048,
-      }
-    }),
-  });
-
-  const responseText = await response.text();
-  
-  if (!response.ok) {
-    console.error('[Gemini] Error:', response.status);
-    throw new Error(`API ${response.status}: ${responseText.substring(0, 200)}`);
+    const data = JSON.parse(responseText);
+    const content = data.choices?.[0]?.message?.content;
+    
+    if (!content) {
+      throw new Error('Empty response from DeepSeek');
+    }
+    
+    return content;
+  } catch (error: any) {
+    console.error('[DeepSeek] Error:', error.message);
+    throw error;
   }
-
-  const data = JSON.parse(responseText);
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-  
-  if (!text) {
-    throw new Error('Empty response from Gemini');
-  }
-  
-  return text;
 }
+
+// Backward compatibility alias
+export const callGeminiDirect = callAI;
+
+// Dummy export for genkit compatibility (not used with DeepSeek)
+export const ai = {
+  definePrompt: () => {},
+  defineFlow: () => {},
+};

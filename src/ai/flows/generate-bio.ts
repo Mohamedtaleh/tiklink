@@ -1,6 +1,6 @@
 'use server';
 
-import { callGeminiDirect } from '@/ai/genkit';
+import { callAI } from '@/ai/genkit';
 
 export interface BioItem {
   text: string;
@@ -26,53 +26,48 @@ export interface GenerateBioOutput {
 }
 
 export async function generateBio(input: GenerateBioInput): Promise<GenerateBioOutput> {
-  const prompt = `You are a TikTok branding expert. Create 5 unique, HIGHLY OPTIMIZED bios for TikTok.
+  const prompt = `Create 5 TikTok bios for a ${input.niche} creator with ${input.vibe} vibe.
+${input.keywords ? `Include keywords: ${input.keywords}` : ''}
+Language: ${input.language}
 
-CREATOR DETAILS:
-- Niche: ${input.niche}
-- Vibe: ${input.vibe}
-- Keywords to include: ${input.keywords || 'none specified'}
-- Language: ${input.language}
+Return JSON:
+{
+  "bios": [
+    {"text": "bio under 80 chars", "emojis": "🔥✨", "charCount": 40, "style": "Punchy"},
+    {"text": "clever wordplay bio", "emojis": "😎", "charCount": 35, "style": "Wordplay"},
+    {"text": "follow for... bio", "emojis": "👇", "charCount": 38, "style": "Call-to-Action"},
+    {"text": "mysterious bio", "emojis": "🌙", "charCount": 42, "style": "Mysterious"},
+    {"text": "professional bio", "emojis": "✅", "charCount": 45, "style": "Professional"}
+  ],
+  "tips": ["tip about bios 1", "tip about bios 2", "tip about bios 3"]
+}
 
-BIO REQUIREMENTS:
-1. MUST be under 80 characters (TikTok limit)
-2. Should be catchy, memorable, and personality-driven
-3. Include relevant emojis that enhance the message
-4. Each bio should have a different STYLE:
-   - Punchy: Short, impactful, memorable
-   - Wordplay: Clever puns or plays on words
-   - Call-to-Action: Encourages follows/engagement
-   - Mysterious: Creates curiosity
-   - Professional: Establishes authority
-
-Include 3 PRO TIPS for optimizing TikTok bios.
-
-Return ONLY valid JSON:
-{"bios":[{"text":"bio here","emojis":"🔥✨","charCount":40,"style":"Punchy"}],"tips":["tip1","tip2","tip3"]}`;
+Rules:
+- Each bio MUST be under 80 characters
+- Make them catchy and memorable
+- Include relevant emojis
+- Each style should be different`;
 
   try {
-    const text = await callGeminiDirect(prompt);
+    const text = await callAI(prompt);
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (!jsonMatch) throw new Error('No JSON in response');
 
     const result = JSON.parse(jsonMatch[0]);
     return { ...result, debug: { usedFallback: false } };
   } catch (error: any) {
+    console.error('[generateBio] Error:', error.message);
     return createFallbackResponse(input, error.message);
   }
 }
 
 function createFallbackResponse(input: GenerateBioInput, errorMessage?: string): GenerateBioOutput {
   const niche = input.niche.toLowerCase();
-  const vibe = input.vibe.toLowerCase();
-  const isSerious = vibe.includes('serious') || vibe.includes('professional');
-  const isFunny = vibe.includes('funny') || vibe.includes('humor');
   
-  // Generate context-aware bios based on common niches
   const nicheBios: Record<string, BioItem[]> = {
     fitness: [
       { text: "Building bodies & confidence 💪 Your transformation starts here", emojis: "💪🏋️‍♀️✨", charCount: 58, style: "Punchy" },
-      { text: "Reps > Regrets 🔥 Let's get after it", emojis: "🔥💪🏆", charCount: 37, style: "Motivational" },
+      { text: "Reps > Regrets 🔥 Let's get after it", emojis: "🔥💪🏆", charCount: 37, style: "Wordplay" },
       { text: "Follow for daily workouts that actually work 👇", emojis: "👇📲💪", charCount: 47, style: "Call-to-Action" },
       { text: "The gym content you didn't know you needed 🏋️", emojis: "🏋️✨🔥", charCount: 47, style: "Mysterious" },
       { text: "Certified trainer | 10K+ transformations 💪", emojis: "💪✅📈", charCount: 44, style: "Professional" },
@@ -86,7 +81,7 @@ function createFallbackResponse(input: GenerateBioInput, errorMessage?: string):
     ],
     comedy: [
       { text: "Making you laugh is my cardio 😂", emojis: "😂🏃💀", charCount: 33, style: "Punchy" },
-      { text: "Professionally unhinged 🤪 Send help (or likes)", emojis: "🤪😂💀", charCount: 47, style: "Wordplay" },
+      { text: "Professionally unhinged 🤪 Send help", emojis: "🤪😂💀", charCount: 36, style: "Wordplay" },
       { text: "Follow before I blow up & forget you 💀", emojis: "💀😂🚀", charCount: 40, style: "Call-to-Action" },
       { text: "The content your therapist warned you about", emojis: "🤪💀😂", charCount: 44, style: "Mysterious" },
       { text: "Full-time chaos creator | Part-time adult 😅", emojis: "😅🤪✨", charCount: 46, style: "Professional" },
@@ -100,24 +95,17 @@ function createFallbackResponse(input: GenerateBioInput, errorMessage?: string):
     ],
   };
 
-  // Select appropriate bios based on niche
   let selectedBios = nicheBios.default;
-  if (niche.includes('fit') || niche.includes('gym') || niche.includes('workout')) {
-    selectedBios = nicheBios.fitness;
-  } else if (niche.includes('beauty') || niche.includes('makeup') || niche.includes('skin')) {
-    selectedBios = nicheBios.beauty;
-  } else if (niche.includes('comedy') || niche.includes('funny') || niche.includes('humor')) {
-    selectedBios = nicheBios.comedy;
-  }
+  if (niche.includes('fit') || niche.includes('gym')) selectedBios = nicheBios.fitness;
+  else if (niche.includes('beauty') || niche.includes('makeup')) selectedBios = nicheBios.beauty;
+  else if (niche.includes('comedy') || niche.includes('funny')) selectedBios = nicheBios.comedy;
 
   return {
     bios: selectedBios,
     tips: [
-      "✅ Keep it under 80 characters - TikTok truncates longer bios on mobile",
-      "✅ Include a clear CTA (follow, link, DM) to guide visitor behavior",
+      "✅ Keep it under 80 characters - TikTok truncates longer bios",
+      "✅ Include a clear CTA (follow, link, DM) to guide visitors",
       "✅ Use 2-3 emojis max - they catch the eye but too many looks spammy",
-      "✅ Update your bio weekly to reflect trending content or promotions",
-      "✅ Add your posting schedule (e.g., 'New videos daily at 7PM') for consistency",
     ],
     debug: {
       error: errorMessage,

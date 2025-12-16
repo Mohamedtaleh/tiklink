@@ -1,6 +1,6 @@
 'use server';
 
-import { callGeminiDirect } from '@/ai/genkit';
+import { callAI } from '@/ai/genkit';
 
 export interface GenerateShareableCaptionInput {
   videoTitle: string;
@@ -13,21 +13,15 @@ export interface GenerateShareableCaptionOutput {
 }
 
 export async function generateShareableCaption(input: GenerateShareableCaptionInput): Promise<GenerateShareableCaptionOutput> {
-  console.log('[generateShareableCaption] Called');
-  
-  const prompt = `Create an engaging social media caption for sharing this TikTok video:
-
+  const prompt = `Create a catchy social media caption for sharing this TikTok:
 Title: "${input.videoTitle}"
-Author: ${input.videoAuthor}
+Author: @${input.videoAuthor}
 Original: "${input.originalCaption}"
 
-Make it catchy, suitable for Instagram/Twitter. No hashtags. Under 150 characters.
-
-IMPORTANT: Return ONLY valid JSON:
-{"shareableCaption":"Your caption here"}`;
+Return JSON: {"shareableCaption": "your caption under 150 chars, no hashtags"}`;
 
   try {
-    const text = await callGeminiDirect(prompt);
+    const text = await callAI(prompt);
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     
     if (jsonMatch) {
@@ -35,12 +29,11 @@ IMPORTANT: Return ONLY valid JSON:
       return result;
     }
     
-    // If no JSON, use the text directly
     return { shareableCaption: text.trim().substring(0, 150) };
   } catch (error: any) {
     console.error('[generateShareableCaption] Error:', error.message);
     return {
-      shareableCaption: `Check out this amazing video by ${input.videoAuthor}! 🔥 You won't believe what happens!`,
+      shareableCaption: `Check out this amazing video by @${input.videoAuthor}! 🔥`,
     };
   }
 }
