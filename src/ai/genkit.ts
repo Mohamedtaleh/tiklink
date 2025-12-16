@@ -1,21 +1,22 @@
-// DeepSeek AI Configuration
-const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY || 'sk-b5529a5f4f3c449d8a173352066f4eda';
-const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions';
+// Groq AI Configuration (FREE & Fast!)
+// Get your free API key at: https://console.groq.com/
+const GROQ_API_KEY = process.env.GROQ_API_KEY || 'gsk_xxxx'; // Replace with your key
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 export async function callAI(prompt: string): Promise<string> {
   try {
-    const response = await fetch(DEEPSEEK_API_URL, {
+    const response = await fetch(GROQ_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
+        'Authorization': `Bearer ${GROQ_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'deepseek-chat',
+        model: 'llama-3.1-70b-versatile', // Free, fast, and powerful
         messages: [
           {
             role: 'system',
-            content: 'You are a TikTok marketing expert. Always respond with valid JSON only, no markdown or extra text.'
+            content: 'You are a TikTok marketing expert. Always respond with valid JSON only, no markdown code blocks, no extra text.'
           },
           {
             role: 'user',
@@ -30,20 +31,28 @@ export async function callAI(prompt: string): Promise<string> {
     const responseText = await response.text();
     
     if (!response.ok) {
-      console.error('[DeepSeek] API Error:', response.status, responseText.substring(0, 200));
-      throw new Error(`DeepSeek API error: ${response.status}`);
+      console.error('[Groq] API Error:', response.status, responseText.substring(0, 200));
+      throw new Error(`Groq API error: ${response.status}`);
     }
 
     const data = JSON.parse(responseText);
     const content = data.choices?.[0]?.message?.content;
     
     if (!content) {
-      throw new Error('Empty response from DeepSeek');
+      throw new Error('Empty response from Groq');
     }
     
-    return content;
+    // Clean up response - remove markdown code blocks if present
+    let cleanContent = content.trim();
+    if (cleanContent.startsWith('```json')) {
+      cleanContent = cleanContent.replace(/^```json\n?/, '').replace(/\n?```$/, '');
+    } else if (cleanContent.startsWith('```')) {
+      cleanContent = cleanContent.replace(/^```\n?/, '').replace(/\n?```$/, '');
+    }
+    
+    return cleanContent;
   } catch (error: any) {
-    console.error('[DeepSeek] Error:', error.message);
+    console.error('[Groq] Error:', error.message);
     throw error;
   }
 }
@@ -51,7 +60,7 @@ export async function callAI(prompt: string): Promise<string> {
 // Backward compatibility alias
 export const callGeminiDirect = callAI;
 
-// Dummy export for genkit compatibility (not used with DeepSeek)
+// Dummy export for compatibility
 export const ai = {
   definePrompt: () => {},
   defineFlow: () => {},
