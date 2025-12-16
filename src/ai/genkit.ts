@@ -1,9 +1,13 @@
 // Groq AI Configuration (FREE & Fast!)
-// Get your free API key at: https://console.groq.com/
-const GROQ_API_KEY = process.env.GROQ_API_KEY || 'gsk_xxxx'; // Replace with your key
+// Set GROQ_API_KEY in Vercel Environment Variables
+const GROQ_API_KEY = process.env.GROQ_API_KEY || '';
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 export async function callAI(prompt: string): Promise<string> {
+  if (!GROQ_API_KEY) {
+    throw new Error('GROQ_API_KEY not configured');
+  }
+  
   try {
     const response = await fetch(GROQ_API_URL, {
       method: 'POST',
@@ -12,11 +16,11 @@ export async function callAI(prompt: string): Promise<string> {
         'Authorization': `Bearer ${GROQ_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'llama-3.1-70b-versatile', // Free, fast, and powerful
+        model: 'llama-3.1-8b-instant',
         messages: [
           {
             role: 'system',
-            content: 'You are a TikTok marketing expert. Always respond with valid JSON only, no markdown code blocks, no extra text.'
+            content: 'You are a TikTok marketing expert. Always respond with valid JSON only. No markdown, no code blocks, no extra text - just pure JSON.'
           },
           {
             role: 'user',
@@ -31,7 +35,7 @@ export async function callAI(prompt: string): Promise<string> {
     const responseText = await response.text();
     
     if (!response.ok) {
-      console.error('[Groq] API Error:', response.status, responseText.substring(0, 200));
+      console.error('[Groq] API Error:', response.status, responseText.substring(0, 300));
       throw new Error(`Groq API error: ${response.status}`);
     }
 
