@@ -1,13 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { DollarSign, Clock, Hash, Flame, User, Award, Sparkles, ArrowRight, Star, TrendingUp } from "lucide-react";
+import { DollarSign, Clock, Hash, Flame, User, Award, Sparkles, ArrowRight, Star, TrendingUp, MessageSquare, FileText } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useI18n } from "@/hooks/use-i18n";
 import { cn } from "@/lib/utils";
 
 const TOOLS = [
+  {
+    id: "caption-generator",
+    href: "/tools/caption-generator",
+    icon: MessageSquare,
+    gradient: "from-violet-500 to-purple-500",
+    bgGradient: "from-violet-500/10 to-purple-500/5",
+    popular: true,
+    new: true,
+  },
+  {
+    id: "script-generator",
+    href: "/tools/script-generator",
+    icon: FileText,
+    gradient: "from-cyan-500 to-blue-500",
+    bgGradient: "from-cyan-500/10 to-blue-500/5",
+    popular: true,
+    new: true,
+  },
   {
     id: "money-calculator",
     href: "/tools/money-calculator",
@@ -24,7 +42,7 @@ const TOOLS = [
     gradient: "from-orange-500 to-red-500",
     bgGradient: "from-orange-500/10 to-red-500/5",
     popular: true,
-    new: true,
+    new: false,
   },
   {
     id: "hashtag-generator",
@@ -51,7 +69,7 @@ const TOOLS = [
     gradient: "from-pink-500 to-rose-500",
     bgGradient: "from-pink-500/10 to-rose-500/5",
     popular: true,
-    new: true,
+    new: false,
   },
   {
     id: "stats-card",
@@ -60,7 +78,7 @@ const TOOLS = [
     gradient: "from-amber-500 to-orange-500",
     bgGradient: "from-amber-500/10 to-orange-500/5",
     popular: true,
-    new: true,
+    new: false,
   },
 ];
 

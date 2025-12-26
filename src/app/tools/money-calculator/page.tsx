@@ -1,162 +1,203 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { DollarSign, Users, Eye, Heart, TrendingUp, Gift, Briefcase, Play, Share2, Sparkles, Info, AlertCircle } from "lucide-react";
+import { DollarSign, Users, Eye, Heart, TrendingUp, Gift, Briefcase, Play, Share2, Sparkles, Info, AlertCircle, Globe, Calculator, Zap, Crown, Target, BarChart3, Coins } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Progress } from "@/components/ui/progress";
 import { useI18n } from "@/hooks/use-i18n";
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/tools/tool-layout";
 import { cn } from "@/lib/utils";
 
 interface EarningsBreakdown {
-  creatorFund: { min: number; max: number };
-  sponsorships: { min: number; max: number };
-  gifts: { min: number; max: number };
+  creatorFund: { min: number; max: number; eligible: boolean };
+  sponsorships: { min: number; max: number; perPost: { min: number; max: number } };
+  gifts: { min: number; max: number; eligible: boolean };
   affiliate: { min: number; max: number };
   total: { min: number; max: number };
   tier: string;
   tierColor: string;
+  tierIcon: string;
   cpm: { min: number; max: number };
+  engagementRating: string;
+  potentialGrowth: number;
 }
 
+// 2024 Updated TikTok Creator Program Rates by Country (USD per 1000 qualified views)
+const COUNTRY_CPM_RATES: Record<string, { min: number; max: number; name: string; flag: string; currency: string; exchangeRate: number }> = {
+  us: { min: 0.50, max: 1.00, name: "United States", flag: "🇺🇸", currency: "USD", exchangeRate: 1 },
+  uk: { min: 0.40, max: 0.80, name: "United Kingdom", flag: "🇬🇧", currency: "GBP", exchangeRate: 0.79 },
+  ca: { min: 0.35, max: 0.70, name: "Canada", flag: "🇨🇦", currency: "CAD", exchangeRate: 1.36 },
+  au: { min: 0.40, max: 0.75, name: "Australia", flag: "🇦🇺", currency: "AUD", exchangeRate: 1.53 },
+  de: { min: 0.35, max: 0.65, name: "Germany", flag: "🇩🇪", currency: "EUR", exchangeRate: 0.92 },
+  fr: { min: 0.30, max: 0.60, name: "France", flag: "🇫🇷", currency: "EUR", exchangeRate: 0.92 },
+  es: { min: 0.25, max: 0.50, name: "Spain", flag: "🇪🇸", currency: "EUR", exchangeRate: 0.92 },
+  it: { min: 0.25, max: 0.50, name: "Italy", flag: "🇮🇹", currency: "EUR", exchangeRate: 0.92 },
+  br: { min: 0.08, max: 0.20, name: "Brazil", flag: "🇧🇷", currency: "BRL", exchangeRate: 4.97 },
+  mx: { min: 0.06, max: 0.15, name: "Mexico", flag: "🇲🇽", currency: "MXN", exchangeRate: 17.15 },
+  in: { min: 0.02, max: 0.08, name: "India", flag: "🇮🇳", currency: "INR", exchangeRate: 83.12 },
+  id: { min: 0.03, max: 0.10, name: "Indonesia", flag: "🇮🇩", currency: "IDR", exchangeRate: 15750 },
+  ph: { min: 0.04, max: 0.12, name: "Philippines", flag: "🇵🇭", currency: "PHP", exchangeRate: 55.8 },
+  ae: { min: 0.45, max: 0.85, name: "UAE", flag: "🇦🇪", currency: "AED", exchangeRate: 3.67 },
+  sa: { min: 0.40, max: 0.80, name: "Saudi Arabia", flag: "🇸🇦", currency: "SAR", exchangeRate: 3.75 },
+  jp: { min: 0.30, max: 0.60, name: "Japan", flag: "🇯🇵", currency: "JPY", exchangeRate: 149.5 },
+  kr: { min: 0.25, max: 0.55, name: "South Korea", flag: "🇰🇷", currency: "KRW", exchangeRate: 1320 },
+  sg: { min: 0.40, max: 0.75, name: "Singapore", flag: "🇸🇬", currency: "SGD", exchangeRate: 1.34 },
+  za: { min: 0.10, max: 0.25, name: "South Africa", flag: "🇿🇦", currency: "ZAR", exchangeRate: 18.5 },
+  ng: { min: 0.03, max: 0.10, name: "Nigeria", flag: "🇳🇬", currency: "NGN", exchangeRate: 1550 },
+};
+
+// 2024 Niche-specific sponsorship multipliers (based on industry data)
 const NICHES = [
-  { value: "general", label: "General/Entertainment", cpmMultiplier: 1.0 },
-  { value: "finance", label: "Finance/Business", cpmMultiplier: 2.5 },
-  { value: "tech", label: "Tech/Software", cpmMultiplier: 2.0 },
-  { value: "beauty", label: "Beauty/Fashion", cpmMultiplier: 1.8 },
-  { value: "fitness", label: "Fitness/Health", cpmMultiplier: 1.5 },
-  { value: "food", label: "Food/Cooking", cpmMultiplier: 1.3 },
-  { value: "gaming", label: "Gaming", cpmMultiplier: 1.2 },
-  { value: "education", label: "Education", cpmMultiplier: 1.6 },
-  { value: "music", label: "Music/Dance", cpmMultiplier: 1.1 },
-  { value: "lifestyle", label: "Lifestyle/Vlog", cpmMultiplier: 1.4 },
+  { value: "general", label: "General/Entertainment", icon: "🎭", sponsorMultiplier: 1.0, cpmMultiplier: 1.0, demandLevel: "Medium" },
+  { value: "finance", label: "Finance/Investing", icon: "💰", sponsorMultiplier: 3.0, cpmMultiplier: 2.5, demandLevel: "Very High" },
+  { value: "tech", label: "Tech/Software", icon: "💻", sponsorMultiplier: 2.5, cpmMultiplier: 2.0, demandLevel: "High" },
+  { value: "beauty", label: "Beauty/Skincare", icon: "💄", sponsorMultiplier: 2.2, cpmMultiplier: 1.8, demandLevel: "Very High" },
+  { value: "fashion", label: "Fashion/Style", icon: "👗", sponsorMultiplier: 2.0, cpmMultiplier: 1.7, demandLevel: "High" },
+  { value: "fitness", label: "Fitness/Gym", icon: "💪", sponsorMultiplier: 1.8, cpmMultiplier: 1.5, demandLevel: "High" },
+  { value: "health", label: "Health/Wellness", icon: "🧘", sponsorMultiplier: 2.0, cpmMultiplier: 1.6, demandLevel: "High" },
+  { value: "food", label: "Food/Cooking", icon: "🍳", sponsorMultiplier: 1.5, cpmMultiplier: 1.3, demandLevel: "Medium" },
+  { value: "gaming", label: "Gaming", icon: "🎮", sponsorMultiplier: 1.4, cpmMultiplier: 1.2, demandLevel: "Medium" },
+  { value: "education", label: "Education/Learning", icon: "📚", sponsorMultiplier: 1.8, cpmMultiplier: 1.6, demandLevel: "High" },
+  { value: "music", label: "Music/Dance", icon: "🎵", sponsorMultiplier: 1.2, cpmMultiplier: 1.1, demandLevel: "Medium" },
+  { value: "lifestyle", label: "Lifestyle/Vlog", icon: "✨", sponsorMultiplier: 1.5, cpmMultiplier: 1.4, demandLevel: "Medium" },
+  { value: "parenting", label: "Parenting/Family", icon: "👶", sponsorMultiplier: 1.8, cpmMultiplier: 1.5, demandLevel: "High" },
+  { value: "travel", label: "Travel", icon: "✈️", sponsorMultiplier: 1.7, cpmMultiplier: 1.4, demandLevel: "High" },
+  { value: "pets", label: "Pets/Animals", icon: "🐕", sponsorMultiplier: 1.4, cpmMultiplier: 1.2, demandLevel: "Medium" },
 ];
 
-const COUNTRIES = [
-  { value: "us", label: "United States", multiplier: 1.0 },
-  { value: "uk", label: "United Kingdom", multiplier: 0.85 },
-  { value: "ca", label: "Canada", multiplier: 0.75 },
-  { value: "au", label: "Australia", multiplier: 0.80 },
-  { value: "de", label: "Germany", multiplier: 0.70 },
-  { value: "fr", label: "France", multiplier: 0.65 },
-  { value: "br", label: "Brazil", multiplier: 0.25 },
-  { value: "mx", label: "Mexico", multiplier: 0.20 },
-  { value: "in", label: "India", multiplier: 0.15 },
-  { value: "other", label: "Other", multiplier: 0.30 },
-];
+// 2024 Sponsorship rates per post (based on industry benchmarks)
+const SPONSORSHIP_RATES = {
+  nano: { followers: [1000, 10000], perPost: { min: 10, max: 100 }, postsPerMonth: 1 },
+  micro: { followers: [10000, 50000], perPost: { min: 100, max: 500 }, postsPerMonth: 2 },
+  midTier: { followers: [50000, 100000], perPost: { min: 500, max: 1500 }, postsPerMonth: 3 },
+  macro: { followers: [100000, 500000], perPost: { min: 1500, max: 5000 }, postsPerMonth: 4 },
+  mega: { followers: [500000, 1000000], perPost: { min: 5000, max: 15000 }, postsPerMonth: 5 },
+  celebrity: { followers: [1000000, 10000000], perPost: { min: 15000, max: 50000 }, postsPerMonth: 6 },
+  superstar: { followers: [10000000, Infinity], perPost: { min: 50000, max: 250000 }, postsPerMonth: 8 },
+};
 
 function calculateEarnings(
-  followers: number, 
-  avgViews: number, 
+  followers: number,
+  avgViews: number,
   engagementRate: number,
   niche: string,
-  country: string
+  country: string,
+  postsPerWeek: number
 ): EarningsBreakdown {
-  const nicheData = NICHES.find(n => n.value === niche) || NICHES[0];
-  const countryData = COUNTRIES.find(c => c.value === country) || COUNTRIES[0];
-  
-  // TikTok Creativity Program (replaced Creator Fund) - $0.50-$1.00 per 1000 qualified views
-  // Only videos 1min+ qualify, estimate 30% of views qualify
-  const qualifiedViews = avgViews * 0.3;
-  const baseCPM = 0.70; // Average CPM
-  const adjustedCPM = baseCPM * nicheData.cpmMultiplier * countryData.multiplier;
-  
-  const creatorFundMin = (qualifiedViews / 1000) * (adjustedCPM * 0.5) * 30;
-  const creatorFundMax = (qualifiedViews / 1000) * (adjustedCPM * 1.5) * 30;
+  const nicheData = NICHES.find((n) => n.value === niche) || NICHES[0];
+  const countryData = COUNTRY_CPM_RATES[country] || COUNTRY_CPM_RATES.us;
 
-  // Sponsorship rates based on real industry data
-  // Nano (1K-10K): $5-$25/post, Micro (10K-100K): $25-$125/post
-  // Mid (100K-500K): $125-$1,250/post, Macro (500K-1M): $1,250-$2,500/post
-  // Mega (1M+): $2,500-$10,000+/post
-  let sponsorBase = 0;
-  let sponsorMax = 0;
-  
-  if (followers >= 10000000) {
-    sponsorBase = 15000;
-    sponsorMax = 50000;
-  } else if (followers >= 1000000) {
-    sponsorBase = 2500;
-    sponsorMax = 15000;
-  } else if (followers >= 500000) {
-    sponsorBase = 1250;
-    sponsorMax = 3500;
-  } else if (followers >= 100000) {
-    sponsorBase = 250;
-    sponsorMax = 1500;
-  } else if (followers >= 10000) {
-    sponsorBase = 50;
-    sponsorMax = 250;
-  } else if (followers >= 1000) {
-    sponsorBase = 10;
-    sponsorMax = 75;
-  }
-  
-  // Engagement rate bonus (industry standard: 3-6% is good)
-  const engagementMultiplier = engagementRate > 8 ? 2.0 : engagementRate > 6 ? 1.5 : engagementRate > 4 ? 1.2 : 1.0;
-  const nicheSponsorship = nicheData.cpmMultiplier; // Finance/tech pays more
-  
-  // Assume 1-2 sponsored posts per month for smaller, 4-8 for larger creators
-  const postsPerMonth = followers >= 100000 ? 4 : followers >= 10000 ? 2 : 1;
-  
-  const sponsorshipsMin = sponsorBase * engagementMultiplier * nicheSponsorship * postsPerMonth * 0.5;
-  const sponsorshipsMax = sponsorMax * engagementMultiplier * nicheSponsorship * postsPerMonth;
+  // Eligibility checks
+  const creatorProgramEligible = followers >= 10000;
+  const liveGiftsEligible = followers >= 1000;
 
-  // Live Gifts - Based on actual TikTok data
-  // Average gift value: $0.001-$0.05 per like on live
-  // Estimate 1% of followers attend lives, with 5% gifting
+  // TikTok Creativity Program (2024 rates)
+  // Only videos 1min+ qualify, estimate 40% of videos are 1min+
+  const monthlyViews = avgViews * postsPerWeek * 4;
+  const qualifiedViews = monthlyViews * 0.4;
+  const baseCpmMin = countryData.min * nicheData.cpmMultiplier;
+  const baseCpmMax = countryData.max * nicheData.cpmMultiplier;
+
+  const creatorFundMin = creatorProgramEligible ? (qualifiedViews / 1000) * baseCpmMin : 0;
+  const creatorFundMax = creatorProgramEligible ? (qualifiedViews / 1000) * baseCpmMax : 0;
+
+  // Sponsorship calculation
+  let sponsorTier = SPONSORSHIP_RATES.nano;
+  if (followers >= 10000000) sponsorTier = SPONSORSHIP_RATES.superstar;
+  else if (followers >= 1000000) sponsorTier = SPONSORSHIP_RATES.celebrity;
+  else if (followers >= 500000) sponsorTier = SPONSORSHIP_RATES.mega;
+  else if (followers >= 100000) sponsorTier = SPONSORSHIP_RATES.macro;
+  else if (followers >= 50000) sponsorTier = SPONSORSHIP_RATES.midTier;
+  else if (followers >= 10000) sponsorTier = SPONSORSHIP_RATES.micro;
+
+  // Engagement rate bonus (industry standard: 4-6% is good, 8%+ is excellent)
+  const engagementMultiplier = engagementRate >= 10 ? 2.0 : engagementRate >= 8 ? 1.7 : engagementRate >= 6 ? 1.4 : engagementRate >= 4 ? 1.2 : 1.0;
+
+  const sponsorPerPostMin = Math.round(sponsorTier.perPost.min * nicheData.sponsorMultiplier * engagementMultiplier);
+  const sponsorPerPostMax = Math.round(sponsorTier.perPost.max * nicheData.sponsorMultiplier * engagementMultiplier);
+  const sponsorshipsMin = sponsorPerPostMin * Math.max(1, Math.floor(sponsorTier.postsPerMonth * 0.5));
+  const sponsorshipsMax = sponsorPerPostMax * sponsorTier.postsPerMonth;
+
+  // Live Gifts calculation (TikTok takes 50%, creator gets 50%)
+  // Average: 0.5-2% of followers attend lives, 2-5% of those gift
   const liveViewers = followers * 0.01;
-  const gifters = liveViewers * 0.05;
-  const avgGiftValue = followers > 100000 ? 5 : followers > 10000 ? 2 : 0.5;
-  
-  const giftsMin = followers > 10000 ? gifters * avgGiftValue * 4 : 0; // 4 lives/month
-  const giftsMax = followers > 10000 ? gifters * avgGiftValue * 8 * 2 : 0;
+  const gifters = liveViewers * 0.03;
+  const avgGiftValue = followers > 500000 ? 15 : followers > 100000 ? 8 : followers > 10000 ? 3 : 1;
+  const livesPerMonth = 4;
 
-  // Affiliate/Shop commission - TikTok Shop averages 10-20% commission
-  const affiliateConversion = 0.002; // 0.2% of viewers buy
-  const avgOrderValue = 35;
+  const giftsMin = liveGiftsEligible ? Math.round(gifters * avgGiftValue * livesPerMonth * 0.5) : 0;
+  const giftsMax = liveGiftsEligible ? Math.round(gifters * avgGiftValue * livesPerMonth * 2 * 0.5) : 0;
+
+  // TikTok Shop & Affiliate (10-20% commission, 0.1-0.3% conversion rate)
+  const conversionRate = 0.002;
+  const avgOrderValue = 40;
   const commissionRate = 0.15;
-  
-  const affiliateMin = avgViews * affiliateConversion * avgOrderValue * commissionRate * 0.5 * 30;
-  const affiliateMax = avgViews * affiliateConversion * avgOrderValue * commissionRate * 2 * 30;
+  const affiliateMin = Math.round(monthlyViews * conversionRate * 0.5 * avgOrderValue * commissionRate);
+  const affiliateMax = Math.round(monthlyViews * conversionRate * 1.5 * avgOrderValue * commissionRate);
 
   const totalMin = creatorFundMin + sponsorshipsMin + giftsMin + affiliateMin;
   const totalMax = creatorFundMax + sponsorshipsMax + giftsMax + affiliateMax;
 
   // Determine tier
-  let tier = "Rising Star";
-  let tierColor = "bg-blue-500";
-  
+  let tier = "Aspiring Creator";
+  let tierColor = "bg-slate-500";
+  let tierIcon = "⭐";
+
   if (followers >= 10000000) {
-    tier = "Mega Creator 👑";
-    tierColor = "bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500";
+    tier = "Mega Celebrity";
+    tierColor = "bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600";
+    tierIcon = "👑";
   } else if (followers >= 1000000) {
-    tier = "Macro Influencer 🌟";
+    tier = "Macro Influencer";
     tierColor = "bg-gradient-to-r from-orange-500 to-red-500";
+    tierIcon = "🔥";
+  } else if (followers >= 500000) {
+    tier = "Rising Star";
+    tierColor = "bg-gradient-to-r from-purple-500 to-pink-500";
+    tierIcon = "⚡";
   } else if (followers >= 100000) {
-    tier = "Mid-Tier Creator 📈";
+    tier = "Mid-Tier Creator";
     tierColor = "bg-gradient-to-r from-green-500 to-emerald-500";
+    tierIcon = "📈";
   } else if (followers >= 10000) {
-    tier = "Micro Influencer 🚀";
+    tier = "Micro Influencer";
     tierColor = "bg-gradient-to-r from-blue-500 to-cyan-500";
+    tierIcon = "🚀";
   } else if (followers >= 1000) {
-    tier = "Nano Creator ⭐";
-    tierColor = "bg-gradient-to-r from-gray-500 to-slate-500";
+    tier = "Nano Creator";
+    tierColor = "bg-gradient-to-r from-gray-500 to-slate-600";
+    tierIcon = "✨";
   }
 
+  // Engagement rating
+  let engagementRating = "Needs Improvement";
+  if (engagementRate >= 10) engagementRating = "Exceptional 🔥";
+  else if (engagementRate >= 8) engagementRating = "Excellent";
+  else if (engagementRate >= 6) engagementRating = "Very Good";
+  else if (engagementRate >= 4) engagementRating = "Good";
+  else if (engagementRate >= 2) engagementRating = "Average";
+
+  // Growth potential (based on engagement and niche demand)
+  const potentialGrowth = Math.min(100, Math.round((engagementRate / 10) * 50 + (nicheData.sponsorMultiplier / 3) * 50));
+
   return {
-    creatorFund: { min: Math.round(creatorFundMin), max: Math.round(creatorFundMax) },
-    sponsorships: { min: Math.round(sponsorshipsMin), max: Math.round(sponsorshipsMax) },
-    gifts: { min: Math.round(giftsMin), max: Math.round(giftsMax) },
-    affiliate: { min: Math.round(affiliateMin), max: Math.round(affiliateMax) },
+    creatorFund: { min: Math.round(creatorFundMin), max: Math.round(creatorFundMax), eligible: creatorProgramEligible },
+    sponsorships: { min: Math.round(sponsorshipsMin), max: Math.round(sponsorshipsMax), perPost: { min: sponsorPerPostMin, max: sponsorPerPostMax } },
+    gifts: { min: giftsMin, max: giftsMax, eligible: liveGiftsEligible },
+    affiliate: { min: affiliateMin, max: affiliateMax },
     total: { min: Math.round(totalMin), max: Math.round(totalMax) },
     tier,
     tierColor,
-    cpm: { min: adjustedCPM * 0.5, max: adjustedCPM * 1.5 },
+    tierIcon,
+    cpm: { min: baseCpmMin, max: baseCpmMax },
+    engagementRating,
+    potentialGrowth,
   };
 }
 
@@ -166,10 +207,10 @@ function formatNumber(num: number): string {
   return num.toString();
 }
 
-function formatCurrency(num: number): string {
+function formatCurrency(num: number, currency: string = "USD"): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "USD",
+    currency: currency,
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(num);
@@ -179,35 +220,47 @@ export default function MoneyCalculatorPage() {
   const { t } = useI18n();
   const { toast } = useToast();
   const resultRef = useRef<HTMLDivElement>(null);
-  
+
   const [followers, setFollowers] = useState<number>(100000);
   const [avgViews, setAvgViews] = useState<number>(50000);
   const [engagementRate, setEngagementRate] = useState<number>(5);
   const [niche, setNiche] = useState<string>("general");
   const [country, setCountry] = useState<string>("us");
+  const [postsPerWeek, setPostsPerWeek] = useState<number>(5);
   const [calculated, setCalculated] = useState(false);
   const [earnings, setEarnings] = useState<EarningsBreakdown | null>(null);
+  const [showLocalCurrency, setShowLocalCurrency] = useState(false);
+
+  const selectedCountry = COUNTRY_CPM_RATES[country];
+  const selectedNiche = NICHES.find((n) => n.value === niche);
 
   const handleCalculate = () => {
-    const result = calculateEarnings(followers, avgViews, engagementRate, niche, country);
+    const result = calculateEarnings(followers, avgViews, engagementRate, niche, country, postsPerWeek);
     setEarnings(result);
     setCalculated(true);
-    
+
     setTimeout(() => {
       resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
   };
 
+  const displayCurrency = (amount: number) => {
+    if (showLocalCurrency && selectedCountry.currency !== "USD") {
+      return formatCurrency(amount * selectedCountry.exchangeRate, selectedCountry.currency);
+    }
+    return formatCurrency(amount);
+  };
+
   const handleShare = async () => {
     const shareData = {
       title: t("tools.money-calculator.shareTitle"),
-      text: t("tools.money-calculator.shareText", { 
+      text: t("tools.money-calculator.shareText", {
         min: formatCurrency(earnings?.total.min || 0),
-        max: formatCurrency(earnings?.total.max || 0)
+        max: formatCurrency(earnings?.total.max || 0),
       }),
       url: window.location.href,
     };
-    
+
     if (navigator.share) {
       await navigator.share(shareData);
     } else {
@@ -226,59 +279,90 @@ export default function MoneyCalculatorPage() {
       icon={<DollarSign className="w-10 h-10" />}
       gradient="from-green-500 to-emerald-500"
     >
-      <div className="max-w-4xl mx-auto space-y-8">
+      <div className="max-w-5xl mx-auto space-y-8">
+        {/* Trust Badges */}
+        <div className="flex flex-wrap justify-center gap-4 text-sm">
+          <Badge variant="outline" className="px-4 py-2">
+            <BarChart3 className="w-4 h-4 mr-2" />
+            2024 Industry Data
+          </Badge>
+          <Badge variant="outline" className="px-4 py-2">
+            <Globe className="w-4 h-4 mr-2" />
+            20+ Countries
+          </Badge>
+          <Badge variant="outline" className="px-4 py-2">
+            <Target className="w-4 h-4 mr-2" />
+            15 Niches
+          </Badge>
+        </div>
+
         {/* Calculator Form */}
         <Card className="shadow-2xl shadow-primary/10 border-0 bg-card/80 backdrop-blur-sm">
           <CardHeader className="text-center pb-2">
             <CardTitle className="text-2xl font-headline flex items-center justify-center gap-2">
-              <Sparkles className="w-6 h-6 text-accent" />
+              <Calculator className="w-6 h-6 text-accent" />
               {t("tools.money-calculator.formTitle")}
             </CardTitle>
-            <CardDescription>{t("tools.money-calculator.formDescription")}</CardDescription>
+            <CardDescription>Get accurate 2024 earnings estimates based on real creator data</CardDescription>
           </CardHeader>
           <CardContent className="space-y-8 pt-6">
             {/* Niche & Country Selection */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
-                  <Briefcase className="w-4 h-4 text-primary" />
+                  <Sparkles className="w-4 h-4 text-primary" />
                   Content Niche
                 </Label>
                 <Select value={niche} onValueChange={setNiche}>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-12">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     {NICHES.map((n) => (
                       <SelectItem key={n.value} value={n.value}>
-                        {n.label} {n.cpmMultiplier > 1.5 && "💰"}
+                        <div className="flex items-center justify-between w-full">
+                          <span>
+                            {n.icon} {n.label}
+                          </span>
+                          {n.sponsorMultiplier >= 2 && <Badge className="ml-2 bg-green-500 text-xs">High Paying</Badge>}
+                        </div>
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                <p className="text-xs text-muted-foreground">Higher-paying niches earn more from sponsorships</p>
+                {selectedNiche && (
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <span>Sponsor demand:</span>
+                    <Badge variant="outline" className="text-xs">
+                      {selectedNiche.demandLevel}
+                    </Badge>
+                  </div>
+                )}
               </div>
-              
+
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
-                  🌍 Primary Audience Location
+                  <Globe className="w-4 h-4 text-primary" />
+                  Primary Audience Location
                 </Label>
                 <Select value={country} onValueChange={setCountry}>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-12">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {COUNTRIES.map((c) => (
-                      <SelectItem key={c.value} value={c.value}>
-                        {c.label}
+                    {Object.entries(COUNTRY_CPM_RATES).map(([code, data]) => (
+                      <SelectItem key={code} value={code}>
+                        {data.flag} {data.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                <p className="text-xs text-muted-foreground">CPM rates vary by country</p>
+                <p className="text-xs text-muted-foreground">
+                  CPM: ${selectedCountry.min.toFixed(2)} - ${selectedCountry.max.toFixed(2)} per 1K views
+                </p>
               </div>
             </div>
-            
+
             {/* Followers */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
@@ -286,20 +370,16 @@ export default function MoneyCalculatorPage() {
                   <Users className="w-5 h-5 text-primary" />
                   {t("tools.money-calculator.followers")}
                 </Label>
-                <Badge variant="secondary" className="text-lg px-4 py-1">
+                <Badge variant="secondary" className="text-lg px-4 py-1 font-bold">
                   {formatNumber(followers)}
                 </Badge>
               </div>
-              <Slider
-                value={[followers]}
-                onValueChange={(v) => setFollowers(v[0])}
-                min={1000}
-                max={50000000}
-                step={1000}
-                className="py-4"
-              />
+              <Slider value={[followers]} onValueChange={(v) => setFollowers(v[0])} min={1000} max={50000000} step={1000} className="py-4" />
               <div className="flex justify-between text-xs text-muted-foreground">
                 <span>1K</span>
+                <span>100K</span>
+                <span>1M</span>
+                <span>10M</span>
                 <span>50M</span>
               </div>
             </div>
@@ -309,22 +389,18 @@ export default function MoneyCalculatorPage() {
               <div className="flex items-center justify-between">
                 <Label className="text-base font-medium flex items-center gap-2">
                   <Eye className="w-5 h-5 text-primary" />
-                  {t("tools.money-calculator.avgViews")}
+                  Average Views Per Video
                 </Label>
-                <Badge variant="secondary" className="text-lg px-4 py-1">
+                <Badge variant="secondary" className="text-lg px-4 py-1 font-bold">
                   {formatNumber(avgViews)}
                 </Badge>
               </div>
-              <Slider
-                value={[avgViews]}
-                onValueChange={(v) => setAvgViews(v[0])}
-                min={100}
-                max={10000000}
-                step={100}
-                className="py-4"
-              />
+              <Slider value={[avgViews]} onValueChange={(v) => setAvgViews(v[0])} min={100} max={10000000} step={100} className="py-4" />
               <div className="flex justify-between text-xs text-muted-foreground">
                 <span>100</span>
+                <span>10K</span>
+                <span>100K</span>
+                <span>1M</span>
                 <span>10M</span>
               </div>
             </div>
@@ -334,34 +410,45 @@ export default function MoneyCalculatorPage() {
               <div className="flex items-center justify-between">
                 <Label className="text-base font-medium flex items-center gap-2">
                   <Heart className="w-5 h-5 text-primary" />
-                  {t("tools.money-calculator.engagementRate")}
+                  Engagement Rate
                 </Label>
-                <Badge variant="secondary" className="text-lg px-4 py-1">
+                <Badge variant="secondary" className="text-lg px-4 py-1 font-bold">
                   {engagementRate.toFixed(1)}%
-                  {engagementRate > 6 && " 🔥"}
+                  {engagementRate >= 8 && " 🔥"}
                 </Badge>
               </div>
-              <Slider
-                value={[engagementRate]}
-                onValueChange={(v) => setEngagementRate(v[0])}
-                min={0.1}
-                max={20}
-                step={0.1}
-                className="py-4"
-              />
+              <Slider value={[engagementRate]} onValueChange={(v) => setEngagementRate(v[0])} min={0.5} max={20} step={0.1} className="py-4" />
               <div className="flex justify-between text-xs text-muted-foreground">
-                <span>0.1% (Low)</span>
-                <span>3-6% (Good)</span>
-                <span>20% (Viral)</span>
+                <span className="text-red-500">0.5% Low</span>
+                <span className="text-yellow-500">3% Average</span>
+                <span className="text-green-500">6% Good</span>
+                <span className="text-emerald-500">10%+ Excellent</span>
               </div>
             </div>
 
-            <Button 
-              onClick={handleCalculate} 
-              className="w-full h-14 text-lg font-bold bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600"
-            >
-              <DollarSign className="mr-2 h-5 w-5" />
-              {t("tools.money-calculator.calculate")}
+            {/* Posts Per Week */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <Label className="text-base font-medium flex items-center gap-2">
+                  <Play className="w-5 h-5 text-primary" />
+                  Posts Per Week
+                </Label>
+                <Badge variant="secondary" className="text-lg px-4 py-1 font-bold">
+                  {postsPerWeek} posts
+                </Badge>
+              </div>
+              <Slider value={[postsPerWeek]} onValueChange={(v) => setPostsPerWeek(v[0])} min={1} max={21} step={1} className="py-4" />
+              <div className="flex justify-between text-xs text-muted-foreground">
+                <span>1/week</span>
+                <span>1/day</span>
+                <span>2/day</span>
+                <span>3/day</span>
+              </div>
+            </div>
+
+            <Button onClick={handleCalculate} className="w-full h-14 text-lg font-bold bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600">
+              <Calculator className="mr-2 h-5 w-5" />
+              Calculate My Earnings
             </Button>
           </CardContent>
         </Card>
@@ -372,87 +459,115 @@ export default function MoneyCalculatorPage() {
             {/* Main Earnings Card */}
             <Card className="overflow-hidden border-0 shadow-2xl">
               <div className={cn("p-1", earnings.tierColor)}>
-                <div className="bg-card rounded-lg p-6">
+                <div className="bg-card rounded-lg p-8">
                   <div className="text-center space-y-4">
-                    <Badge className={cn("text-white px-4 py-1", earnings.tierColor)}>
-                      {earnings.tier}
-                    </Badge>
-                    <h3 className="text-xl font-medium text-muted-foreground">
-                      {t("tools.money-calculator.estimatedMonthly")}
-                    </h3>
-                    <div className="text-5xl md:text-6xl font-bold font-headline bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent">
-                      {formatCurrency(earnings.total.min)} - {formatCurrency(earnings.total.max)}
+                    <div className="flex items-center justify-center gap-3">
+                      <span className="text-4xl">{earnings.tierIcon}</span>
+                      <Badge className={cn("text-white px-6 py-2 text-lg", earnings.tierColor)}>{earnings.tier}</Badge>
                     </div>
-                    <p className="text-sm text-muted-foreground">
-                      {t("tools.money-calculator.perMonth")}
-                    </p>
-                    <p className="text-xs text-muted-foreground flex items-center justify-center gap-1">
-                      <Info className="w-3 h-3" />
-                      Estimated CPM: ${earnings.cpm.min.toFixed(2)} - ${earnings.cpm.max.toFixed(2)}
-                    </p>
+                    <h3 className="text-xl font-medium text-muted-foreground">Estimated Monthly Earnings</h3>
+                    <div className="text-5xl md:text-7xl font-bold font-headline bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent">
+                      {displayCurrency(earnings.total.min)} - {displayCurrency(earnings.total.max)}
+                    </div>
+                    <p className="text-sm text-muted-foreground">per month in {showLocalCurrency ? selectedCountry.currency : "USD"}</p>
+
+                    {selectedCountry.currency !== "USD" && (
+                      <Button variant="outline" size="sm" onClick={() => setShowLocalCurrency(!showLocalCurrency)}>
+                        <Coins className="w-4 h-4 mr-2" />
+                        Show in {showLocalCurrency ? "USD" : selectedCountry.currency}
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>
             </Card>
 
+            {/* Performance Metrics */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Card className="border-0 shadow-lg">
+                <CardContent className="pt-6 text-center">
+                  <p className="text-sm text-muted-foreground mb-1">Engagement Rating</p>
+                  <p className="text-lg font-bold text-primary">{earnings.engagementRating}</p>
+                </CardContent>
+              </Card>
+              <Card className="border-0 shadow-lg">
+                <CardContent className="pt-6 text-center">
+                  <p className="text-sm text-muted-foreground mb-1">Your CPM Range</p>
+                  <p className="text-lg font-bold">${earnings.cpm.min.toFixed(2)} - ${earnings.cpm.max.toFixed(2)}</p>
+                </CardContent>
+              </Card>
+              <Card className="border-0 shadow-lg">
+                <CardContent className="pt-6 text-center">
+                  <p className="text-sm text-muted-foreground mb-1">Per Sponsored Post</p>
+                  <p className="text-lg font-bold text-purple-500">
+                    {displayCurrency(earnings.sponsorships.perPost.min)} - {displayCurrency(earnings.sponsorships.perPost.max)}
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="border-0 shadow-lg">
+                <CardContent className="pt-6 text-center">
+                  <p className="text-sm text-muted-foreground mb-1">Growth Potential</p>
+                  <div className="flex items-center justify-center gap-2">
+                    <Progress value={earnings.potentialGrowth} className="h-2 w-16" />
+                    <span className="font-bold">{earnings.potentialGrowth}%</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
             {/* Breakdown Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {/* Creator Program */}
-              <Card className="bg-gradient-to-br from-blue-500/10 to-blue-500/5 border-blue-500/20">
+              <Card className={cn("border-0 shadow-lg", earnings.creatorFund.eligible ? "bg-gradient-to-br from-blue-500/10 to-blue-500/5" : "bg-muted/50 opacity-75")}>
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 rounded-lg bg-blue-500/20">
-                      <Play className="w-5 h-5 text-blue-500" />
+                    <div className={cn("p-2 rounded-lg", earnings.creatorFund.eligible ? "bg-blue-500/20" : "bg-gray-500/20")}>
+                      <Play className={cn("w-5 h-5", earnings.creatorFund.eligible ? "text-blue-500" : "text-gray-500")} />
                     </div>
                     <span className="font-medium text-sm">Creativity Program</span>
                   </div>
                   <p className="text-xl font-bold">
-                    {formatCurrency(earnings.creatorFund.min)} - {formatCurrency(earnings.creatorFund.max)}
+                    {displayCurrency(earnings.creatorFund.min)} - {displayCurrency(earnings.creatorFund.max)}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Videos 1min+ only
-                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">{earnings.creatorFund.eligible ? "For 1min+ videos only" : "⚠️ Need 10K+ followers"}</p>
                 </CardContent>
               </Card>
 
               {/* Sponsorships */}
-              <Card className="bg-gradient-to-br from-purple-500/10 to-purple-500/5 border-purple-500/20">
+              <Card className="bg-gradient-to-br from-purple-500/10 to-purple-500/5 border-0 shadow-lg">
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 rounded-lg bg-purple-500/20">
                       <Briefcase className="w-5 h-5 text-purple-500" />
                     </div>
                     <span className="font-medium text-sm">Brand Deals</span>
+                    <Badge className="bg-purple-500 text-white text-xs">Top Earner</Badge>
                   </div>
                   <p className="text-xl font-bold">
-                    {formatCurrency(earnings.sponsorships.min)} - {formatCurrency(earnings.sponsorships.max)}
+                    {displayCurrency(earnings.sponsorships.min)} - {displayCurrency(earnings.sponsorships.max)}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Biggest income source
-                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">{selectedNiche?.demandLevel} demand in {selectedNiche?.label}</p>
                 </CardContent>
               </Card>
 
               {/* Live Gifts */}
-              <Card className="bg-gradient-to-br from-pink-500/10 to-pink-500/5 border-pink-500/20">
+              <Card className={cn("border-0 shadow-lg", earnings.gifts.eligible ? "bg-gradient-to-br from-pink-500/10 to-pink-500/5" : "bg-muted/50 opacity-75")}>
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 rounded-lg bg-pink-500/20">
-                      <Gift className="w-5 h-5 text-pink-500" />
+                    <div className={cn("p-2 rounded-lg", earnings.gifts.eligible ? "bg-pink-500/20" : "bg-gray-500/20")}>
+                      <Gift className={cn("w-5 h-5", earnings.gifts.eligible ? "text-pink-500" : "text-gray-500")} />
                     </div>
                     <span className="font-medium text-sm">Live Gifts</span>
                   </div>
                   <p className="text-xl font-bold">
-                    {formatCurrency(earnings.gifts.min)} - {formatCurrency(earnings.gifts.max)}
+                    {displayCurrency(earnings.gifts.min)} - {displayCurrency(earnings.gifts.max)}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {followers < 10000 ? "Need 10K+ followers" : "Based on live frequency"}
-                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">{earnings.gifts.eligible ? "Based on 4 lives/month" : "⚠️ Need 1K+ followers"}</p>
                 </CardContent>
               </Card>
 
               {/* Affiliate */}
-              <Card className="bg-gradient-to-br from-amber-500/10 to-amber-500/5 border-amber-500/20">
+              <Card className="bg-gradient-to-br from-amber-500/10 to-amber-500/5 border-0 shadow-lg">
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 rounded-lg bg-amber-500/20">
@@ -461,11 +576,9 @@ export default function MoneyCalculatorPage() {
                     <span className="font-medium text-sm">TikTok Shop</span>
                   </div>
                   <p className="text-xl font-bold">
-                    {formatCurrency(earnings.affiliate.min)} - {formatCurrency(earnings.affiliate.max)}
+                    {displayCurrency(earnings.affiliate.min)} - {displayCurrency(earnings.affiliate.max)}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    10-20% commission
-                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">10-20% commission rate</p>
                 </CardContent>
               </Card>
             </div>
@@ -473,38 +586,46 @@ export default function MoneyCalculatorPage() {
             {/* Yearly Projection */}
             <Card className="border-0 shadow-xl bg-gradient-to-r from-green-500/5 to-emerald-500/5">
               <CardContent className="pt-6">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between flex-wrap gap-4">
                   <div className="flex items-center gap-3">
                     <div className="p-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500">
-                      <TrendingUp className="w-6 h-6 text-white" />
+                      <Crown className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg">{t("tools.money-calculator.yearlyProjection")}</h4>
-                      <p className="text-sm text-muted-foreground">{t("tools.money-calculator.yearlyDesc")}</p>
+                      <h4 className="font-bold text-lg">Yearly Potential</h4>
+                      <p className="text-sm text-muted-foreground">If you maintain current performance</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-3xl font-bold bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent">
-                      {formatCurrency(earnings.total.min * 12)} - {formatCurrency(earnings.total.max * 12)}
+                    <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent">
+                      {displayCurrency(earnings.total.min * 12)} - {displayCurrency(earnings.total.max * 12)}
                     </p>
-                    <p className="text-sm text-muted-foreground">{t("tools.money-calculator.perYear")}</p>
+                    <p className="text-sm text-muted-foreground">per year</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Important Notice */}
+            {/* Methodology */}
             <Card className="border-amber-500/30 bg-amber-500/5">
               <CardContent className="pt-6">
                 <div className="flex gap-3">
-                  <AlertCircle className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                  <div className="text-sm text-muted-foreground">
-                    <p className="font-medium text-foreground mb-2">Important Notes:</p>
-                    <ul className="list-disc list-inside space-y-1">
-                      <li>TikTok Creativity Program requires 10K+ followers and videos 1 minute or longer</li>
-                      <li>Brand deals vary significantly based on your specific metrics and negotiation skills</li>
-                      <li>Actual earnings depend on content quality, posting consistency, and niche demand</li>
-                      <li>These are estimates based on industry averages - your results may vary</li>
+                  <Info className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                  <div className="text-sm">
+                    <p className="font-medium text-foreground mb-2">How We Calculate (2024 Data)</p>
+                    <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                      <li>
+                        <strong>Creativity Program:</strong> $0.50-$1.00 per 1,000 qualified views (US rates). Requires 10K+ followers, 100K views/30 days, and videos 1min+
+                      </li>
+                      <li>
+                        <strong>Brand Deals:</strong> Based on 2024 influencer marketing benchmarks. Rates vary by niche ({selectedNiche?.sponsorMultiplier}x multiplier for {selectedNiche?.label})
+                      </li>
+                      <li>
+                        <strong>Live Gifts:</strong> TikTok takes 50%, you keep 50%. Based on average gift values and live frequency
+                      </li>
+                      <li>
+                        <strong>TikTok Shop:</strong> 10-20% commission with ~0.2% conversion rate industry average
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -515,56 +636,11 @@ export default function MoneyCalculatorPage() {
             <div className="flex justify-center gap-4">
               <Button onClick={handleShare} size="lg" className="bg-gradient-to-r from-primary to-accent">
                 <Share2 className="mr-2 h-5 w-5" />
-                {t("tools.money-calculator.shareResults")}
+                Share My Results
               </Button>
             </div>
           </div>
         )}
-
-        {/* Info Section */}
-        <Card className="mt-12 border-0 bg-muted/30">
-          <CardContent className="pt-6">
-            <h3 className="text-xl font-bold font-headline mb-4">{t("tools.money-calculator.howItWorks")}</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <h4 className="font-medium flex items-center gap-2">
-                  <Play className="w-4 h-4 text-blue-500" />
-                  Creativity Program (Beta)
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  TikTok pays $0.50-$1.00 per 1,000 qualified views on videos 1 minute or longer. Must have 10K+ followers and 100K views in last 30 days to qualify.
-                </p>
-              </div>
-              <div className="space-y-2">
-                <h4 className="font-medium flex items-center gap-2">
-                  <Briefcase className="w-4 h-4 text-purple-500" />
-                  Brand Sponsorships
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  The biggest income source for most creators. Rates depend on niche, engagement, and audience demographics. Finance/tech niches pay 2-3x more.
-                </p>
-              </div>
-              <div className="space-y-2">
-                <h4 className="font-medium flex items-center gap-2">
-                  <Gift className="w-4 h-4 text-pink-500" />
-                  Live Gifts & Diamonds
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  Viewers send virtual gifts during lives. Creators keep about 50% of gift value. Regular live streaming can significantly boost this income.
-                </p>
-              </div>
-              <div className="space-y-2">
-                <h4 className="font-medium flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-amber-500" />
-                  TikTok Shop & Affiliate
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  Earn 10-20% commission on products sold through your videos. Top sellers make more from TikTok Shop than all other sources combined.
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </ToolLayout>
   );

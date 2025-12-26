@@ -264,6 +264,16 @@ export default {
             suggestions: "Prueba Estas Alternativas",
             checkAnother: "Verificar Otro"
         },
+        "caption-generator": {
+            title: "Generador de Subtítulos",
+            shortDesc: "Subtítulos virales con fórmulas de gancho probadas",
+            description: "Genera subtítulos atractivos con análisis de ganchos"
+        },
+        "script-generator": {
+            title: "Generador de Guiones",
+            shortDesc: "Guiones completos con ganchos y tiempos",
+            description: "Genera guiones estructurados con marcas de tiempo"
+        },
         "stats-card": {
             title: "Generador de Tarjetas",
             shortDesc: "Crea tarjetas de estadísticas compartibles",
