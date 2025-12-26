@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { VideoDownloaderForm } from "@/components/video-downloader-form";
-import { Star, Zap, Shield, Globe, Download, TrendingUp, Users, Heart, ClipboardPaste, BrainCircuit, MousePointerClick, ArrowRight, DollarSign, Flame, Hash, User, Sparkles, Play, Trophy, Verified, Crown, Rocket } from "lucide-react";
+import { Star, Zap, Shield, Globe, Download, TrendingUp, Users, Heart, ClipboardPaste, BrainCircuit, MousePointerClick, ArrowRight, DollarSign, Flame, Hash, User, Sparkles, Play, Trophy, Verified, Crown, Rocket, MessageSquare, FileText } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from 'next/image';
@@ -15,12 +15,22 @@ import { cn } from "@/lib/utils";
 
 const TOOLS = [
   {
-    id: "money-calculator",
-    href: "/tools/money-calculator",
-    icon: DollarSign,
-    gradient: "from-green-500 to-emerald-500",
-    bgGradient: "from-green-500/10 to-emerald-500/5",
+    id: "caption-generator",
+    href: "/tools/caption-generator",
+    icon: MessageSquare,
+    gradient: "from-violet-500 to-purple-500",
+    bgGradient: "from-violet-500/10 to-purple-500/5",
     popular: true,
+    isNew: true,
+  },
+  {
+    id: "script-generator",
+    href: "/tools/script-generator",
+    icon: FileText,
+    gradient: "from-cyan-500 to-blue-500",
+    bgGradient: "from-cyan-500/10 to-blue-500/5",
+    popular: true,
+    isNew: true,
   },
   {
     id: "viral-predictor",
@@ -31,19 +41,11 @@ const TOOLS = [
     popular: true,
   },
   {
-    id: "hashtag-generator",
-    href: "/tools/hashtag-generator",
-    icon: Hash,
-    gradient: "from-blue-500 to-cyan-500",
-    bgGradient: "from-blue-500/10 to-cyan-500/5",
-    popular: true,
-  },
-  {
-    id: "bio-generator",
-    href: "/tools/bio-generator",
-    icon: User,
-    gradient: "from-pink-500 to-rose-500",
-    bgGradient: "from-pink-500/10 to-rose-500/5",
+    id: "money-calculator",
+    href: "/tools/money-calculator",
+    icon: DollarSign,
+    gradient: "from-green-500 to-emerald-500",
+    bgGradient: "from-green-500/10 to-emerald-500/5",
     popular: true,
   },
 ];
@@ -216,7 +218,12 @@ export default function Home() {
                     "h-full relative border-0 transition-all duration-500 hover:shadow-premium-xl hover:-translate-y-3 cursor-pointer group overflow-hidden",
                     "glass shadow-premium-lg"
                   )}>
-                    {tool.popular && (
+                    {tool.isNew ? (
+                      <div className="absolute top-0 right-0 bg-gradient-to-l from-green-500 to-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl animate-pulse">
+                        <Sparkles className="w-3 h-3 inline mr-1" />
+                        NEW
+                      </div>
+                    ) : tool.popular && (
                       <div className="absolute top-0 right-0 bg-gradient-to-l from-accent to-orange-400 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
                         <Crown className="w-3 h-3 inline mr-1" />
                         Popular
