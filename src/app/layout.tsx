@@ -67,6 +67,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        {/* Google AdSense - Must be in head for verification */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7004371088604965"
+          crossOrigin="anonymous"
+        />
       </head>
       <body
         className={cn(
@@ -75,13 +81,6 @@ export default function RootLayout({
           inter.variable
         )}
       >
-        {/* Google AdSense */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7004371088604965"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
 
         {/* Google Analytics Script */}
         <Script
