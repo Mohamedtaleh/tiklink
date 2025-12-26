@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { Award, Download, Share2, Palette, Sparkles, Loader2, Eye, Heart, Users, Play, TrendingUp, Image as ImageIcon, Link as LinkIcon } from "lucide-react";
+import { useState, useRef, ChangeEvent } from "react";
+import { Award, Download, Share2, Palette, Sparkles, Loader2, Eye, Heart, Users, Play, TrendingUp, Image as ImageIcon, Upload, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -36,14 +36,50 @@ export default function StatsCardPage() {
   const cardRef = useRef<HTMLDivElement>(null);
   
   const [username, setUsername] = useState("");
-  const [profileImageUrl, setProfileImageUrl] = useState("");
+  const [profileImage, setProfileImage] = useState<string | null>(null);
   const [followers, setFollowers] = useState(100000);
   const [likes, setLikes] = useState(500000);
   const [views, setViews] = useState(2000000);
   const [videos, setVideos] = useState(50);
   const [theme, setTheme] = useState("gradient-purple");
   const [isDownloading, setIsDownloading] = useState(false);
-  const [imageError, setImageError] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (!file.type.startsWith("image/")) {
+        toast({
+          title: t("tools.stats-card.errorTitle"),
+          description: "Please upload an image file (JPG, PNG, GIF)",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      if (file.size > 5 * 1024 * 1024) {
+        toast({
+          title: t("tools.stats-card.errorTitle"),
+          description: "Image size should be less than 5MB",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setProfileImage(event.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setProfileImage(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
 
   const selectedTheme = THEMES.find((t) => t.value === theme);
 
@@ -101,14 +137,6 @@ export default function StatsCardPage() {
     }
   };
 
-  const handleImageError = () => {
-    setImageError(true);
-  };
-
-  const handleImageLoad = () => {
-    setImageError(false);
-  };
-
   return (
     <ToolLayout
       titleKey="tools.stats-card.title"
@@ -142,26 +170,56 @@ export default function StatsCardPage() {
                 </div>
               </div>
 
-              {/* Profile Image URL */}
+              {/* Profile Image Upload */}
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   <ImageIcon className="w-4 h-4" />
-                  Profile Image URL
+                  Profile Photo
                 </Label>
-                <div className="relative">
-                  <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    value={profileImageUrl}
-                    onChange={(e) => {
-                      setProfileImageUrl(e.target.value);
-                      setImageError(false);
-                    }}
-                    placeholder="https://example.com/profile.jpg"
-                    className="pl-10"
+                <div className="space-y-3">
+                  {profileImage ? (
+                    <div className="relative inline-block">
+                      <img 
+                        src={profileImage} 
+                        alt="Profile preview" 
+                        className="w-20 h-20 rounded-full object-cover border-2 border-primary/20"
+                      />
+                      <button
+                        onClick={handleRemoveImage}
+                        className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full p-1 hover:bg-destructive/90 transition-colors"
+                        type="button"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ) : (
+                    <div 
+                      onClick={() => fileInputRef.current?.click()}
+                      className="w-20 h-20 rounded-full border-2 border-dashed border-muted-foreground/30 flex items-center justify-center cursor-pointer hover:border-primary/50 transition-colors bg-muted/30"
+                    >
+                      <Upload className="w-6 h-6 text-muted-foreground" />
+                    </div>
+                  )}
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
                   />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="w-full"
+                  >
+                    <Upload className="w-4 h-4 mr-2" />
+                    {profileImage ? "Change Photo" : "Upload Photo"}
+                  </Button>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Paste a direct link to your profile photo (right-click image → Copy image address)
+                  Upload your profile photo (JPG, PNG, max 5MB)
                 </p>
               </div>
 
@@ -276,14 +334,11 @@ export default function StatsCardPage() {
                     <div className="text-center mb-8">
                       {/* Profile Image */}
                       <div className="w-24 h-24 mx-auto bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-4xl font-bold mb-4 overflow-hidden border-4 border-white/30">
-                        {profileImageUrl && !imageError ? (
+                        {profileImage ? (
                           <img 
-                            src={profileImageUrl} 
+                            src={profileImage} 
                             alt={username || "Profile"}
                             className="w-full h-full object-cover"
-                            onError={handleImageError}
-                            onLoad={handleImageLoad}
-                            crossOrigin="anonymous"
                           />
                         ) : (
                           <span>{username ? username.charAt(0).toUpperCase() : "?"}</span>

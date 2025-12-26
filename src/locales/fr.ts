@@ -241,6 +241,60 @@ export default {
                     { type: 'h3', text: "Conclusion" },
                     { type: 'p', text: "La réutilisation de contenu est un super-pouvoir pour les créateurs. En commençant par une vidéo propre de Tiklink et en l'adaptant à chaque plateforme, vous pouvez multiplier votre impact sans multiplier votre charge de travail." }
                 ]
+            },
+            "viral-secrets": {
+                title: "Décrypter l'Algorithme TikTok : Secrets pour Devenir Viral",
+                description: "Comprenez comment fonctionne l'algorithme TikTok et apprenez des stratégies éprouvées pour augmenter vos chances de devenir viral en 2024.",
+                content: [
+                    { type: 'p', text: "Devenir viral sur TikTok n'est pas que de la chance, c'est une science. Comprendre le fonctionnement de l'algorithme peut augmenter considérablement vos chances d'atteindre des millions de spectateurs." },
+                    { type: 'h2', text: "Comment Fonctionne l'Algorithme TikTok" },
+                    { type: 'p', text: "L'algorithme de la page Pour Toi considère plusieurs facteurs : les interactions des utilisateurs, les informations vidéo, les paramètres de l'appareil et la qualité du contenu." }
+                ]
+            },
+            "tiktok-marketing": {
+                title: "Stratégies Marketing TikTok pour les Marques en 2024",
+                description: "Découvrez comment les entreprises peuvent exploiter TikTok pour atteindre la Gen Z et les millennials avec un contenu authentique.",
+                content: [
+                    { type: 'p', text: "TikTok est passé d'une application de danse pour ados à une puissante plateforme marketing avec plus d'un milliard d'utilisateurs actifs." },
+                    { type: 'h2', text: "Pourquoi le Marketing TikTok Compte" },
+                    { type: 'p', text: "Contrairement aux réseaux sociaux traditionnels, l'algorithme de TikTok donne à chaque vidéo une chance de devenir virale, quel que soit le nombre d'abonnés." }
+                ]
+            },
+            monetization: {
+                title: "Comment Gagner de l'Argent sur TikTok : Guide Complet de Monétisation",
+                description: "Découvrez toutes les façons dont les créateurs TikTok gagnent de l'argent, du Fonds Créateurs aux partenariats de marque.",
+                content: [
+                    { type: 'p', text: "TikTok a créé une nouvelle génération de créateurs de contenu gagnant des revenus à temps plein grâce à leurs vidéos." },
+                    { type: 'h2', text: "Le Fonds Créateurs TikTok" },
+                    { type: 'p', text: "Le Fonds Créateurs paie les créateurs en fonction des vues vidéo. Pour être éligible, vous avez besoin d'au moins 10 000 abonnés et 100 000 vues au cours des 30 derniers jours." }
+                ]
+            },
+            "hashtag-strategy": {
+                title: "La Stratégie Ultime des Hashtags TikTok pour une Croissance Explosive",
+                description: "Maîtrisez l'art de la sélection des hashtags pour augmenter la découvrabilité de votre contenu.",
+                content: [
+                    { type: 'p', text: "Les hashtags sont plus que des métadonnées sur TikTok, ce sont des outils de découverte qui peuvent mettre votre contenu devant des millions de nouveaux abonnés potentiels." },
+                    { type: 'h2', text: "Comment Fonctionnent les Hashtags TikTok" },
+                    { type: 'p', text: "La plateforme utilise les hashtags pour comprendre le sujet de votre contenu et qui pourrait l'apprécier." }
+                ]
+            },
+            "content-ideas": {
+                title: "50+ Idées de Contenu TikTok pour Toutes les Niches",
+                description: "Ne manquez plus jamais d'idées de contenu. Voici des concepts de vidéo éprouvés qui fonctionnent dans toutes les niches.",
+                content: [
+                    { type: 'p', text: "Le blocage créatif est réel. Même les esprits les plus créatifs fixent parfois leur téléphone en se demandant quoi publier." },
+                    { type: 'h2', text: "Contenu Éducatif" },
+                    { type: 'p', text: "Conseils rapides, démystification des mythes, tutoriels étape par étape et secrets de l'industrie." }
+                ]
+            },
+            "best-tools": {
+                title: "Les Meilleurs Outils et Apps pour les Créateurs TikTok en 2024",
+                description: "Du montage vidéo aux analytics, découvrez les outils essentiels utilisés par les créateurs professionnels.",
+                content: [
+                    { type: 'p', text: "Les créateurs TikTok professionnels ne comptent pas uniquement sur les fonctionnalités intégrées de l'application. Ils utilisent une suite d'outils pour planifier, créer, éditer et analyser leur contenu." },
+                    { type: 'h2', text: "Outils de Montage Vidéo" },
+                    { type: 'p', text: "CapCut, InShot, Adobe Premiere Rush et VN Video Editor sont d'excellentes options." }
+                ]
             }
         }
     },

@@ -457,6 +457,202 @@ export default {
                     { type: 'h3', text: "Conclusion" },
                     { type: 'p', text: "Repurposing content is a superpower for creators. By starting with a clean video from Tiklink and tailoring it to each platform, you can multiply your impact without multiplying your workload." }
                 ]
+            },
+            "viral-secrets": {
+                title: "Decoding the TikTok Algorithm: Secrets to Going Viral",
+                description: "Understand how the TikTok algorithm works and learn proven strategies to increase your chances of going viral in 2024.",
+                content: [
+                    { type: 'p', text: "Going viral on TikTok isn't just luck—it's a science. Understanding how the algorithm works can dramatically increase your chances of reaching millions of viewers. In this guide, we'll break down the key factors that influence TikTok's recommendation system." },
+                    { type: 'h2', text: "How the TikTok Algorithm Works" },
+                    { type: 'p', text: "TikTok's For You Page (FYP) algorithm considers several factors when deciding which videos to show users:" },
+                    { type: 'ul', items: [
+                        "User Interactions: Likes, comments, shares, and watch time all signal that content is engaging.",
+                        "Video Information: Captions, sounds, and hashtags help categorize your content.",
+                        "Device and Account Settings: Language preference, country, and device type play a role.",
+                        "Content Quality: Video resolution, lighting, and audio quality matter more than you think."
+                    ]},
+                    { type: 'h2', text: "The First 3 Seconds Rule" },
+                    { type: 'p', text: "TikTok measures how long viewers watch your video. The first 3 seconds are crucial—if viewers scroll past, the algorithm takes note. Start with a hook that immediately captures attention." },
+                    { type: 'blockquote', text: "Videos with high completion rates and rewatches get pushed to more users. Design your content to be watched multiple times." },
+                    { type: 'h2', text: "Optimal Posting Times" },
+                    { type: 'p', text: "While there's no universal 'best time,' posting when your audience is most active increases initial engagement. Use TikTok Analytics to identify when your followers are online." },
+                    { type: 'h2', text: "Engagement is Everything" },
+                    { type: 'p', text: "The algorithm favors videos that generate comments and shares. Ask questions, create controversy (tastefully), or include call-to-actions that encourage interaction." },
+                    { type: 'h3', text: "Pro Tips for Virality" },
+                    { type: 'ul', items: [
+                        "Use trending sounds within the first 24-48 hours of their emergence.",
+                        "Keep videos between 15-60 seconds for optimal retention.",
+                        "Post consistently—3-5 times per day if possible.",
+                        "Engage with comments in the first hour after posting."
+                    ]}
+                ]
+            },
+            "tiktok-marketing": {
+                title: "TikTok Marketing Strategies for Brands in 2024",
+                description: "Learn how businesses and brands can leverage TikTok to reach Gen Z and millennials with authentic, engaging content.",
+                content: [
+                    { type: 'p', text: "TikTok has evolved from a teen dance app to a powerful marketing platform with over 1 billion active users. Brands that understand the platform's unique culture are seeing incredible returns on their content investment." },
+                    { type: 'h2', text: "Why TikTok Marketing Matters" },
+                    { type: 'p', text: "Unlike traditional social media, TikTok's algorithm gives every video a chance to go viral, regardless of follower count. This levels the playing field for small businesses and new brands." },
+                    { type: 'ul', items: [
+                        "Average user spends 95 minutes per day on TikTok.",
+                        "67% of users say TikTok inspired them to shop.",
+                        "Hashtag challenges generate massive brand awareness.",
+                        "Authentic content outperforms polished ads."
+                    ]},
+                    { type: 'h2', text: "Content Strategies That Work" },
+                    { type: 'p', text: "The key to TikTok marketing is authenticity. Users can spot traditional advertising from a mile away and will scroll right past it." },
+                    { type: 'blockquote', text: "Don't make ads, make TikToks. Your content should feel native to the platform—entertaining, educational, or inspiring." },
+                    { type: 'h3', text: "Effective Content Types:" },
+                    { type: 'ul', items: [
+                        "Behind-the-scenes looks at your business",
+                        "Employee spotlights and day-in-the-life content",
+                        "User-generated content and customer testimonials",
+                        "Educational content and how-tos related to your industry",
+                        "Jumping on trends while staying on-brand"
+                    ]},
+                    { type: 'h2', text: "Influencer Partnerships" },
+                    { type: 'p', text: "Partnering with TikTok creators can amplify your reach. Micro-influencers (10K-100K followers) often deliver better engagement rates than mega-influencers and are more affordable." },
+                    { type: 'h2', text: "Measuring Success" },
+                    { type: 'p', text: "Track these key metrics to measure your TikTok marketing success: video views, engagement rate, follower growth, profile visits, and website clicks. Use TikTok's built-in analytics or third-party tools for deeper insights." }
+                ]
+            },
+            monetization: {
+                title: "How to Make Money on TikTok: Complete Monetization Guide",
+                description: "Discover all the ways TikTok creators earn money, from the Creator Fund to brand deals, live gifts, and beyond.",
+                content: [
+                    { type: 'p', text: "TikTok has created a new generation of content creators earning full-time incomes (and beyond) from their videos. Whether you have 10,000 or 10 million followers, there are multiple revenue streams available to you." },
+                    { type: 'h2', text: "TikTok Creator Fund" },
+                    { type: 'p', text: "The Creator Fund pays creators based on video views. To qualify, you need at least 10,000 followers and 100,000 views in the last 30 days. Earnings typically range from $0.02-$0.04 per 1,000 views." },
+                    { type: 'h2', text: "Brand Sponsorships and Deals" },
+                    { type: 'p', text: "This is where the real money is. Brands pay creators to feature their products or services. Rates vary widely based on your niche, engagement rate, and follower count." },
+                    { type: 'ul', items: [
+                        "Micro-influencers (10K-50K): $100-$500 per post",
+                        "Mid-tier (50K-500K): $500-$5,000 per post",
+                        "Macro-influencers (500K-1M): $5,000-$10,000 per post",
+                        "Mega-influencers (1M+): $10,000-$100,000+ per post"
+                    ]},
+                    { type: 'h2', text: "TikTok Live Gifts" },
+                    { type: 'p', text: "When you go live, viewers can send virtual gifts that convert to real money. Top creators earn thousands per live session. You need at least 1,000 followers to go live." },
+                    { type: 'blockquote', text: "Diversify your income streams. Relying on just one monetization method is risky—the most successful creators have 3-5 different revenue sources." },
+                    { type: 'h2', text: "TikTok Shop and Affiliate Marketing" },
+                    { type: 'p', text: "TikTok Shop allows creators to sell products directly through their videos. You can also earn commissions by promoting other brands' products through affiliate links." },
+                    { type: 'h2', text: "Selling Your Own Products" },
+                    { type: 'p', text: "Many creators use TikTok to drive traffic to their own businesses—courses, merchandise, consulting services, or digital products. This gives you complete control over your income." }
+                ]
+            },
+            "hashtag-strategy": {
+                title: "The Ultimate TikTok Hashtag Strategy for Explosive Growth",
+                description: "Master the art of hashtag selection to boost your content's discoverability and reach new audiences on TikTok.",
+                content: [
+                    { type: 'p', text: "Hashtags are more than just metadata on TikTok—they're a discovery tool that can put your content in front of millions of potential new followers. But using them effectively requires strategy, not guesswork." },
+                    { type: 'h2', text: "How TikTok Hashtags Work" },
+                    { type: 'p', text: "Unlike Instagram where more hashtags often mean more reach, TikTok's algorithm is more sophisticated. The platform uses hashtags to understand what your content is about and who might enjoy it." },
+                    { type: 'h2', text: "The 3-5 Hashtag Sweet Spot" },
+                    { type: 'p', text: "Research shows that using 3-5 well-chosen hashtags outperforms using 10-15 random ones. Quality over quantity is the rule here." },
+                    { type: 'blockquote', text: "Each hashtag should serve a purpose: one trending, one niche-specific, one community-based, and one branded if applicable." },
+                    { type: 'h2', text: "Types of Hashtags to Use" },
+                    { type: 'ul', items: [
+                        "Trending Hashtags: High volume but high competition. Use sparingly when relevant.",
+                        "Niche Hashtags: Medium volume, targeted audience. Your bread and butter.",
+                        "Community Hashtags: Low volume but highly engaged users. Great for building loyal followers.",
+                        "Branded Hashtags: Create your own for campaigns and user-generated content."
+                    ]},
+                    { type: 'h2', text: "Hashtags to Avoid" },
+                    { type: 'p', text: "Stay away from banned or shadowbanned hashtags, overly generic tags like #fyp or #viral (they're too competitive), and irrelevant trending hashtags just for views." },
+                    { type: 'h3', text: "Pro Tips" },
+                    { type: 'ul', items: [
+                        "Research hashtags before posting—check their view counts and recent content.",
+                        "Create a hashtag bank for your niche to rotate through.",
+                        "Monitor which hashtags perform best and double down on them.",
+                        "Use our Hashtag Generator tool to find the perfect mix for your content."
+                    ]}
+                ]
+            },
+            "content-ideas": {
+                title: "50+ TikTok Content Ideas for Any Niche",
+                description: "Never run out of content ideas again. Here are proven video concepts that work across every niche on TikTok.",
+                content: [
+                    { type: 'p', text: "Creator's block is real. Even the most creative minds sometimes stare at their phone wondering what to post next. This comprehensive list of content ideas will keep your posting schedule full for months." },
+                    { type: 'h2', text: "Educational Content" },
+                    { type: 'ul', items: [
+                        "Quick tips and hacks related to your expertise",
+                        "Myth-busting common misconceptions",
+                        "Step-by-step tutorials",
+                        "Industry secrets and insider knowledge",
+                        "Answering frequently asked questions"
+                    ]},
+                    { type: 'h2', text: "Entertainment Content" },
+                    { type: 'ul', items: [
+                        "Day in the life videos",
+                        "Get ready with me (GRWM)",
+                        "Reaction videos to trends or news",
+                        "Storytime videos about interesting experiences",
+                        "Comedy skits related to your niche"
+                    ]},
+                    { type: 'h2', text: "Engagement-Focused Content" },
+                    { type: 'blockquote', text: "The best content invites participation. Ask questions, create polls, or challenge your audience to respond." },
+                    { type: 'ul', items: [
+                        "This or that challenges",
+                        "POV videos that resonate with your audience",
+                        "Unpopular opinions in your niche",
+                        "Ranking or tier list videos",
+                        "Duets and stitches with other creators"
+                    ]},
+                    { type: 'h2', text: "Trending Content" },
+                    { type: 'ul', items: [
+                        "Participate in trending sounds and challenges",
+                        "Put your unique spin on viral formats",
+                        "Green screen videos with trending topics",
+                        "Transition videos using popular effects"
+                    ]},
+                    { type: 'h2', text: "Personal and Authentic Content" },
+                    { type: 'ul', items: [
+                        "Behind-the-scenes of your process",
+                        "Sharing your journey and growth",
+                        "Vulnerable moments and lessons learned",
+                        "Celebrating milestones with your audience"
+                    ]}
+                ]
+            },
+            "best-tools": {
+                title: "Best Tools and Apps for TikTok Creators in 2024",
+                description: "From video editing to analytics, discover the essential tools that professional TikTok creators use to level up their content.",
+                content: [
+                    { type: 'p', text: "Professional TikTok creators don't just rely on the app's built-in features. They use a suite of tools to plan, create, edit, and analyze their content. Here are the best tools every creator should know about." },
+                    { type: 'h2', text: "Video Editing Tools" },
+                    { type: 'p', text: "While TikTok's editor is improving, external apps offer more control and creative options." },
+                    { type: 'ul', items: [
+                        "CapCut: Free, powerful, and made by ByteDance (TikTok's parent company). Perfect integration with TikTok.",
+                        "InShot: Great for quick edits and adding music, text, and transitions.",
+                        "Adobe Premiere Rush: Professional-grade editing on mobile.",
+                        "VN Video Editor: Advanced features without the learning curve."
+                    ]},
+                    { type: 'h2', text: "Content Planning Tools" },
+                    { type: 'blockquote', text: "Consistency is key on TikTok. Use these tools to plan your content calendar and never miss a posting day." },
+                    { type: 'ul', items: [
+                        "Later: Schedule TikToks and manage multiple accounts.",
+                        "Notion: Create content calendars and idea banks.",
+                        "Trello: Organize video ideas and track progress.",
+                        "Google Sheets: Simple but effective for content planning."
+                    ]},
+                    { type: 'h2', text: "Analytics and Growth Tools" },
+                    { type: 'ul', items: [
+                        "TikTok Analytics: Built-in insights about your audience and content performance.",
+                        "Tiklink Tools: Our free suite of tools for hashtag generation, viral prediction, and more.",
+                        "Social Blade: Track follower growth and compare with other creators.",
+                        "Pentos: Deep analytics and competitor research."
+                    ]},
+                    { type: 'h2', text: "Content Creation Tools" },
+                    { type: 'ul', items: [
+                        "Canva: Create thumbnails, text overlays, and graphics.",
+                        "Remove.bg: Remove backgrounds from images instantly.",
+                        "Teleprompter apps: Script your videos without memorizing.",
+                        "Ring lights and phone tripods: Essential hardware for quality content."
+                    ]},
+                    { type: 'h3', text: "Start with the Basics" },
+                    { type: 'p', text: "You don't need all these tools right away. Start with CapCut for editing and TikTok's built-in analytics. Add more tools as your channel grows and your needs become more specific." }
+                ]
             }
         }
     },

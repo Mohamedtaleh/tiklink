@@ -231,6 +231,60 @@ export default {
                     { type: 'h3', text: "Kesimpulan" },
                     { type: 'p', text: "Menggunakan kembali konten adalah kekuatan super bagi kreator. Dengan memulai dengan video bersih dari Tiklink dan menyesuaikannya untuk setiap platform, Anda dapat melipatgandakan dampak Anda tanpa melipatgandakan beban kerja Anda." }
                 ]
+            },
+            "viral-secrets": {
+                title: "Membongkar Algoritma TikTok: Rahasia Menjadi Viral",
+                description: "Pahami cara kerja algoritma TikTok dan pelajari strategi terbukti untuk meningkatkan peluang Anda menjadi viral di 2024.",
+                content: [
+                    { type: 'p', text: "Menjadi viral di TikTok bukan hanya keberuntungan, ini adalah ilmu. Memahami cara kerja algoritma dapat secara dramatis meningkatkan peluang Anda menjangkau jutaan penonton." },
+                    { type: 'h2', text: "Cara Kerja Algoritma TikTok" },
+                    { type: 'p', text: "Algoritma For You Page mempertimbangkan beberapa faktor: interaksi pengguna, informasi video, pengaturan perangkat, dan kualitas konten." }
+                ]
+            },
+            "tiktok-marketing": {
+                title: "Strategi Marketing TikTok untuk Brand di 2024",
+                description: "Pelajari bagaimana bisnis dapat memanfaatkan TikTok untuk menjangkau Gen Z dan milenial dengan konten autentik.",
+                content: [
+                    { type: 'p', text: "TikTok telah berkembang dari aplikasi tari remaja menjadi platform marketing yang kuat dengan lebih dari satu miliar pengguna aktif." },
+                    { type: 'h2', text: "Mengapa Marketing TikTok Penting" },
+                    { type: 'p', text: "Berbeda dengan media sosial tradisional, algoritma TikTok memberi setiap video kesempatan untuk viral, terlepas dari jumlah follower." }
+                ]
+            },
+            monetization: {
+                title: "Cara Menghasilkan Uang di TikTok: Panduan Monetisasi Lengkap",
+                description: "Temukan semua cara kreator TikTok menghasilkan uang, dari Creator Fund hingga brand deal dan live gifts.",
+                content: [
+                    { type: 'p', text: "TikTok telah menciptakan generasi baru kreator konten yang menghasilkan pendapatan penuh waktu dari video mereka." },
+                    { type: 'h2', text: "TikTok Creator Fund" },
+                    { type: 'p', text: "Creator Fund membayar kreator berdasarkan views video. Untuk memenuhi syarat, Anda butuh minimal 10.000 follower dan 100.000 views dalam 30 hari terakhir." }
+                ]
+            },
+            "hashtag-strategy": {
+                title: "Strategi Hashtag TikTok Ultimate untuk Pertumbuhan Eksplosif",
+                description: "Kuasai seni pemilihan hashtag untuk meningkatkan kemampuan ditemukan konten Anda dan menjangkau audiens baru.",
+                content: [
+                    { type: 'p', text: "Hashtag lebih dari sekadar metadata di TikTok, mereka adalah alat penemuan yang dapat menempatkan konten Anda di depan jutaan calon follower baru." },
+                    { type: 'h2', text: "Cara Kerja Hashtag TikTok" },
+                    { type: 'p', text: "Platform menggunakan hashtag untuk memahami tentang apa konten Anda dan siapa yang mungkin menikmatinya." }
+                ]
+            },
+            "content-ideas": {
+                title: "50+ Ide Konten TikTok untuk Niche Apapun",
+                description: "Tidak akan pernah kehabisan ide konten lagi. Berikut konsep video terbukti yang bekerja di semua niche.",
+                content: [
+                    { type: 'p', text: "Creator's block itu nyata. Bahkan pikiran paling kreatif kadang menatap ponsel mereka bertanya-tanya apa yang harus diposting." },
+                    { type: 'h2', text: "Konten Edukasi" },
+                    { type: 'p', text: "Tips cepat, membongkar mitos, tutorial langkah demi langkah, dan rahasia industri." }
+                ]
+            },
+            "best-tools": {
+                title: "Tools dan Aplikasi Terbaik untuk Kreator TikTok di 2024",
+                description: "Dari editing video hingga analytics, temukan tools esensial yang digunakan kreator profesional.",
+                content: [
+                    { type: 'p', text: "Kreator TikTok profesional tidak hanya mengandalkan fitur bawaan aplikasi. Mereka menggunakan serangkaian tools untuk merencanakan, membuat, mengedit, dan menganalisis konten mereka." },
+                    { type: 'h2', text: "Tools Editing Video" },
+                    { type: 'p', text: "CapCut, InShot, Adobe Premiere Rush, dan VN Video Editor adalah pilihan yang sangat baik." }
+                ]
             }
         }
     },
