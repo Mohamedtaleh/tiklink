@@ -160,6 +160,7 @@ export default function ScriptGeneratorPage() {
       descriptionKey="tools.script-generator.description"
       icon={<FileText className="w-10 h-10" />}
       gradient="from-cyan-500 to-blue-500"
+      toolId="script-generator"
     >
       <div className="max-w-5xl mx-auto space-y-8">
         {/* Trust Badges */}

@@ -206,6 +206,7 @@ export default function ViralPredictorPage() {
       descriptionKey="tools.viral-predictor.description"
       icon={<Flame className="w-10 h-10" />}
       gradient="from-orange-500 to-red-500"
+      toolId="viral-predictor"
     >
       <div className="max-w-5xl mx-auto space-y-8">
         {/* Trust Badges */}

@@ -413,6 +413,7 @@ export default function BestTimeToPostPage() {
       descriptionKey="tools.best-time-to-post.description"
       icon={<Clock className="w-10 h-10" />}
       gradient="from-purple-500 to-pink-500"
+      toolId="best-time-to-post"
     >
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Trust Badges */}

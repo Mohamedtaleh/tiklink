@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { VideoDownloaderForm } from "@/components/video-downloader-form";
-import { Star, Zap, Shield, Globe, Download, TrendingUp, Users, Heart, ClipboardPaste, BrainCircuit, MousePointerClick, ArrowRight, DollarSign, Flame, Hash, User, Sparkles, Play, Trophy, Verified, Crown, Rocket, MessageSquare, FileText } from "lucide-react";
+import { Star, Zap, Shield, Globe, Download, TrendingUp, Users, Heart, ClipboardPaste, BrainCircuit, MousePointerClick, ArrowRight, DollarSign, Flame, Hash, User, Sparkles, Play, Trophy, Verified, Crown, Rocket, MessageSquare, FileText, Clock, Award, ChevronRight, Lightbulb, Target } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from 'next/image';
@@ -12,16 +12,20 @@ import { AnimatedCounter } from "@/components/animated-counter";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/hooks/use-i18n";
 import { cn } from "@/lib/utils";
+import { TestimonialTicker, LiveStats } from "@/components/viral";
+import { InlineNewsletter } from "@/components/viral";
 
-const TOOLS = [
+// ALL 8 tools for complete showcase
+const ALL_TOOLS = [
   {
     id: "caption-generator",
     href: "/tools/caption-generator",
     icon: MessageSquare,
     gradient: "from-violet-500 to-purple-500",
     bgGradient: "from-violet-500/10 to-purple-500/5",
-    popular: true,
+    category: "AI Content",
     isNew: true,
+    isFeatured: true,
   },
   {
     id: "script-generator",
@@ -29,8 +33,9 @@ const TOOLS = [
     icon: FileText,
     gradient: "from-cyan-500 to-blue-500",
     bgGradient: "from-cyan-500/10 to-blue-500/5",
-    popular: true,
+    category: "AI Content",
     isNew: true,
+    isFeatured: true,
   },
   {
     id: "viral-predictor",
@@ -38,7 +43,9 @@ const TOOLS = [
     icon: Flame,
     gradient: "from-orange-500 to-red-500",
     bgGradient: "from-orange-500/10 to-red-500/5",
+    category: "Analytics",
     popular: true,
+    isFeatured: true,
   },
   {
     id: "money-calculator",
@@ -46,6 +53,43 @@ const TOOLS = [
     icon: DollarSign,
     gradient: "from-green-500 to-emerald-500",
     bgGradient: "from-green-500/10 to-emerald-500/5",
+    category: "Analytics",
+    popular: true,
+    isFeatured: true,
+  },
+  {
+    id: "hashtag-generator",
+    href: "/tools/hashtag-generator",
+    icon: Hash,
+    gradient: "from-blue-500 to-cyan-500",
+    bgGradient: "from-blue-500/10 to-cyan-500/5",
+    category: "Content",
+    popular: true,
+  },
+  {
+    id: "best-time-to-post",
+    href: "/tools/best-time-to-post",
+    icon: Clock,
+    gradient: "from-purple-500 to-pink-500",
+    bgGradient: "from-purple-500/10 to-pink-500/5",
+    category: "Analytics",
+  },
+  {
+    id: "bio-generator",
+    href: "/tools/bio-generator",
+    icon: User,
+    gradient: "from-pink-500 to-rose-500",
+    bgGradient: "from-pink-500/10 to-rose-500/5",
+    category: "Content",
+    popular: true,
+  },
+  {
+    id: "stats-card",
+    href: "/tools/stats-card",
+    icon: Award,
+    gradient: "from-amber-500 to-orange-500",
+    bgGradient: "from-amber-500/10 to-orange-500/5",
+    category: "Content",
     popular: true,
   },
 ];
@@ -113,6 +157,36 @@ const trustedBy = [
   { name: "4.9", label: "User Rating" },
 ];
 
+// Use cases for different audiences
+const useCases = [
+  {
+    icon: Sparkles,
+    title: "Content Creators",
+    description: "Save your own TikToks without watermarks for cross-platform sharing",
+    gradient: "from-pink-500 to-rose-500"
+  },
+  {
+    icon: Briefcase,
+    title: "Social Media Managers",
+    description: "Archive trending content for inspiration and competitive analysis",
+    gradient: "from-blue-500 to-cyan-500"
+  },
+  {
+    icon: TrendingUp,
+    title: "Growing Influencers",
+    description: "Use our AI tools to optimize content and predict viral potential",
+    gradient: "from-purple-500 to-violet-500"
+  },
+  {
+    icon: Target,
+    title: "Marketing Teams",
+    description: "Track trends and download content for marketing research",
+    gradient: "from-green-500 to-emerald-500"
+  }
+];
+
+import { Briefcase } from "lucide-react";
+
 export default function Home() {
   const { t } = useI18n();
 
@@ -122,6 +196,9 @@ export default function Home() {
       downloaderElement.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const featuredTools = ALL_TOOLS.filter(t => t.isFeatured);
+  const otherTools = ALL_TOOLS.filter(t => !t.isFeatured);
 
   return (
     <div className="flex flex-col items-center pb-24 md:pb-0 overflow-hidden">
@@ -134,6 +211,11 @@ export default function Home() {
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
         
         <div className="container relative mx-auto px-4 text-center pt-16 md:pt-28 pb-20 md:pb-32">
+          {/* Live stats ticker */}
+          <div className="flex justify-center mb-6">
+            <LiveStats />
+          </div>
+          
           {/* Trust badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 shadow-premium animate-float">
             <div className="flex -space-x-2">
@@ -192,25 +274,69 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Free Tools Section - Premium Design */}
+      {/* NEW: Featured AI Tools - Full Width Banner */}
+      <section className="w-full bg-gradient-to-r from-violet-500/10 via-purple-500/5 to-blue-500/10 relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-pattern opacity-10" />
+        <div className="container mx-auto px-4 py-16 relative">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="text-center md:text-left max-w-xl">
+              <Badge className="mb-4 px-4 py-2 bg-gradient-to-r from-violet-500 to-purple-500 text-white border-0">
+                <Sparkles className="w-4 h-4 mr-2" />
+                NEW AI TOOLS
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold font-headline mb-4">
+                Create Viral Content with AI 🚀
+              </h2>
+              <p className="text-muted-foreground text-lg mb-6">
+                Our new AI-powered Caption Generator and Script Writer help you create engaging content that gets views
+              </p>
+              <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+                <Link href="/tools/caption-generator">
+                  <Button size="lg" className="bg-gradient-to-r from-violet-500 to-purple-500 hover:opacity-90">
+                    <MessageSquare className="w-5 h-5 mr-2" />
+                    Try Caption Generator
+                  </Button>
+                </Link>
+                <Link href="/tools/script-generator">
+                  <Button size="lg" variant="outline">
+                    <FileText className="w-5 h-5 mr-2" />
+                    Try Script Generator
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <div className="w-32 h-48 md:w-40 md:h-56 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-500 shadow-2xl flex items-center justify-center transform rotate-[-8deg] hover:rotate-0 transition-transform">
+                <MessageSquare className="w-16 h-16 text-white" />
+              </div>
+              <div className="w-32 h-48 md:w-40 md:h-56 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-500 shadow-2xl flex items-center justify-center transform rotate-[8deg] hover:rotate-0 transition-transform">
+                <FileText className="w-16 h-16 text-white" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ALL Tools Section - Complete Showcase */}
       <section className="w-full relative">
         <div className="absolute inset-0 bg-gradient-to-b from-muted/50 to-background" />
         <div className="container relative mx-auto px-4 py-20 md:py-28">
           <div className="text-center mb-16">
-            <Badge className="mb-6 px-4 py-2 text-sm bg-gradient-to-r from-primary to-accent text-white border-0 shadow-lg animate-pulse-glow">
+            <Badge className="mb-6 px-4 py-2 text-sm bg-gradient-to-r from-primary to-accent text-white border-0 shadow-lg">
               <Sparkles className="w-4 h-4 mr-2" />
               {t('tools.page.aiPowered')}
             </Badge>
             <h2 className="text-3xl md:text-5xl font-bold font-headline mb-6">
-              <span className="text-gradient">{t('home.tools.title')}</span>
+              8 Free Tools to <span className="text-gradient">Grow Your TikTok</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              {t('home.tools.subtitle')}
+              Everything you need to create viral content, analyze performance, and grow your following
             </p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {TOOLS.map((tool, index) => {
+
+          {/* Featured Tools - Larger Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-8">
+            {featuredTools.map((tool, index) => {
               const Icon = tool.icon;
               return (
                 <Link key={tool.id} href={tool.href}>
@@ -234,6 +360,9 @@ export default function Home() {
                       tool.bgGradient
                     )} />
                     <CardHeader className="relative pb-2">
+                      <Badge variant="outline" className="w-fit mb-3 text-xs">
+                        {tool.category}
+                      </Badge>
                       <div className={cn(
                         "w-16 h-16 rounded-2xl bg-gradient-to-br shadow-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300",
                         tool.gradient
@@ -258,15 +387,81 @@ export default function Home() {
               );
             })}
           </div>
+
+          {/* Other Tools - Compact Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            {otherTools.map((tool) => {
+              const Icon = tool.icon;
+              return (
+                <Link key={tool.id} href={tool.href}>
+                  <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group">
+                    <CardContent className="pt-6 text-center">
+                      <div className={cn(
+                        "w-12 h-12 rounded-xl bg-gradient-to-br shadow flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform",
+                        tool.gradient
+                      )}>
+                        <Icon className="w-6 h-6 text-white" />
+                      </div>
+                      <h4 className="font-bold text-sm group-hover:text-primary transition-colors">
+                        {t(`tools.${tool.id}.title`)}
+                      </h4>
+                      <p className="text-xs text-muted-foreground mt-1 line-clamp-1">
+                        {tool.category}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
           
           <div className="text-center mt-12">
             <Link href="/tools">
               <Button size="lg" className="gap-3 px-8 py-6 text-lg bg-gradient-to-r from-primary to-accent hover:opacity-90 shadow-premium-lg hover:shadow-premium-xl transition-all hover:-translate-y-1">
-                {t('home.tools.viewAll')}
+                Explore All 8 Free Tools
                 <ArrowRight className="w-5 h-5" />
               </Button>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Use Cases Section - WHO is this for? */}
+      <section className="w-full relative py-20 md:py-28 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <Badge variant="outline" className="mb-6 px-4 py-2">
+              <Users className="w-4 h-4 mr-2" />
+              Who Uses Tiklink?
+            </Badge>
+            <h2 className="text-3xl md:text-5xl font-bold font-headline">
+              Built for <span className="text-gradient">Every Creator</span>
+            </h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {useCases.map((useCase, i) => (
+              <Card key={i} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
+                <CardContent className="pt-6">
+                  <div className={cn(
+                    "w-14 h-14 rounded-2xl bg-gradient-to-br flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform",
+                    useCase.gradient
+                  )}>
+                    <useCase.icon className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="font-bold text-lg mb-2">{useCase.title}</h3>
+                  <p className="text-sm text-muted-foreground">{useCase.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonial Ticker */}
+      <section className="w-full py-8 border-y bg-muted/20">
+        <div className="container mx-auto px-4 flex justify-center">
+          <TestimonialTicker />
         </div>
       </section>
 
@@ -346,6 +541,15 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="w-full py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-xl mx-auto">
+            <InlineNewsletter />
           </div>
         </div>
       </section>
@@ -443,6 +647,29 @@ export default function Home() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Blog Teaser Section */}
+      <section className="w-full py-20 bg-muted/20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <Badge variant="outline" className="mb-4 px-4 py-2">
+              <Lightbulb className="w-4 h-4 mr-2" />
+              Learn & Grow
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold font-headline">
+              TikTok Tips & Guides
+            </h2>
+          </div>
+          <div className="flex justify-center">
+            <Link href="/blog">
+              <Button size="lg" variant="outline" className="gap-2">
+                Read Our Blog
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

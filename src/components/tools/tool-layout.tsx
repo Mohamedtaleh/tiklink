@@ -3,6 +3,8 @@
 import { ReactNode } from "react";
 import { useI18n } from "@/hooks/use-i18n";
 import { cn } from "@/lib/utils";
+import { RelatedTools } from "@/components/viral/related-tools";
+import { FloatingShareBar } from "@/components/viral/share-prompt";
 
 interface ToolLayoutProps {
   children: ReactNode;
@@ -10,6 +12,8 @@ interface ToolLayoutProps {
   descriptionKey: string;
   icon: ReactNode;
   gradient?: string;
+  toolId?: string;
+  showRelatedTools?: boolean;
 }
 
 export function ToolLayout({ 
@@ -17,7 +21,9 @@ export function ToolLayout({
   titleKey, 
   descriptionKey, 
   icon,
-  gradient = "from-primary to-accent"
+  gradient = "from-primary to-accent",
+  toolId,
+  showRelatedTools = true
 }: ToolLayoutProps) {
   const { t } = useI18n();
 
@@ -50,8 +56,21 @@ export function ToolLayout({
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4">
           {children}
+
+          {/* Related Tools Section */}
+          {showRelatedTools && toolId && (
+            <RelatedTools 
+              currentToolId={toolId} 
+              title="Keep Growing Your TikTok" 
+            />
+          )}
         </div>
       </section>
+
+      {/* Floating Share Button for Mobile */}
+      <FloatingShareBar 
+        text={`Check out this awesome TikTok tool: ${t(titleKey)}`}
+      />
     </div>
   );
 }

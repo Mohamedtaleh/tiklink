@@ -62,4 +62,34 @@ export const blogPosts: BlogPost[] = [
     imageUrl: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1050&q=80",
     aiHint: "tools apps",
   },
+  {
+    id: "ai-captions-guide",
+    slug: "/blog/ai-captions-boost-engagement",
+    imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1050&q=80",
+    aiHint: "ai artificial intelligence",
+  },
+  {
+    id: "tiktok-seo-2024",
+    slug: "/blog/tiktok-seo-optimization-2024",
+    imageUrl: "https://images.unsplash.com/photo-1562577309-4932fdd64cd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1050&q=80",
+    aiHint: "seo search optimization",
+  },
+  {
+    id: "first-1000-followers",
+    slug: "/blog/get-first-1000-tiktok-followers",
+    imageUrl: "https://images.unsplash.com/photo-1533227268428-f9ed0900fb3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1050&q=80",
+    aiHint: "followers growth",
+  },
+  {
+    id: "tiktok-trends-2025",
+    slug: "/blog/tiktok-trends-2025-predictions",
+    imageUrl: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1050&q=80",
+    aiHint: "trends future",
+  },
+  {
+    id: "hook-formulas",
+    slug: "/blog/viral-hook-formulas-tiktok",
+    imageUrl: "https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&auto=format&fit=crop&w=1050&q=80",
+    aiHint: "video hook attention",
+  },
 ];

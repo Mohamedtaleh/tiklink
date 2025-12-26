@@ -1,11 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { DollarSign, Clock, Hash, Flame, User, Award, Sparkles, ArrowRight, Star, TrendingUp, MessageSquare, FileText } from "lucide-react";
+import { DollarSign, Clock, Hash, Flame, User, Award, Sparkles, ArrowRight, Star, TrendingUp, MessageSquare, FileText, Zap, Users, Shield, CheckCircle2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useI18n } from "@/hooks/use-i18n";
 import { cn } from "@/lib/utils";
+import { InlineNewsletter } from "@/components/viral";
+import { TestimonialTicker } from "@/components/viral";
 
 const TOOLS = [
   {
@@ -168,6 +171,47 @@ export default function ToolsPage() {
         </div>
       </section>
 
+      {/* Why Use Our Tools Section */}
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold font-headline mb-4">
+              Why Creators Trust Our Tools
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {[
+              { icon: Zap, title: "100% Free", desc: "No hidden fees or premium features" },
+              { icon: Shield, title: "Privacy First", desc: "We never store your data" },
+              { icon: Sparkles, title: "AI-Powered", desc: "Smart algorithms for better results" },
+              { icon: Users, title: "500K+ Users", desc: "Trusted by creators worldwide" },
+            ].map((item, i) => (
+              <div key={i} className="text-center p-6">
+                <item.icon className="w-10 h-10 text-primary mx-auto mb-3" />
+                <h3 className="font-bold mb-1">{item.title}</h3>
+                <p className="text-sm text-muted-foreground">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonial Ticker */}
+      <section className="py-8 border-y bg-background">
+        <div className="container mx-auto px-4 flex justify-center">
+          <TestimonialTicker />
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-16 bg-muted/20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-xl mx-auto">
+            <InlineNewsletter />
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-16 md:py-24 bg-gradient-to-r from-primary/5 to-accent/5">
         <div className="container mx-auto px-4 text-center">
@@ -177,11 +221,20 @@ export default function ToolsPage() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
             {t("tools.page.ctaDescription")}
           </p>
-          <Link href="/">
-            <button className="px-8 py-4 rounded-lg bg-gradient-to-r from-primary to-accent text-white font-bold text-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all">
-              {t("tools.page.downloadVideos")}
-            </button>
-          </Link>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link href="/">
+              <Button size="lg" className="px-8 py-6 text-lg bg-gradient-to-r from-primary to-accent hover:opacity-90">
+                {t("tools.page.downloadVideos")}
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
+            <Link href="/blog">
+              <Button size="lg" variant="outline" className="px-8 py-6 text-lg">
+                Read Our Blog
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

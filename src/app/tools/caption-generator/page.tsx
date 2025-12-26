@@ -146,6 +146,7 @@ export default function CaptionGeneratorPage() {
       descriptionKey="tools.caption-generator.description"
       icon={<MessageSquare className="w-10 h-10" />}
       gradient="from-violet-500 to-purple-500"
+      toolId="caption-generator"
     >
       <div className="max-w-5xl mx-auto space-y-8">
         {/* Trust Badges */}

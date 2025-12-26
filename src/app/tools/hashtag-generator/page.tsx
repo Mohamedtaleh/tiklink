@@ -257,6 +257,7 @@ export default function HashtagGeneratorPage() {
       descriptionKey="tools.hashtag-generator.description"
       icon={<Hash className="w-10 h-10" />}
       gradient="from-blue-500 to-cyan-500"
+      toolId="hashtag-generator"
     >
       <div className="max-w-5xl mx-auto space-y-8">
         {/* Trust Badges */}

@@ -278,6 +278,7 @@ export default function MoneyCalculatorPage() {
       descriptionKey="tools.money-calculator.description"
       icon={<DollarSign className="w-10 h-10" />}
       gradient="from-green-500 to-emerald-500"
+      toolId="money-calculator"
     >
       <div className="max-w-5xl mx-auto space-y-8">
         {/* Trust Badges */}

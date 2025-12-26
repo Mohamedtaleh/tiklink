@@ -8,6 +8,8 @@ import { Footer } from '@/components/footer';
 import { cn } from '@/lib/utils';
 import { Space_Grotesk, Inter } from 'next/font/google';
 import Script from "next/script";
+import { PromoBanner, ScrollProgressCTA } from '@/components/viral';
+import { NewsletterPopup } from '@/components/viral';
 
 
 
@@ -109,12 +111,22 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Providers>
+            {/* Scroll Progress Indicator */}
+            <ScrollProgressCTA />
+            
             <div className={cn("flex flex-col min-h-screen text-foreground")}>
+              {/* Promo Banner */}
+              <PromoBanner />
+              
               <div className="absolute top-0 left-0 w-full h-[700px] bg-gradient-hero-light dark:bg-gradient-hero-dark -z-10" />
               <Header />
               <main className="flex-grow">{children}</main>
               <Footer />
             </div>
+            
+            {/* Newsletter Popup - triggers after 30 seconds */}
+            <NewsletterPopup trigger="time" delay={30000} />
+            
             <Toaster />
           </Providers>
         </ThemeProvider>

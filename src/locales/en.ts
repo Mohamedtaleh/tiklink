@@ -710,6 +710,162 @@ export default {
                     { type: 'h3', text: "Start with the Basics" },
                     { type: 'p', text: "You don't need all these tools right away. Start with CapCut for editing and TikTok's built-in analytics. Add more tools as your channel grows and your needs become more specific." }
                 ]
+            },
+            "ai-captions-guide": {
+                title: "How AI Captions Can Boost Your TikTok Engagement by 300%",
+                description: "Discover how AI-powered caption generators are helping creators write viral hooks and boost engagement rates dramatically.",
+                content: [
+                    { type: 'p', text: "In the fast-paced world of TikTok, your caption is often the difference between a scroll-past and a viral hit. AI caption generators are revolutionizing how creators approach this crucial element of their content strategy." },
+                    { type: 'h2', text: "Why Captions Matter More Than Ever" },
+                    { type: 'p', text: "TikTok's algorithm now weighs caption engagement heavily. Comments, shares, and saves are often triggered by compelling captions that create curiosity, controversy, or connection." },
+                    { type: 'ul', items: [
+                        "Captions with questions get 2x more comments",
+                        "Curiosity-driven hooks increase watch time by 40%",
+                        "Call-to-actions boost shares by 25%",
+                        "Emotional captions drive 3x more saves"
+                    ]},
+                    { type: 'h2', text: "How AI Caption Generators Work" },
+                    { type: 'p', text: "Modern AI tools analyze millions of viral TikToks to understand what makes captions work. They consider your niche, tone, and content type to generate options optimized for engagement." },
+                    { type: 'blockquote', text: "The best captions don't describe your video—they create a reason to watch it." },
+                    { type: 'h2', text: "5 Caption Formulas That Always Work" },
+                    { type: 'ul', items: [
+                        "The Curiosity Gap: 'I can't believe this actually worked...'",
+                        "The POV: 'POV: You just discovered the secret to...'",
+                        "The Controversial Take: 'Unpopular opinion but...'",
+                        "The Story Hook: 'The time I accidentally...'",
+                        "The List: '3 things nobody tells you about...'"
+                    ]},
+                    { type: 'h3', text: "Try It Yourself" },
+                    { type: 'p', text: "Our free AI Caption Generator uses these proven formulas to create captions tailored to your content. Try it now and see the difference in your engagement!" }
+                ]
+            },
+            "tiktok-seo-2024": {
+                title: "TikTok SEO: How to Rank #1 in TikTok Search (2024 Guide)",
+                description: "Master TikTok's search algorithm with these proven SEO strategies to get your content discovered by millions.",
+                content: [
+                    { type: 'p', text: "TikTok has quietly become one of the world's largest search engines. Gen Z now uses TikTok search more than Google for many queries. Understanding TikTok SEO is essential for growth in 2024." },
+                    { type: 'h2', text: "TikTok Search is the New Google" },
+                    { type: 'p', text: "40% of Gen Z prefers searching on TikTok and Instagram over Google. This shift represents a massive opportunity for creators who understand how to optimize their content for discovery." },
+                    { type: 'ul', items: [
+                        "TikTok processes over 1 billion searches daily",
+                        "Search-optimized content gets 3x more views",
+                        "Evergreen search content provides consistent traffic",
+                        "TikTok is prioritizing searchable content in 2024"
+                    ]},
+                    { type: 'h2', text: "Key TikTok SEO Factors" },
+                    { type: 'h3', text: "1. Keywords in Captions" },
+                    { type: 'p', text: "Include your target keyword naturally in the first line of your caption. TikTok's algorithm reads captions to understand content." },
+                    { type: 'h3', text: "2. Spoken Keywords" },
+                    { type: 'p', text: "Say your keywords out loud in your video. TikTok transcribes audio and uses it for search indexing." },
+                    { type: 'h3', text: "3. On-Screen Text" },
+                    { type: 'p', text: "Add text overlays with your keywords. This helps both the algorithm and viewers understand your content." },
+                    { type: 'h3', text: "4. Strategic Hashtags" },
+                    { type: 'p', text: "Use 3-5 relevant hashtags. Include one broad hashtag and several niche-specific ones." },
+                    { type: 'blockquote', text: "The creators who master TikTok SEO today will dominate the platform tomorrow." },
+                    { type: 'h2', text: "Tools for TikTok SEO" },
+                    { type: 'p', text: "Use our Hashtag Generator and Caption Generator to find the perfect keywords and create SEO-optimized content that ranks." }
+                ]
+            },
+            "first-1000-followers": {
+                title: "How to Get Your First 1,000 TikTok Followers (Fast Strategy)",
+                description: "A step-by-step guide to reaching your first 1,000 followers on TikTok using proven growth strategies.",
+                content: [
+                    { type: 'p', text: "The first 1,000 followers on TikTok are often the hardest. But with the right strategy, you can reach this milestone faster than you think. Here's exactly how to do it." },
+                    { type: 'h2', text: "Why 1,000 Followers Matters" },
+                    { type: 'p', text: "1,000 followers is more than just a number—it's a gateway to TikTok's monetization features, including live streaming and the Creator Fund eligibility requirements." },
+                    { type: 'h2', text: "The 30-Day Growth Strategy" },
+                    { type: 'h3', text: "Week 1: Foundation" },
+                    { type: 'ul', items: [
+                        "Optimize your bio with a clear value proposition",
+                        "Choose your niche and stick to it",
+                        "Post 3 videos to establish your content style",
+                        "Engage with 50 accounts in your niche daily"
+                    ]},
+                    { type: 'h3', text: "Week 2: Consistency" },
+                    { type: 'ul', items: [
+                        "Post 1-3 times daily at optimal times",
+                        "Use trending sounds within 24 hours of emergence",
+                        "Reply to every comment on your videos",
+                        "Duet and stitch popular videos in your niche"
+                    ]},
+                    { type: 'h3', text: "Week 3: Optimization" },
+                    { type: 'ul', items: [
+                        "Analyze which videos performed best",
+                        "Double down on winning content formats",
+                        "Experiment with hooks and CTAs",
+                        "Start going live even with few viewers"
+                    ]},
+                    { type: 'h3', text: "Week 4: Acceleration" },
+                    { type: 'ul', items: [
+                        "Collaborate with creators your size",
+                        "Create series content for return viewers",
+                        "Optimize posting times based on analytics",
+                        "Cross-promote on other platforms"
+                    ]},
+                    { type: 'blockquote', text: "Consistency beats perfection. A good video posted daily beats a perfect video posted weekly." },
+                    { type: 'h2', text: "Tools to Speed Up Growth" },
+                    { type: 'p', text: "Use our Best Time to Post tool to find your optimal posting schedule, and our Hashtag Generator to maximize discoverability." }
+                ]
+            },
+            "tiktok-trends-2025": {
+                title: "TikTok Trends to Watch in 2025: What's Next for Creators",
+                description: "Stay ahead of the curve with these predicted TikTok trends that will shape the platform in 2025.",
+                content: [
+                    { type: 'p', text: "The TikTok landscape is constantly evolving. Creators who anticipate trends rather than follow them have a massive advantage. Here are the trends set to define TikTok in 2025." },
+                    { type: 'h2', text: "1. AI-Assisted Content Creation" },
+                    { type: 'p', text: "AI tools for scripting, editing, and optimization are becoming essential. Creators using AI assistance are producing more content with higher engagement rates." },
+                    { type: 'h2', text: "2. Long-Form Content" },
+                    { type: 'p', text: "TikTok is pushing videos up to 10 minutes. Creators who master storytelling across longer formats will capture more watch time and ad revenue." },
+                    { type: 'h2', text: "3. TikTok Shop Dominance" },
+                    { type: 'p', text: "Social commerce is exploding. Creators who build product-focused content will tap into significant revenue streams beyond sponsorships." },
+                    { type: 'h2', text: "4. Educational Entertainment" },
+                    { type: 'p', text: "Edutainment content—learning disguised as entertainment—continues to dominate. Viewers want value with their entertainment." },
+                    { type: 'h2', text: "5. Authenticity Over Production" },
+                    { type: 'p', text: "Overproduced content is losing to raw, authentic videos. Viewers crave real connections over polished performances." },
+                    { type: 'blockquote', text: "The future of TikTok belongs to creators who can blend authenticity with strategy." },
+                    { type: 'h2', text: "Prepare for 2025" },
+                    { type: 'p', text: "Start experimenting with these trends now. Use our AI tools to stay ahead and create content that resonates with where TikTok is heading." }
+                ]
+            },
+            "hook-formulas": {
+                title: "15 Viral Hook Formulas That Stop the Scroll",
+                description: "Master the art of the TikTok hook with these proven formulas used by top creators to capture attention instantly.",
+                content: [
+                    { type: 'p', text: "You have 0.5 seconds to stop the scroll. Your hook—the first few seconds of your video—determines whether viewers stay or swipe. Here are 15 proven formulas that work." },
+                    { type: 'h2', text: "Why Hooks Matter" },
+                    { type: 'p', text: "TikTok's algorithm heavily weights watch time. A strong hook increases average view duration, which signals quality to the algorithm and pushes your content to more viewers." },
+                    { type: 'h2', text: "15 Hook Formulas That Work" },
+                    { type: 'h3', text: "Curiosity Hooks" },
+                    { type: 'ul', items: [
+                        "1. 'This changed everything about how I...'",
+                        "2. 'Nobody talks about this but...'",
+                        "3. 'Wait for it...' (with something unexpected)",
+                        "4. 'You won't believe what happened when...'"
+                    ]},
+                    { type: 'h3', text: "Value Hooks" },
+                    { type: 'ul', items: [
+                        "5. 'Here's the [thing] I wish I knew earlier'",
+                        "6. '3 [things] that will change your [life/game]'",
+                        "7. 'Stop doing [common mistake]. Do this instead.'",
+                        "8. 'The secret to [desired outcome] is...'"
+                    ]},
+                    { type: 'h3', text: "Story Hooks" },
+                    { type: 'ul', items: [
+                        "9. 'Storytime: The time I...'",
+                        "10. 'POV: You just discovered...'",
+                        "11. 'I made a huge mistake...'",
+                        "12. 'This is what happened when I tried...'"
+                    ]},
+                    { type: 'h3', text: "Controversy Hooks" },
+                    { type: 'ul', items: [
+                        "13. 'Unpopular opinion but...'",
+                        "14. 'I'm probably going to get hate for this...'",
+                        "15. '[Popular thing] is overrated. Here's why.'"
+                    ]},
+                    { type: 'blockquote', text: "The best hook creates an open loop that can only be closed by watching the rest of your video." },
+                    { type: 'h2', text: "Test Your Hooks" },
+                    { type: 'p', text: "Use our Viral Predictor to test how your hook performs before posting, and our Caption Generator to create attention-grabbing text hooks." }
+                ]
             }
         }
     },

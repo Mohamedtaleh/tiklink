@@ -139,6 +139,7 @@ export default function BioGeneratorPage() {
       descriptionKey="tools.bio-generator.description"
       icon={<User className="w-10 h-10" />}
       gradient="from-pink-500 to-rose-500"
+      toolId="bio-generator"
     >
       <div className="max-w-5xl mx-auto space-y-8">
         {/* Trust Badges */}

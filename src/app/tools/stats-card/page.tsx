@@ -143,6 +143,7 @@ export default function StatsCardPage() {
       descriptionKey="tools.stats-card.description"
       icon={<Award className="w-10 h-10" />}
       gradient="from-amber-500 to-orange-500"
+      toolId="stats-card"
     >
       <div className="max-w-5xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
