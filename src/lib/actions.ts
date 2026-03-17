@@ -67,6 +67,18 @@ async function fetchTikTokVideo(url: string): Promise<VideoInfo> {
   };
 }
 
+function decodeHtmlEntities(str: string): string {
+  return str
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))
+    .replace(/&#(\d+);/g, (_, dec) => String.fromCodePoint(parseInt(dec, 10)))
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&apos;/g, "'");
+}
+
 // --- Fetch Open Graph metadata from a URL for thumbnail/title ---
 async function fetchOGMetadata(url: string): Promise<{ title: string; image: string; author: string }> {
   try {
@@ -85,7 +97,8 @@ async function fetchOGMetadata(url: string): Promise<{ title: string; image: str
     const getMetaContent = (property: string): string => {
       const regex = new RegExp(`<meta[^>]*(?:property|name)=["']${property}["'][^>]*content=["']([^"']*)["']`, 'i');
       const altRegex = new RegExp(`<meta[^>]*content=["']([^"']*)["'][^>]*(?:property|name)=["']${property}["']`, 'i');
-      return regex.exec(html)?.[1] || altRegex.exec(html)?.[1] || '';
+      const raw = regex.exec(html)?.[1] || altRegex.exec(html)?.[1] || '';
+      return decodeHtmlEntities(raw);
     };
 
     const title = getMetaContent('og:title') || getMetaContent('twitter:title') || '';
