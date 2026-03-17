@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: 'Tiklink — Download Videos Without Watermark | Free Video Downloader',
     template: '%s | Tiklink',
   },
-  description: 'Download TikTok, Instagram, YouTube, Twitter and Facebook videos instantly without watermark. 100% free, no signup, HD quality. The fastest video downloader online.',
+  description: 'Download TikTok, Instagram, Twitter and Facebook videos instantly without watermark . Bulk download, video to MP3, 100% free, no signup, HD quality. The fastest video downloader online.',
   keywords: 'video downloader, TikTok downloader, Instagram Reels downloader, YouTube Shorts downloader, no watermark, download videos, Tiklink, free video downloader, save videos online, download without watermark',
   metadataBase: new URL('https://www.tiklink.ink'),
   icons: {
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Tiklink — Download Videos Without Watermark',
-    description: 'Download TikTok, Instagram, YouTube, Twitter and Facebook videos instantly. No watermark, no signup, completely free.',
+    description: 'Download TikTok, Instagram Reels & Facebook & X videos without watermark. Bulk download, video to MP3, and free creator tools. Fast, free, no signup.',
     url: '/',
     siteName: 'Tiklink',
     images: [
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Tiklink — Download Videos Without Watermark',
-    description: 'Download TikTok, Instagram, YouTube, Twitter and Facebook videos instantly. No watermark, no signup, completely free.',
+    description: 'Download TikTok, Instagram Reels & Facebook & X videos without watermark. Bulk download, video to MP3, and free creator tools. Fast, free, no signup.',
     images: ['/og-image.png'],
   },
 };
