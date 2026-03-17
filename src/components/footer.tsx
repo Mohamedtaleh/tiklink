@@ -13,7 +13,6 @@ export function Footer() {
       links: [
         { href: "/", label: t("footer.links.home") },
         { href: "/instagram", label: t("footer.links.instagram") },
-        { href: "/youtube", label: t("footer.links.youtube") },
         { href: "/mp3", label: t("footer.links.mp3") },
       ],
     },

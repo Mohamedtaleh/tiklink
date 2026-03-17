@@ -3,7 +3,6 @@ export type Platform = 'tiktok' | 'instagram' | 'youtube' | 'twitter' | 'faceboo
 const PLATFORM_PATTERNS: { platform: Platform; pattern: RegExp }[] = [
   { platform: 'tiktok', pattern: /(?:tiktok\.com|vm\.tiktok\.com)/i },
   { platform: 'instagram', pattern: /(?:instagram\.com\/(?:reel|p|stories)|instagr\.am)/i },
-  { platform: 'youtube', pattern: /(?:youtube\.com\/shorts|youtu\.be)/i },
   { platform: 'twitter', pattern: /(?:twitter\.com|x\.com)/i },
   { platform: 'facebook', pattern: /(?:facebook\.com|fb\.watch|fb\.com)/i },
 ];
@@ -22,7 +21,7 @@ export function detectPlatform(url: string): Platform {
 export const PLATFORM_NAMES: Record<Platform, string> = {
   tiktok: 'TikTok',
   instagram: 'Instagram',
-  youtube: 'YouTube',
+  youtube: '',
   twitter: 'X',
   facebook: 'Facebook',
   unknown: '',

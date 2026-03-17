@@ -98,104 +98,6 @@ async function fetchOGMetadata(url: string): Promise<{ title: string; image: str
   }
 }
 
-// --- YouTube via youtubei.js (full InnerTube implementation) ---
-function extractYouTubeId(url: string): string | null {
-  const match = url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-  return match?.[1] || null;
-}
-
-async function fetchYouTubeVideo(url: string, audioOnly = false): Promise<VideoInfo> {
-  const videoId = extractYouTubeId(url);
-  if (!videoId) throw new Error('Invalid YouTube URL. Please paste a valid YouTube video or Shorts link.');
-
-  try {
-    const { Innertube } = await import("youtubei.js");
-    const yt = await Innertube.create({ generate_session_locally: true });
-    const info = await yt.getBasicInfo(videoId, 'IOS');
-
-    if (info.playability_status?.status !== 'OK') {
-      const reason = info.playability_status?.reason || '';
-      if (reason.toLowerCase().includes('private')) throw new Error('This YouTube video is private.');
-      if (reason.toLowerCase().includes('age')) throw new Error('This YouTube video is age-restricted.');
-      throw new Error(reason || 'This YouTube video is unavailable.');
-    }
-
-    const basic = info.basic_info;
-    const streaming = info.streaming_data;
-    if (!streaming) throw new Error('No streaming data available for this video.');
-
-    const thumbnail =
-      (basic.thumbnail || []).sort((a: {width?: number}, b: {width?: number}) => (b.width || 0) - (a.width || 0))[0]?.url
-      || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-
-    if (audioOnly) {
-      const audioFormats = (streaming.adaptive_formats || [])
-        .filter((f: { has_audio?: boolean; has_video?: boolean }) => f.has_audio && !f.has_video)
-        .sort((a: { bitrate?: number }, b: { bitrate?: number }) => (b.bitrate || 0) - (a.bitrate || 0));
-      const best = audioFormats[0];
-      if (!best) throw new Error('No audio stream available for this video.');
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const audioUrl = (best as any).decipher(yt.session.player);
-
-      return {
-        title: basic.title || 'YouTube Video',
-        author: basic.author || '',
-        duration: formatDuration(basic.duration || 0),
-        likes: formatLikes(basic.view_count || 0),
-        thumbnailUrl: thumbnail,
-        caption: '',
-        hdLink: '',
-        watermarkedLink: '',
-        audioLink: audioUrl,
-        platform: 'youtube',
-        originalUrl: url,
-      };
-    }
-
-    // Combined mp4 formats (audio + video in one file)
-    const combined = (streaming.formats || [])
-      .filter((f: { mime_type?: string }) => f.mime_type?.includes('video/mp4'))
-      .sort((a: { width?: number }, b: { width?: number }) => (b.width || 0) - (a.width || 0));
-
-    const audioFormats = (streaming.adaptive_formats || [])
-      .filter((f: { has_audio?: boolean; has_video?: boolean }) => f.has_audio && !f.has_video)
-      .sort((a: { bitrate?: number }, b: { bitrate?: number }) => (b.bitrate || 0) - (a.bitrate || 0));
-
-    const bestVideo = combined[0];
-    const bestAudio = audioFormats[0];
-    if (!bestVideo) throw new Error('No downloadable video format found.');
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const videoUrl = (bestVideo as any).decipher(yt.session.player);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const audioUrl = bestAudio ? (bestAudio as any).decipher(yt.session.player) : '';
-
-    return {
-      title: basic.title || 'YouTube Video',
-      author: basic.author || '',
-      duration: formatDuration(basic.duration || 0),
-      likes: formatLikes(basic.view_count || 0),
-      thumbnailUrl: thumbnail,
-      caption: '',
-      hdLink: videoUrl,
-      watermarkedLink: '',
-      audioLink: audioUrl,
-      platform: 'youtube',
-      originalUrl: url,
-    };
-  } catch (err: unknown) {
-    const msg = (err instanceof Error ? err.message : String(err)).toLowerCase();
-    if (msg.includes('sign in') || msg.includes('bot') || msg.includes('confirm') || msg.includes('verify')) {
-      throw new Error('YouTube is blocking server downloads. Please use a YouTube downloader extension in your browser, or paste a TikTok link — TikTok downloads work perfectly.');
-    }
-    if (msg.includes('private')) throw new Error('This YouTube video is private.');
-    if (msg.includes('age')) throw new Error('This YouTube video is age-restricted.');
-    if (msg.includes('unavailable') || msg.includes('not available')) {
-      throw new Error('This YouTube video is unavailable or has been removed.');
-    }
-    throw new Error('YouTube download failed. YouTube actively blocks cloud servers. TikTok, Instagram and other platforms work perfectly.');
-  }
-}
 
 // --- Other platforms via cobalt API (v7) ---
 async function fetchCobaltVideo(url: string, platform: Platform, audioOnly = false): Promise<VideoInfo> {
@@ -319,12 +221,9 @@ export async function getVideoInfo(
 
     if (platform === 'tiktok') {
       videoData = await fetchTikTokVideo(url);
-    } else if (platform === 'youtube') {
-      const audioOnly = formData.get("audioOnly") === "true";
-      videoData = await fetchYouTubeVideo(url, audioOnly);
-    } else if (platform === 'unknown') {
+    } else if (platform === 'unknown' || platform === 'youtube') {
       return {
-        error: "Please paste a valid video URL from TikTok, Instagram, YouTube, Twitter, or Facebook.",
+        error: "Please paste a valid video URL from TikTok, Instagram, Twitter, or Facebook.",
         data: null,
       };
     } else {

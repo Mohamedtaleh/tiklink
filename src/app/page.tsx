@@ -4,7 +4,6 @@ import { VideoDownloaderForm } from "@/components/video-downloader-form";
 import {
   TikTokIcon,
   InstagramIcon,
-  YouTubeIcon,
   XIcon,
   FacebookIcon,
 } from "@/components/platform-icons";
@@ -14,7 +13,6 @@ import { useI18n } from "@/hooks/use-i18n";
 const PLATFORMS = [
   { name: "TikTok", href: "/", icon: TikTokIcon },
   { name: "Instagram", href: "/instagram", icon: InstagramIcon },
-  { name: "YouTube", href: "/youtube", icon: YouTubeIcon },
   { name: "X", href: "/", icon: XIcon },
   { name: "Facebook", href: "/", icon: FacebookIcon },
 ];

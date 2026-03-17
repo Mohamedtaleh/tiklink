@@ -10,7 +10,6 @@ module.exports = {
     const paths = [
       { loc: '/', changefreq: 'daily', priority: 1.0 },
       { loc: '/instagram', changefreq: 'weekly', priority: 0.9 },
-      { loc: '/youtube', changefreq: 'weekly', priority: 0.9 },
       { loc: '/bulk', changefreq: 'weekly', priority: 0.9 },
       { loc: '/mp3', changefreq: 'weekly', priority: 0.8 },
       { loc: '/captions', changefreq: 'weekly', priority: 0.8 },
