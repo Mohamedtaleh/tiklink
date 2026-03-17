@@ -1,7 +1,6 @@
 "use server";
 
 import { z } from "zod";
-import { Innertube } from "youtubei.js";
 import type { VideoInfo } from "@/lib/types";
 import { detectPlatform, type Platform } from "@/lib/platform-detect";
 
@@ -110,6 +109,7 @@ async function fetchYouTubeVideo(url: string, audioOnly = false): Promise<VideoI
   if (!videoId) throw new Error('Invalid YouTube URL. Please paste a valid YouTube video or Shorts link.');
 
   try {
+    const { Innertube } = await import("youtubei.js");
     const yt = await Innertube.create({ generate_session_locally: true });
     const info = await yt.getBasicInfo(videoId, 'IOS');
 
