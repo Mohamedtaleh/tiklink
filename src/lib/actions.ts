@@ -73,7 +73,7 @@ async function fetchOGMetadata(url: string): Promise<{ title: string; image: str
   try {
     const response = await fetch(url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; Tiklink/1.0; +https://tiklink.ink)',
+        'User-Agent': 'Mozilla/5.0 (compatible; Tiklink/1.0; +https://www.tiklink.ink)',
       },
       redirect: 'follow',
       signal: AbortSignal.timeout(5000),

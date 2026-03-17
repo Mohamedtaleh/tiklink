@@ -28,7 +28,7 @@ export function BlogPostClient({ post }: { post: BlogPost }) {
     '@type': 'Article',
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://tiklink.ink${post.slug}`,
+      '@id': `https://www.tiklink.ink${post.slug}`,
     },
     headline: translatedPost.title,
     description: translatedPost.description,
@@ -41,15 +41,15 @@ export function BlogPostClient({ post }: { post: BlogPost }) {
     author: {
       '@type': 'Organization',
       name: 'Tiklink',
-      url: 'https://tiklink.ink',
+      url: 'https://www.tiklink.ink',
     },
     publisher: {
       '@type': 'Organization',
       name: 'Tiklink',
-      url: 'https://tiklink.ink',
+      url: 'https://www.tiklink.ink',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://tiklink.ink/og-image.png',
+        url: 'https://www.tiklink.ink/og-image.png',
         width: 1200,
         height: 630,
       },
@@ -68,19 +68,19 @@ export function BlogPostClient({ post }: { post: BlogPost }) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://tiklink.ink',
+        item: 'https://www.tiklink.ink',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Blog',
-        item: 'https://tiklink.ink/blog',
+        item: 'https://www.tiklink.ink/blog',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: translatedPost.title,
-        item: `https://tiklink.ink${post.slug}`,
+        item: `https://www.tiklink.ink${post.slug}`,
       },
     ],
   };

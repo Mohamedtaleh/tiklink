@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "TikTok Bulk Downloader — Download Multiple Videos Free | Tiklink",
   description:
     "Free TikTok bulk downloader. Download up to 10 videos at once without watermark — all packed in one ZIP file. No account, no signup, 100% free.",
-  alternates: { canonical: "https://tiklink.ink/bulk" },
+  alternates: { canonical: "https://www.tiklink.ink/bulk" },
   keywords: [
     "tiktok bulk downloader",
     "download multiple tiktok videos",
@@ -20,12 +20,12 @@ export const metadata: Metadata = {
     title: "TikTok Bulk Downloader — Download Multiple Videos Free | Tiklink",
     description:
       "Free TikTok bulk downloader. Download up to 10 videos at once without watermark — all packed in one ZIP file. No account needed.",
-    url: "https://tiklink.ink/bulk",
+    url: "https://www.tiklink.ink/bulk",
     type: "website",
     siteName: "Tiklink",
     images: [
       {
-        url: "https://tiklink.ink/og-bulk.png",
+        url: "https://www.tiklink.ink/og-bulk.png",
         width: 1200,
         height: 630,
         alt: "TikTok Bulk Downloader — Tiklink",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     title: "TikTok Bulk Downloader — Download Multiple Videos Free",
     description:
       "Download up to 10 TikTok videos at once without watermark. All packed in one ZIP. Free, no account needed.",
-    images: ["https://tiklink.ink/og-bulk.png"],
+    images: ["https://www.tiklink.ink/og-bulk.png"],
   },
   robots: {
     index: true,
@@ -51,9 +51,9 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "WebApplication",
-      "@id": "https://tiklink.ink/bulk",
+      "@id": "https://www.tiklink.ink/bulk",
       name: "TikTok Bulk Downloader",
-      url: "https://tiklink.ink/bulk",
+      url: "https://www.tiklink.ink/bulk",
       description:
         "Download up to 10 TikTok videos at once without watermark. Paste URLs, process, and download everything as a ZIP file — completely free.",
       applicationCategory: "MultimediaApplication",
@@ -74,7 +74,7 @@ const jsonLd = {
       publisher: {
         "@type": "Organization",
         name: "Tiklink",
-        url: "https://tiklink.ink",
+        url: "https://www.tiklink.ink",
       },
     },
     {
@@ -91,28 +91,28 @@ const jsonLd = {
           position: 1,
           name: "Copy TikTok video links",
           text: "Open TikTok and tap the Share button on each video you want to save. Select 'Copy link' for each one.",
-          url: "https://tiklink.ink/bulk#how-to-use",
+          url: "https://www.tiklink.ink/bulk#how-to-use",
         },
         {
           "@type": "HowToStep",
           position: 2,
           name: "Paste URLs into the downloader",
           text: "Go to tiklink.ink/bulk and paste all the TikTok URLs into the text box — one URL per line.",
-          url: "https://tiklink.ink/bulk#how-to-use",
+          url: "https://www.tiklink.ink/bulk#how-to-use",
         },
         {
           "@type": "HowToStep",
           position: 3,
           name: "Process the videos",
           text: "Click the 'Process Videos' button. Tiklink will resolve each video one by one and show a preview.",
-          url: "https://tiklink.ink/bulk#how-to-use",
+          url: "https://www.tiklink.ink/bulk#how-to-use",
         },
         {
           "@type": "HowToStep",
           position: 4,
           name: "Download as ZIP",
           text: "Once all videos are ready, click 'Download All as ZIP'. All videos will be packaged into a single ZIP file and saved to your device.",
-          url: "https://tiklink.ink/bulk#how-to-use",
+          url: "https://www.tiklink.ink/bulk#how-to-use",
         },
       ],
     },

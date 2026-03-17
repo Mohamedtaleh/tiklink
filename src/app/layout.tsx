@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   description: 'Download TikTok, Instagram, YouTube, Twitter and Facebook videos instantly without watermark. 100% free, no signup, HD quality. The fastest video downloader online.',
   keywords: 'video downloader, TikTok downloader, Instagram Reels downloader, YouTube Shorts downloader, no watermark, download videos, Tiklink, free video downloader, save videos online, download without watermark',
-  metadataBase: new URL('https://tiklink.ink'),
+  metadataBase: new URL('https://www.tiklink.ink'),
   icons: {
     icon: '/favicon.svg',
     shortcut: '/favicon.svg',
@@ -85,12 +85,12 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebApplication",
               name: "Tiklink",
-              url: "https://tiklink.ink",
+              url: "https://www.tiklink.ink",
               description: "Download TikTok, Instagram, YouTube, Twitter and Facebook videos without watermark. Free, fast, HD quality.",
               applicationCategory: "MultimediaApplication",
               operatingSystem: "Any",
               offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-              author: { "@type": "Organization", name: "Tiklink", url: "https://tiklink.ink" },
+              author: { "@type": "Organization", name: "Tiklink", url: "https://www.tiklink.ink" },
             }),
           }}
         />
@@ -102,8 +102,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "Tiklink",
-              url: "https://tiklink.ink",
-              logo: "https://tiklink.ink/og-image.png",
+              url: "https://www.tiklink.ink",
+              logo: "https://www.tiklink.ink/og-image.png",
               sameAs: [],
             }),
           }}

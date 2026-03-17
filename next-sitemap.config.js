@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: "https://tiklink.ink",
+  siteUrl: "https://www.tiklink.ink",
   generateRobotsTxt: true,
   sitemapSize: 7000,
   changefreq: "daily",

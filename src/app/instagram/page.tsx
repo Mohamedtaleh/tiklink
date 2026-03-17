@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   title: "Download Instagram Reels Without Watermark — Free HD | Tiklink",
   description: "Download Instagram Reels without watermark in HD quality. Save any Instagram video, story, or reel for free. No signup, no app required.",
   keywords: "Instagram Reels downloader, download Instagram videos, save Instagram Reels, Instagram video downloader no watermark, free Instagram downloader",
-  alternates: { canonical: "https://tiklink.ink/instagram" },
+  alternates: { canonical: "https://www.tiklink.ink/instagram" },
   openGraph: {
     title: "Download Instagram Reels Without Watermark — Free HD",
     description: "Save any Instagram Reel or video in HD quality. No watermark, no signup, completely free.",
-    url: "https://tiklink.ink/instagram",
+    url: "https://www.tiklink.ink/instagram",
     siteName: "Tiklink",
     type: "website",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Tiklink Instagram Downloader" }],
@@ -69,7 +69,7 @@ const webAppSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   name: "Tiklink Instagram Downloader",
-  url: "https://tiklink.ink/instagram",
+  url: "https://www.tiklink.ink/instagram",
   applicationCategory: "MultimediaApplication",
   operatingSystem: "Any",
   offers: {

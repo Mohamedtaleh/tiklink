@@ -21,12 +21,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     title: `${translatedPost.title} | Tiklink Blog`,
     description: translatedPost.description,
     alternates: {
-      canonical: `https://tiklink.ink/blog/${params.slug}`,
+      canonical: `https://www.tiklink.ink/blog/${params.slug}`,
     },
     openGraph: {
       title: translatedPost.title,
       description: translatedPost.description,
-      url: `https://tiklink.ink/blog/${params.slug}`,
+      url: `https://www.tiklink.ink/blog/${params.slug}`,
       siteName: 'Tiklink',
       type: 'article',
       publishedTime: '2025-01-15T00:00:00.000Z',
