@@ -44,7 +44,7 @@ export function LocalMp3Converter() {
 
       setStatus("encoding");
 
-      const { Mp3Encoder } = await import("lamejs");
+      const { Mp3Encoder } = await import("@breezystack/lamejs");
       const channels = audioBuffer.numberOfChannels;
       const sampleRate = audioBuffer.sampleRate;
       const encoder = new Mp3Encoder(channels === 1 ? 1 : 2, sampleRate, 128);
