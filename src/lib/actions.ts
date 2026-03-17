@@ -184,13 +184,16 @@ async function fetchYouTubeVideo(url: string, audioOnly = false): Promise<VideoI
       originalUrl: url,
     };
   } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : '';
+    const msg = (err instanceof Error ? err.message : String(err)).toLowerCase();
+    if (msg.includes('sign in') || msg.includes('bot') || msg.includes('confirm') || msg.includes('verify')) {
+      throw new Error('YouTube is blocking server downloads. Please use a YouTube downloader extension in your browser, or paste a TikTok link — TikTok downloads work perfectly.');
+    }
     if (msg.includes('private')) throw new Error('This YouTube video is private.');
     if (msg.includes('age')) throw new Error('This YouTube video is age-restricted.');
     if (msg.includes('unavailable') || msg.includes('not available')) {
       throw new Error('This YouTube video is unavailable or has been removed.');
     }
-    throw err;
+    throw new Error('YouTube download failed. YouTube actively blocks cloud servers. TikTok, Instagram and other platforms work perfectly.');
   }
 }
 
